@@ -1,5 +1,5 @@
 FROM ubuntu:16.04
-MAINTAINER emmanux
+LABEL maintainer="Emmanux <infra@komodo.rocks>"
 
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 8842ce5e && \
     echo "deb http://ppa.launchpad.net/bitcoin/bitcoin/ubuntu xenial main" \
