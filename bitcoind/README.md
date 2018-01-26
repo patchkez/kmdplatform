@@ -2,8 +2,6 @@
 ```
 useradd -u 3001 -m bitcoind
 
-docker build -t kmdplatform/bitcoind 
-
 docker run -d --rm \
     -p 172.17.0.1:8332:8332 \
     -p 172.17.0.1:8333:8333 \
