@@ -1,5 +1,5 @@
-# Usage: 
-
+# Usage
+```
 useradd -u 3001 -m bitcoind
 
 docker build -t kmdplatform/bitcoind 
@@ -11,3 +11,4 @@ docker run -d --rm \
     --name bitcoind kmdplatform/bitcoind
 
 docker logs -f --tail 10  bitcoind
+```
