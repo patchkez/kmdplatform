@@ -1,5 +1,5 @@
 FROM ubuntu:16.04
-MAINTAINER emmanux
+LABEL maintainer="Emmanux <infra@komodo.rocks>"
 
 ENV BUILD_PACKAGES="build-essential pkg-config libcurl3-gnutls-dev libc6-dev libevent-dev m4 g++-multilib autoconf libtool ncurses-dev unzip git python zlib1g-dev wget bsdmainutils automake libboost-all-dev libssl-dev libprotobuf-dev protobuf-compiler libqt4-dev libqrencode-dev libdb++-dev"
 
