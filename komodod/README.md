@@ -1,5 +1,7 @@
 # Usage
 ```
+useradd -u 3003 -m komodod
+
 docker run --rm --name komodod -ti \
   -p 127.0.0.1:7770:7770 \
   -p 127.0.0.1:7771:7771 \
