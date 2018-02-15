@@ -35,5 +35,5 @@ curl \
         "method": "getinfo"
     }' \
     -H 'content-type: text/plain;' \
-    http://$user:$password@127.0.0.1:21341/
+    http://$user:$password@127.0.0.1:11341/
 ```
