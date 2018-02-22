@@ -1,0 +1,35 @@
+#!/bin/bash
+
+set -ex
+
+# This shouldn't be in the Dockerfile or containers built from the same image
+# will have the same credentials.
+if [ ! -s "$HOME/.komodo/komodo.conf" ]; then
+    #mkdir -p $HOME/.komodo
+
+    echo "Creating komodo.conf"
+
+    # Seed a random password for JSON RPC server
+    cat <<EOF > $HOME/.komodo/komodo.conf
+# disablewallet=${DISABLEWALLET:-1}
+printtoconsole=${PRINTTOCONSOLE:-1}
+rpcuser=${BITCOIN_RPC_USER:-bitcoinrpc}
+rpcpassword=${BITCOIN_RPC_PASSWORD:-`dd if=/dev/urandom bs=33 count=1 2>/dev/null | base64`}
+# server=1
+txindex=1
+bind=127.0.0.1
+rpcbind=127.0.0.1
+EOF
+
+fi
+
+chmod 0640 $HOME/.komodo/komodo.conf
+cat $HOME/.komodo/komodo.conf
+
+
+# We will use this dir to share pubkey between komodo and iguana
+#if [ ! -d /home/komodo/./shared/ ];then
+#    mkdir /home/komodo/.shared/
+#fi 
+
+echo "Initialization completed successfully"

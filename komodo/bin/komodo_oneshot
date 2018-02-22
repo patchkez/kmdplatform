@@ -1,0 +1,46 @@
+#!/bin/bash
+
+set -exm
+
+
+# Make all files and directories writable only to owner and readable by group
+umask 0027
+
+chown komodo:shared -R ${HOME}/.komodo/
+chmod 0750 ${HOME}/.komodo
+
+
+# Generate komodo.conf
+komodo_init
+
+if [ $# -gt 0 ]; then
+    args=("$@")
+    echo "=========================="
+    echo " Started without pubkey!!!"
+    echo "=========================="
+else
+    # if [ ! -d /home/komodo/.shared/ ];then
+    #	mkdir -p /home/komodo/.komodo/shared/
+    # fi
+
+    if [ -f /home/komodo/.shared/pubkey.txt ];then
+	ln -s /home/komodo/.shared/pubkey.txt ${HOME}/komodo/src/pubkey.txt
+	PUBKEY=`cat /home/komodo/.shared/pubkey.txt`
+	args=("-gen -genproclimit=2 -notary -pubkey=${PUBKEY}")
+	NOTARY=1
+    else
+	echo "=========================="
+	echo " Started without pubkey!!!"
+	echo "=========================="
+	args=('-gen -genproclimit=2')
+    fi
+fi
+
+# exec ${HOME}/komodo/src/komodod "${args[@]}"
+if [ ${NOTARY} -eq 1 ];then
+ ${HOME}/komodo/src/komodod "${args[@]}" &
+ cd komodo/src && ./assetchains &
+ fg %1
+else
+  exec ${HOME}/komodo/src/komodod "${args[@]}"
+fi

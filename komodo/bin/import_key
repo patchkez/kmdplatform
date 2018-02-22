@@ -1,0 +1,39 @@
+#/bin/bash 
+
+### ====================== Import BTCD privkey ===================================
+OUT=${HOME}/.shared/keys.txt
+if [ -f ${OUT} ];then
+    # read BTCDWIF
+    #echo "BTC address is:"
+    #BTCADDR=`cat ${OUT} | sed -n 's/^.*"BTC":"\(.[^"]*\).*$/\1/gp'`
+    #echo ${BTCADDR}
+
+    echo "BTCDwif is:"
+    BTCDWIF=`cat ${OUT} | sed -n 's/^.*"BTCDwif":"\(.[^"]*\).*$/\1/gp'`
+    echo ${BTCDWIF} 
+
+    echo "BTCD address is:"
+    BTCDADDR=`cat ${OUT} | sed -n 's/^.*"BTCD":"\(.[^"]*\).*$/\1/gp'`
+    echo ${BTCDADDR}
+
+    echo "Importing privkey, this can take some time..."
+    # use rescan=false param to bitcoin-cli to finish it faster?
+    ${HOME}/komodo/src/komodo-cli importprivkey ${BTCDWIF} 
+
+    echo "Validating address:"
+    BTCD_ISMINE=`${HOME}/komodo/src/komodo-cli validateaddress ${BTCDADDR}`
+    
+    if echo ${BTCD_ISMINE} | grep -q '"ismine": true';then
+	echo "BTCD privkey imported successfully!!!"
+    else
+	echo "BTCD privkey import FAILED!!!"
+    fi
+    
+    # This is seen in komodo logs- it is checking if key was not used before
+    # Still rescanning. At block 184551. Progress=0.137976
+    # Still rescanning. At block 205351. Progress=0.157062
+    # Still rescanning. At block 229526. Progress=0.175925
+    # Still rescanning. At block 252962. Progress=0.195673
+else
+    echo "No keys.txt file found!!!"
+fi

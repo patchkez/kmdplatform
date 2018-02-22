@@ -1,0 +1,24 @@
+#!/bin/bash
+
+set -ex
+
+# Generate komodo.conf
+iguana_init
+
+if [ $# -gt 0 ]; then
+    args=("$@")
+# else
+#    args=("-gen -genproclimit=2")
+fi
+
+# Create symlinks from volumes into container
+#cd ${HOME}/SuperNET/iguana && \
+#ln -s ${HOME}/.iguana/wp wp && \
+#ln -s ${HOME}/.iguana/wp_7776 wp_7776
+#ln -s ${HOME}/.iguana/gensecret/pubkey.txt ${HOME}/SuperNET/iguana/pubkey.txt
+#ln -s ${HOME}/.iguana/gensecret/userhome.txt ${HOME}/SuperNET/iguana/userhome.txt
+if [ -s ${HOME}/SuperNET/iguana/pubkey.txt ]; then
+    m_notary_run_docker
+else
+    exec ${HOME}/SuperNET/agents/iguana "${args[@]}"
+fi

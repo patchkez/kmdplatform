@@ -1,0 +1,32 @@
+#!/bin/bash
+
+### ====================== BITCOIN Import BTC privkey ===================================
+OUT=${HOME}/.shared/keys.txt
+if [ -f ${OUT} ];then
+
+    # read vars
+    echo "BTC address is:"
+    BTCADDR=`cat ${OUT} | sed -n 's/^.*"BTC":"\(.[^"]*\).*$/\1/gp'`
+    echo ${BTCADDR}
+
+    echo "BTCwif is:"
+    BTCWIF=`cat ${OUT} | sed -n 's/^.*"BTCwif":"\(.[^"]*\).*$/\1/gp'`
+    echo ${BTCWIF}
+
+
+    # use rescan=false param to bitcoin-cli to have it faster?
+    bitcoin-cli importprivkey ${BTCWIF}
+
+    BTC_ISMINE=`bitcoin-cli validateaddress ${BTCADDR}`
+    if echo ${BTC_ISMINE} | grep -q '"ismine": true';then
+	echo "BTC privkey imported successfully!!!"
+    else
+	echo "BTC privkey import FAILED!!!"
+    fi
+
+    # This is seen in  bitcoind logs, it is checking if key was not used before
+    # Still rescanning. At block 184551. Progress=0.137976
+    # Still rescanning. At block 205351. Progress=0.157062
+    # Still rescanning. At block 229526. Progress=0.175925
+    # Still rescanning. At block 252962. Progress=0.195673
+fi

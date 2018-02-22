@@ -1,0 +1,138 @@
+#!/bin/bash
+
+set -ex
+
+OUT=${HOME}/.shared
+
+# HOME variable will expan to /home/iguana
+
+#if [ ! -s "$HOME/.iguana/gensecret/wp" ]; then
+#    echo "=========================="
+#    echo " Starting initialization!!!"
+#    echo "Once privkeys are imported container will exit!!!"
+#    echo "Then you need to start komodo and iguana containers again."
+#    echo "They suppose to be started with pubkeys."
+#    echo "=========================="
+        
+    # Make dir on volume for generated files
+#    mkdir ${HOME}/.iguana/gensecret/
+    # Start iguana + basilik 
+    # ${HOME}/SuperNET/agents/iguana | tee -a /tmp/iguana_agent_.txt && \
+    #sleep 10 && \
+    # ${HOME}/SuperNET/iguana/coins/basilisk.old
+
+
+    # Create Iguana wallet with passphrase defined in .env file
+#    BITCOIN_OUT=`curl --url "http://127.0.0.1:7778" --data "{\"agent\":\"bitcoinrpc\",\"method\":\"encryptwallet\",\"passphrase\":\"${IGUANA_WALLET_PASSPHRASE}\"}"`
+#    echo ${BITCOIN_OUT}
+
+    # wp file does not exist - it will be created now
+#    echo "Creating wp file"
+#    cat <<EOF > $HOME/.iguana/gensecret/wp
+#    # The walletpassphrase RPC stores the wallet decryption key in memory for the indicated number of seconds.
+#    curl --url "http://127.0.0.1:7778" --data "{\"method\":\"walletpassphrase\",\"params\":[\"${IGUANA_WALLET_PASSWORD}\", 9999999]}"
+#EOF
+
+#    # Change permissions to wp file and add symlinks
+#    chmod a+x $HOME/.iguana/gensecret/wp
+#    cat $HOME/.iguana/gensecret/wp >$HOME/.iguana/gensecret/wp_7776
+    cd ${HOME}/SuperNET/iguana && \
+    ln -s ${OUT}/wp wp && \
+    ln -s ${OUT}/wp_7776 wp_7776
+
+
+#    #The walletpassphrase RPC stores the wallet decryption key in memory for the indicated number of seconds.
+#    ${HOME}/SuperNET/iguana/wp | tee -a ${HOME}/.iguana/gensecret/keys.txt
+
+    # SEND TO KOLO
+ #   BTCPUBKEY=`cat ${HOME}/.iguana/gensecret/keys.txt | sed -n 's/^.*"btcpubkey":"\(.[^"]*\).*$/\1/gp'`
+ #   echo "This is btcpubkey - send it to KOLO:"
+ #   echo "${BTCPUBKEY}"
+
+
+    #PUBKEY=`cat ${HOME}/.iguana/keys.txt | sed -n 's/^.*"pubkey":"\(.[^"]*\).*$/\1/gp'`
+    #echo "This is pubkey: ${PUBKEY}"
+#    echo "pubkey=${BTCPUBKEY}" > ${HOME}/.iguana/gensecret/pubkey.txt
+#    echo "pubkey=${BTCPUBKEY}" > /home/komodo/.komodo/pubkey.txt
+    ln -s ${OUT}/pubkey.txt ${HOME}/SuperNET/iguana/pubkey.txt
+
+
+#    BTCWIF=`cat ${HOME}/.iguana/gensecret/keys.txt | sed -n 's/^.*"BTCwif":"\(.[^"]*\).*$/\1/gp'`
+#    BTCADDR=`cat ${HOME}/.iguana/gensecret/keys.txt | sed -n 's/^.*"BTC":"\(.[^"]*\).*$/\1/gp'`
+#    BTCDWIF=`cat ${HOME}/.iguana/gensecret/keys.txt | sed -n 's/^.*"BTCDwif":"\(.[^"]*\).*$/\1/gp'`
+
+
+#     ### ====================== Import BTCD privkey ===================================
+#     # use rescan=false param to bitcoin-cli to finish it faster?
+#     /komodo/src/komodo-cli importprivkey ${BTCDWIF} 
+#     BTCD_ISMINE=`/komodo/src/komodo-cli validateaddress ${BTCADDR}`
+#     if echo ${BTCD_ISMINE} | grep -q '"ismine": true';then
+# 	echo "BTCD privkey imported successfully!!!"
+#     else
+# 	echo "BTCD privkey import FAILED!!!"
+#     fi
+#     
+#     # This is seen in komodo logs- it is checking if key was not used before
+#     # Still rescanning. At block 184551. Progress=0.137976
+#     # Still rescanning. At block 205351. Progress=0.157062
+#     # Still rescanning. At block 229526. Progress=0.175925
+#     # Still rescanning. At block 252962. Progress=0.195673
+#     
+#     
+#     ### ====================== Import BTC privkey ===================================
+#     # Import BTC priv key into bitcoin:
+#     # use rescan=false param to bitcoin-cli to have it faster?
+#     bitcoin-cli importprivkey ${BTCWIF} &
+#     BTC_ISMINE=`bitcoin-cli validateaddress ${BTCWIF}`
+#     if echo ${BTC_ISMINE} | grep -q '"ismine": true';then
+# 	echo "BTC privkey imported successfully!!!"
+#     else
+# 	echo "BTC privkey import FAILED!!!"
+#     fi
+# 
+#     # This is seen in  bitcoind logs, it is checking if key was not used before
+#     # Still rescanning. At block 184551. Progress=0.137976
+#     # Still rescanning. At block 205351. Progress=0.157062
+#     # Still rescanning. At block 229526. Progress=0.175925
+#     # Still rescanning. At block 252962. Progress=0.195673
+# 
+    if [ ! -s ${HOME}/SuperNET/iguana/userhome.txt ];then
+	# echo "home/iguana" > ${HOME}/.iguana/gensecret/userhome.txt
+	ln -s ${OUT}/userhome.txt ${HOME}/SuperNET/iguana/userhome.txt
+    fi
+
+#     IFS=' '
+# 
+#     COINS="btc kmd"
+#     for COIN in `echo $COINS`;do
+# 	cp ~/SuperNET/iguana/coins/${COIN} ~/SuperNET/iguana/
+# 	sed -i 's/7778/7776/g' ~/SuperNET/iguana/${COIN} 
+#     done
+#     sed -i 's/7778/7776/g' ${HOME}/.iguana/gensecret/wp_7776
+# 
+#     # cp ${HOME}/.iguana/gensecret/wp  ${HOME}/.iguana/gensecret/wp_7776 
+#     # cp ${HOME}/SuperNET/iguana/wp ${HOME}/SuperNET/iguana/wp_7776
+
+mkdir ${HOME}/.bitcoin
+   cat <<EOF > $HOME/.bitcoin/bitcoin.conf
+# disablewallet=${DISABLEWALLET:-1}
+printtoconsole=${PRINTTOCONSOLE:-1}
+rpcuser=${BITCOIN_RPC_USER:-bitcoinrpc}
+rpcpassword=${BITCOIN_RPC_PASSWORD:-Edu+4jEcNS21XWbvDcqUfcj+JZyrgf2JbMA+sXB/TmlN}
+server=1
+txindex=1
+bind=127.0.0.1
+rpcbind=127.0.0.1
+EOF
+
+# cat <<EOF > $HOME/.komodo/komodo.conf
+# # disablewallet=${DISABLEWALLET:-1}
+# printtoconsole=${PRINTTOCONSOLE:-1}
+# rpcuser=${BITCOIN_RPC_USER:-bitcoinrpc}
+# rpcpassword=${BITCOIN_RPC_PASSWORD:-Edu+4jEcNS21XWbvDcqUfcj+JZyrgf2JbMA+sXB/TmlN}
+# # server=1
+# txindex=1
+# bind=127.0.0.1
+# rpcbind=127.0.0.1
+# EOF
+ 

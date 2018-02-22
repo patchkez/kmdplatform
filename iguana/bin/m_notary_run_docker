@@ -1,0 +1,51 @@
+#!/bin/bash
+
+set -m 
+
+cd ${HOME}/SuperNET/iguana
+# ../agents/iguana notary & #> iguana.log 2> error.log  &
+../agents/iguana notary &
+
+myip=`curl -s4 checkip.amazonaws.com`
+source pubkey.txt
+
+sleep 4
+curl --url "http://127.0.0.1:7776" --data "{\"agent\":\"SuperNET\",\"method\":\"myipaddr\",\"ipaddr\":\"$myip\"}"
+sleep 3
+tests/addnotarys_7776
+coins/btc_7776
+coins/ltc_7776
+coins/kmd_7776
+coins/chips_7776
+./wp_7776
+
+coins/revs_7776
+coins/supernet_7776
+coins/dex_7776
+coins/bet_7776
+coins/bots_7776
+coins/hodl_7776
+coins/shark_7776
+coins/mshark_7776
+coins/jumblr_7776
+coins/crypto_7776
+coins/pangea_7776
+coins/mgw_7776
+coins/coqui_7776
+coins/wlc_7776
+coins/kv_7776
+coins/ceal_7776
+coins/mesh_7776
+coins/mnz_7776
+coins/axo_7776
+coins/etomic_7776
+coins/btch_7776
+#curl --url "http://127.0.0.1:7776" --data "{\"agent\":\"passthru\",\"method\":\"paxfiats\",\"timeout\":900000}"
+
+#curl --url "http://127.0.0.1:7776" --data "{\"agent\":\"iguana\",\"method\":\"addnotary\",\"ipaddr\":\"$myip\"}"
+
+sleep 5
+curl --url "http://127.0.0.1:7776" --data "{\"agent\":\"iguana\",\"method\":\"dpow\",\"symbol\":\"KMD\",\"pubkey\":\"$pubkey\"}"
+
+sleep 5
+fg %1
