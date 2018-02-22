@@ -1,4 +1,4 @@
-# Dockerized Komodo
+# Dockerized Komodo Notary Node
 ## Host preparation
 ### Prerequisities
 - docker
@@ -32,10 +32,12 @@ source .env
 ```
 
 ### Create directories with proper permissions and ownership
+```
 mkdir ${BITCOIN_DATA} -m 0750 && chown bitcoin:shared ${BITCOIN_DATA}
 mkdir ${KOMODO_DATA} -m 0750 && chown komodo:shared ${KOMODO_DATA}
 mkdir ${IGUANA_DATA} -m 0750 && chown iguana:shared ${IGUANA_DATA}
 mkdir ${SHARED_DATA} -m 0750 && chown iguana:shared ${SHARED_DATA}
+```
 
 ### Prepare storage for docker layers/images - direct-lvm mode
 https://docs.docker.com/storage/storagedriver/device-mapper-driver/
