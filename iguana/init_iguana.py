@@ -7,18 +7,18 @@ import os
 
 
 # config area
-iguana_ip = '172.18.0.2'
+iguana_ip = '127.0.0.1'
 iguana_port = '7776'
 
-bitcoind_ip = '172.18.0.3'
+bitcoind_ip = '127.0.0.1'
 bitcoind_port = '8332'
-bitcoind_rpcuser = 'bitcoin-notary-rpc'
-bitcoind_rpcpassword = 'conejo-coelho-rabbit'
+bitcoind_rpcuser = 'bitcoin-rpc-user'
+bitcoind_rpcpassword = 'bitcoin-rpc-password'
 
 komodod_ip = '127.0.0.1'
 komodod_port = '7771'
-komodod_rpcuser = 'komodo-notary-rpc'
-komodod_rpcpassword = 'conejo-coelho-rabbit'
+komodod_rpcuser = 'komodo-rpc-user'
+komodod_rpcpassword = 'komodo-rpc-password'
 # end of config area
 
 
