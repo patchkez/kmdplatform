@@ -95,3 +95,5 @@ assetchains:
     amount: 100000000
     p2p_port: 15430
     rpc_port: 15431
+
+seed_host: zero.kolo.supernet.org
