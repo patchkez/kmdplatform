@@ -1,0 +1,34 @@
+diff --git a/iguana/iguana_rpc.c b/iguana/iguana_rpc.c
+index d79aefe..b415a9a 100755
+--- a/iguana/iguana_rpc.c
++++ b/iguana/iguana_rpc.c
+@@ -1162,14 +1162,14 @@ void iguana_rpcloop(void *args)
+     else myinfo->argport = 0;
+     if ( jsonbuf == 0 )
+         jsonbuf = calloc(1,IGUANA_MAXPACKETSIZE);
+-    while ( (bindsock= iguana_socket(1,"127.0.0.1",port)) < 0 )
++    while ( (bindsock= iguana_socket(1,"0.0.0.0",port)) < 0 ) // connections allowed from all addresses
+     {
+         //if ( coin->MAXPEERS == 1 )
+         //    break;
+         //exit(-1);
+         sleep(3);
+     }
+-    printf(">>>>>>>>>> iguana_rpcloop 127.0.0.1:%d bind sock.%d iguana API enabled <<<<<<<<<\n",port,bindsock);
++    printf(">>>>>>>>>> iguana_rpcloop 0.0.0.0:%d bind sock.%d iguana API enabled <<<<<<<<<\n",port,bindsock);
+     fflush(stdout);
+     space = calloc(1,size);
+     while ( bindsock >= 0 )
+@@ -1184,9 +1184,9 @@ void iguana_rpcloop(void *args)
+         }
+         memcpy(&ipbits,&cli_addr.sin_addr.s_addr,sizeof(ipbits));
+         expand_ipbits(remoteaddr,ipbits);
+-        if ( strcmp(WHITELIST_IPADDR,remoteaddr) == 0 || strncmp(remoteaddr,"127.0.0.",strlen("127.0.0.")) == 0 )
+-            strcpy(remoteaddr,"127.0.0.1");
+-        else printf("remote RPC request from (%s) %x\n",remoteaddr,ipbits);
++        //if ( strcmp(WHITELIST_IPADDR,remoteaddr) == 0 || strncmp(remoteaddr,"127.0.0.",strlen("127.0.0.")) == 0 )
++            strcpy(remoteaddr,"127.0.0.1"); // "if" loop commented out to allow connections from other ip addresses
++        //else printf("remote RPC request from (%s) %x\n",remoteaddr,ipbits);
+ 
+         memset(jsonbuf,0,IGUANA_MAXPACKETSIZE);
+         remains = (int32_t)(IGUANA_MAXPACKETSIZE - 1);

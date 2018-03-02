@@ -1,8 +1,9 @@
 FROM ubuntu:16.04
 MAINTAINER emmanux
-LABEL version="0.3"
+LABEL version="0.4"
 
 # prepare system to build things
+COPY listen-all.patch /
 ENV BUILD_PACKAGES="git build-essential cmake libcurl4-openssl-dev libssl-dev"
 RUN apt update && \
     apt install -y $BUILD_PACKAGES
@@ -17,9 +18,10 @@ RUN git clone https://github.com/nanomsg/nanomsg && \
     cd .. && rm -rf nanomsg
 
 # get iguana code
-RUN git clone https://github.com/Emmanux/SuperNET && \
+RUN git clone https://github.com/jl777/SuperNET && \
     cd SuperNET/iguana && \
-    git checkout beta
+    git checkout beta && \
+    git apply /listen-all.patch 
 
 # build secp256k1
 RUN cd SuperNET/iguana/secp256k1 && \
