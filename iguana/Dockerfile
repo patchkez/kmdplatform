@@ -1,6 +1,6 @@
 FROM ubuntu:16.04
 MAINTAINER emmanux
-LABEL version="test"
+LABEL version="0.3"
 
 # prepare system to build things
 ENV BUILD_PACKAGES="git build-essential cmake libcurl4-openssl-dev libssl-dev"
