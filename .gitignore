@@ -1,0 +1,5 @@
+*.swp
+.env
+assetchains
+docker-compose_assets.yml
+komodotools_venv/

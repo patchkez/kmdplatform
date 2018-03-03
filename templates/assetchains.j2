@@ -1,0 +1,10 @@
+#!/bin/bash
+
+{% for assetname, asset in items.iteritems() %}
+
+komodod -pubkey=${pubkey} -ac_name={{ assetname }} -ac_supply={{ asset.amount }} \
+  -addnode={{ seed_ip }} {% if range(0, 32767) | random % 10 == 1 %}-gen
+  {% endif %}
+
+sleep 20
+{% endfor %}

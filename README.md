@@ -98,3 +98,31 @@ TODO:
 - monitoring of logs
 - files on komodo volume are created with wrong permissions 
 
+
+## Enable python virtualenv
+This step is needed to download python packages into virtualenv (to do not mess with system python packages):
+```
+virtualenv komodotools_venv
+source komodotools_venv/bin/activate
+pip install -Ur requirements.txt
+
+```
+### Generate docker-compose config for assetchains
+
+This script should download yaml file with all assetchains and all its data and will create:
+- docker-compose_assets.yml yaml file which can be used to spin up containers
+- bash/python script which will allow to run new ./assetchains script [WIP]
+```
+./generate_assetchains_config.py
+```
+
+Start all assetchains:
+```
+docker-compose -f docker-compose_assets.yml up
+```
+
+Stop all assetchains:
+```
+docker-compose -f docker-compose_assets.yml down
+```
+

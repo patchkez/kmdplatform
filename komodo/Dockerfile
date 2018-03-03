@@ -55,9 +55,15 @@ RUN mkdir ${KOMODO_HOME}/.komodo && \
 VOLUME ["/home/komodo/.komodo"] 
 VOLUME ["/home/komodo/.shared"] 
 
+
+#RUN echo 'if [ -f /home/komodo/.shared/pubkey.txt ]; then export $(cat /home/komodo/.shared/pubkey.txt); fi' >> ~/.bashrc
+
+#RUN echo 'if [ -f /home/komodo/.shared/pubkey.txt ]; then source /home/komodo/.shared/pubkey.txt; fi' >> ~/.bashrc
+
 ADD ./bin /usr/local/bin
 COPY docker-entrypoint.sh /usr/local/bin/
 ENTRYPOINT ["docker-entrypoint.sh"]
+
 
 #CMD ["/komodo/src/komodod"]
 CMD ["komodo_oneshot"]

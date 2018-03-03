@@ -25,7 +25,7 @@ fi
 
 chmod 0640 $HOME/.komodo/komodo.conf
 cat $HOME/.komodo/komodo.conf
-
+touch /tmp/testpk
 
 # We will use this dir to share pubkey between komodo and iguana
 #if [ ! -d /home/komodo/./shared/ ];then

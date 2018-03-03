@@ -26,7 +26,7 @@ else
     if [ -f /home/komodo/.shared/pubkey.txt ];then
 	ln -s /home/komodo/.shared/pubkey.txt ${HOME}/komodo/src/pubkey.txt
 	PUBKEY=`cat /home/komodo/.shared/pubkey.txt`
-	args=("-gen -genproclimit=2 -notary -pubkey=${PUBKEY}")
+	args=("-gen -genproclimit=2 -notary -${PUBKEY}")
 	NOTARY=1
     else
 	echo "=========================="
@@ -38,9 +38,9 @@ fi
 
 # exec ${HOME}/komodo/src/komodod "${args[@]}"
 if [ ${NOTARY} -eq 1 ];then
- ${HOME}/komodo/src/komodod "${args[@]}" &
- cd komodo/src && ./assetchains &
- fg %1
+ ${HOME}/komodo/src/komodod "${args[@]}"
+ # cd komodo/src && ./assetchains &
+ # fg %1
 else
   exec ${HOME}/komodo/src/komodod "${args[@]}"
 fi
