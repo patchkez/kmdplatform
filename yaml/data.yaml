@@ -21,8 +21,8 @@ assetchains:
     rpc_port: 15106
   BET:
     amount: 999999
-    p2p_port: 15610
-    rpc_port: 15610
+    p2p_port: 14249
+    rpc_port: 14250
   CRYPTO:
     amount: 999999
     p2p_port: 12947
