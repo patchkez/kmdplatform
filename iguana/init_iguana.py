@@ -176,13 +176,6 @@ response_btc_importprivkey = post_rpc(bitcoind_url, btc_importprivkey)
 print('== response_btc_importprivkey ==')
 pp.pprint(response_btc_importprivkey)
 
-
-# Requires wallet support. Wallet must be unlocked.The importprivkey RPC adds
-# a private key to your wallet. The key should be formatted in the wallet
-# import format created by the dumpprivkey RPC.
-# The private key to import into the wallet encoded in base58check using
-# wallet import format (WIF).
-
 btcd_importprivkey = {
     "agent": "bitcoinrpc",
     "method": "importprivkey",
