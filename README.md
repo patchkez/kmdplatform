@@ -102,7 +102,7 @@ TODO:
 ## Enable python virtualenv
 This step is needed to download python packages into virtualenv (to do not mess with system python packages):
 ```
-virtualenv komodotools_venv
+virtualenv -p python3 komodotools_venv
 source komodotools_venv/bin/activate
 pip install -Ur requirements.txt
 
@@ -113,7 +113,10 @@ This script should download yaml file with all assetchains and all its data and 
 - docker-compose_assets.yml yaml file which can be used to spin up containers
 - bash/python script which will allow to run new ./assetchains script [WIP]
 ```
-./generate_assetchains_config.py
+./init_gen_assetchains.py -h
+
+  -r option will run assetchains
+  -g generate option is for creating docker compose yml for assetchains
 ```
 
 Start all assetchains:
