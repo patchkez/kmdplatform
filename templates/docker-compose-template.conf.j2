@@ -2,7 +2,7 @@
 version: '3'
 
 services:
-  {% for assetname, asset in items.iteritems() %}
+  {% for assetname, asset in items.items() %}
   {{ assetname }}:
     image: kmdplatform_komodo
     network_mode: "host" 
