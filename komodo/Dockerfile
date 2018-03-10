@@ -33,7 +33,7 @@ RUN apt remove --purge -y $BUILD_PACKAGES $(apt-mark showauto) && \
     rm -rf /var/lib/apt/lists/* && \
     rm -rf ${KOMODO_HOME}/komodo/depends
 
-RUN apt update && apt install -y libcurl3-gnutls-dev libgomp1 telnet
+RUN apt update && apt install -y libcurl3-gnutls-dev libgomp1 telnet curl
 
 # Workaround - do not want to redownload params
 RUN usermod -g shared komodo

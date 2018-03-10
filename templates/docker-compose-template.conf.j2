@@ -8,7 +8,7 @@ services:
     network_mode: "host" 
     ports:
       {% if asset.rpc_port %}
-      - "{{ asset.rpc_port }}:{{ asset.rpc_port }}"
+      - "127.0.0.1:{{ asset.rpc_port }}:{{ asset.rpc_port }}"
       {% endif %}
       {% if asset.p2p_port %}
       - "{{ asset.p2p_port }}:{{ asset.p2p_port }}"
@@ -17,8 +17,8 @@ services:
       - komodo-data:/home/komodo/.komodo
       - shared-data:/home/komodo/.shared:ro
     environment:
-      - BITCOIN_RPC_USER=${BITCOIN_RPC_USER}
-      - BITCOIN_RPC_PASSWORD=${BITCOIN_RPC_PASSWORD}
+      - RPC_USER=${RPC_USER}
+      - RPC_PASSWORD=${RPC_PASSWORD}
     command: > 
       bash -c "komodod -pubkey=$$pubkey 
       -ac_name={{ assetname }} 

@@ -1,4 +1,9 @@
 # Dockerized Komodo Notary Node
+
+This is preparation to run Komodo platform in K8/Openshift environment. In first iteration, the goal is
+to cut down Komodo/Bitcoin/Iguana in its own containers. 1 container = 1 process. For assetchains, there
+is also 1 container running per coin. 
+
 ## Host preparation
 ### Prerequisities
 - docker
@@ -14,6 +19,11 @@ useradd -u 3001 -g bitcoin -G shared -m -d /home/bitcoin
 useradd -u 3003 -g komodo -G shared -m -d /home/komodo
 useradd -u 3004 -g iguana -G shared -m -d /home/iguana
 ```
+### Generate random passphrase which will be used for Iguana wallet
+```
+< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c${1:-64};echo;
+```
+
 
 ### Modify .env file and point variables to place where data for each volume can be stored
 - see .env.example how .env should look like
@@ -25,6 +35,7 @@ IGUANA_DATA=/mnt/docker_/iguana_data
 SHARED_DATA=/mnt/docker/shared_data
 ...
 ```
+Replace IGUANA_WALLET_PASSPHRASE with the one generated above. Make sure you safely store it!
 
 ### Source .env file
 ``` 
@@ -71,11 +82,17 @@ docker-compose run --rm iguana first_time_init
 ```
 
 ### Import the privkey of your BTCD address into Komodo
+Stop bitcoin service now, iguana in basilisk mode is trying start something on port 8332 (bitcoind default rpc port).
 ```
 docker-compose run --rm komodo import_key
 ```
 
 ### Import BTC privkey into Bitcoin
+Stop iguana now because it occupies port 8332 and start bitcoind:
+```
+docker-compose run --rm bitcoin
+```
+
 ```
 docker-compose run --rm bitcoin import_key
 ```
@@ -129,3 +146,24 @@ Stop all assetchains:
 docker-compose -f docker-compose_assets.yml down
 ```
 
+
+### Start from scratch - TEST node only
+
+rm ${SHARED_DATA}/****
+rm ${BITCOIN_DATA}/.bitcoin/wallet.dat
+rm ${BITCOIN_DATA}/.bitcoin/bitcoin.conf
+rm ${KOMODO_DATA}/wallet.dat
+rm ${KOMODO_DATA}/komodo.conf
+
+wallet.dat/bitcoin.conf/komodo.conf files are created upon first start if they do not exist.
+
+
+### TODO
+- containers are not waiting for their dependencies
+  - this can be done by using depends_on directive in docker-compose file
+- iguana does not receive signal when  Ctrl+C is pressed (when iguana runs in foreground)
+- services must run in host mode, otherwise ports are not listening on localhost
+- noticed this error in komodod console
+```
+ERROR: Write: Failed to open file /home/komodo/.komodo/peers.dat.f7d9
+```

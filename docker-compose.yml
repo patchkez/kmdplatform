@@ -6,10 +6,10 @@ services:
     container_name: bitcoin
     build: ./bitcoin
     network_mode: "host"
-    ports: 
-      - "8333:8333"
-      # - "8332:8332"
-      - "127.0.0.1:833:8332"
+    ports:
+      # RPC port
+      - "127.0.0.1:8332:8332"
+      - "127.0.0.1:8333:8333"
     volumes:
       - bitcoin-data:/home/bitcoin
       - shared-data:/home/bitcoin/.shared:ro
@@ -25,21 +25,26 @@ services:
       context: ./komodo
     network_mode: "host" 
     ports:
-      - "7771:7771"
+      - "127.0.0.1:7770:7770"
+      # RPC port
+      - "127.0.0.1:7771:7771"
     volumes:
       - komodo-data:/home/komodo/.komodo
       - shared-data:/home/komodo/.shared:ro
     environment:
-      - BITCOIN_RPC_USER=${BITCOIN_RPC_USER}
-      - BITCOIN_RPC_PASSWORD=${BITCOIN_RPC_PASSWORD}
+      - RPC_USER=${RPC_USER}
+      - RPC_PASSWORD=${RPC_PASSWORD}
 
   iguana:
+    # depends_on:
+    #  - komodo
     build: 
       context: ./iguana
     network_mode: "host"
     ports:
-      - "7778:7778"
-      - "7776:7776"
+      - "127.0.0.1:7778:7778"
+      # RPC port
+      - "127.0.0.1:7776:7776"
     volumes:
       - iguana-data:/home/iguana/.iguana
       - shared-data:/home/iguana/.shared
@@ -47,8 +52,8 @@ services:
       - komodo-data:/home/iguana/.komodo
     environment:
       - IGUANA_WALLET_PASSPHRASE=${IGUANA_WALLET_PASSPHRASE}
-      - BITCOIN_RPC_USER=${BITCOIN_RPC_USER}
-      - BITCOIN_RPC_PASSWORD=${BITCOIN_RPC_PASSWORD}
+      - RPC_USER=${RPC_USER}
+      - RPC_PASSWORD=${RPC_PASSWORD}
 
 
 volumes:

@@ -6,8 +6,9 @@ set -exm
 # Make all files and directories writable only to owner and readable by group
 umask 0027
 
-chown komodo:shared -R ${HOME}/.komodo/
-chmod 0750 ${HOME}/.komodo
+
+#chown komodo:shared -R ${HOME}/.komodo/
+#chmod 0750 ${HOME}/.komodo
 
 
 # Generate komodo.conf
@@ -33,6 +34,7 @@ else
 	echo " Started without pubkey!!!"
 	echo "=========================="
 	args=('-gen -genproclimit=2')
+	NOTARY=0
     fi
 fi
 

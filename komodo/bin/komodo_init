@@ -13,8 +13,8 @@ if [ ! -s "$HOME/.komodo/komodo.conf" ]; then
     cat <<EOF > $HOME/.komodo/komodo.conf
 # disablewallet=${DISABLEWALLET:-1}
 printtoconsole=${PRINTTOCONSOLE:-1}
-rpcuser=${BITCOIN_RPC_USER:-bitcoinrpc}
-rpcpassword=${BITCOIN_RPC_PASSWORD:-`dd if=/dev/urandom bs=33 count=1 2>/dev/null | base64`}
+rpcuser=${RPC_USER:-bitcoinrpc}
+rpcpassword=${RPC_PASSWORD:-`dd if=/dev/urandom bs=33 count=1 2>/dev/null | base64`}
 # server=1
 txindex=1
 bind=127.0.0.1
