@@ -148,13 +148,13 @@ docker-compose -f docker-compose_assets.yml down
 
 
 ### Start from scratch - TEST node only
-
+```
 rm ${SHARED_DATA}/****
 rm ${BITCOIN_DATA}/.bitcoin/wallet.dat
 rm ${BITCOIN_DATA}/.bitcoin/bitcoin.conf
 rm ${KOMODO_DATA}/wallet.dat
 rm ${KOMODO_DATA}/komodo.conf
-
+```
 wallet.dat/bitcoin.conf/komodo.conf files are created upon first start if they do not exist.
 
 
