@@ -1,0 +1,12 @@
+# vim: ts=2 sw=2 et
+version: '3'
+
+services:
+  iguana:
+    # depends_on:
+    #  - komodo
+    build: 
+      context: ./iguana
+    image: kmdplatform_iguana_dev
+    environment:
+      - IGUANA_BRANCH=dev
