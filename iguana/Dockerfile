@@ -69,12 +69,12 @@ RUN cd SuperNET/iguana && \
     gcc -g -Wno-aggressive-loop-optimizations -Wno-deprecated -c -DLIQUIDITY_PROVIDER=1 \
         main.c iguana777.c iguana_bundles.c ../basilisk/basilisk.c iguana_ramchain.c && \
     gcc -g -o ../agents/iguana *.o ./secp256k1/*.o ../agents/libcrypto777.a /usr/local/lib/libnanomsg.so \
-        -lcurl -lssl -lcrypto -lpthread -lz -lm
+        -lnanomsg -lcurl -lssl -lcrypto -lpthread -lz -lm
 
-RUN cd SuperNET/iguana && \
-    clang -g -Wno-deprecated -c -O2 -DISNOTARYNODE=1 -DLIQUIDITY_PROVIDER=1 *.c ../basilisk/basilisk.c ../gecko/gecko.c ../datachain/datachain.c && \
-    clang -g  -Wno-deprecated -c -DISNOTARYNODE=1 -DLIQUIDITY_PROVIDER=1  main.c iguana777.c iguana_bundles.c ../basilisk/basilisk.c && \
-    clang -g -o ../agents/iguana *.o ../agents/libcrypto777.a -lnanomsg -lcurl -lssl -lcrypto -lpthread -lz -lm
+# RUN cd SuperNET/iguana && \
+#    clang -g -Wno-deprecated -c -O2 -DISNOTARYNODE=1 -DLIQUIDITY_PROVIDER=1 *.c ../basilisk/basilisk.c ../gecko/gecko.c ../datachain/datachain.c && \
+#    clang -g  -Wno-deprecated -c -DISNOTARYNODE=1 -DLIQUIDITY_PROVIDER=1  main.c iguana777.c iguana_bundles.c ../basilisk/basilisk.c && \
+#    clang -g -o ../agents/iguana *.o ../agents/libcrypto777.a -lnanomsg -lcurl -lssl -lcrypto -lpthread -lz -lm
 
 
 USER root
