@@ -17,8 +17,10 @@ fi
 #ln -s ${HOME}/.iguana/wp_7776 wp_7776
 #ln -s ${HOME}/.iguana/gensecret/pubkey.txt ${HOME}/SuperNET/iguana/pubkey.txt
 #ln -s ${HOME}/.iguana/gensecret/userhome.txt ${HOME}/SuperNET/iguana/userhome.txt
-if [ -s ${HOME}/SuperNET/iguana/pubkey.txt ]; then
+if [ -s ${HOME}/SuperNET/iguana/pubkey.txt -a -z "${IGUANA_MODE}" ]; then
     m_notary_run_docker
+elif [ -s ${HOME}/SuperNET/iguana/pubkey.txt -a "${IGUANA_MODE}" = "dev" ]; then
+    m_notary_run_docker_testnet
 else
     exec ${HOME}/SuperNET/agents/iguana "${args[@]}"
 fi

@@ -10,3 +10,6 @@ services:
       args:
         IGUANA_BRANCH: dev
     image: kmdplatform_iguana_dev
+    environment:
+    # If this variable is set to dev, iguana will be started in testnet 
+      - IGUANA_MODE=dev 

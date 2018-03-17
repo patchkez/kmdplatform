@@ -117,8 +117,8 @@ mkdir ${HOME}/.bitcoin
    cat <<EOF > $HOME/.bitcoin/bitcoin.conf
 # disablewallet=${DISABLEWALLET:-1}
 printtoconsole=${PRINTTOCONSOLE:-1}
-rpcuser=${RPC_USER:-bitcoinrpc}
-rpcpassword=${RPC_PASSWORD:-Edu+4jEcNS21XWbvDcqUfcj+JZyrgf2JbMA+sXB/TmlN}
+rpcuser=${BITCOIN_RPC_USER:-bitcoinrpc}
+rpcpassword=${BITCOIN_RPC_PASSWORD:-Edu+4jEcNS21XWbvDcqUfcj+JZyrgf2JbMA+sXB/TmlN}
 server=1
 txindex=1
 bind=127.0.0.1
