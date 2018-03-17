@@ -39,7 +39,7 @@ RUN whoami && ls -ltrh /home && touch /home/iguana/test && ls -ltrh /home/iguana
 
 RUN git clone https://github.com/jl777/SuperNET && \
     cd SuperNET/iguana && \
-    git checkout ${IGUANA_BRANCH} && \
+    git checkout ${IGUANA_BRANCH}
     # ./m_LP
 # OR????
 #git clone https://github.com/jl777/SuperNET; cd SuperNET; ./m_onetime m_unix;
