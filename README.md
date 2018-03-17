@@ -15,9 +15,12 @@ groupadd -g 3001 bitcoin
 groupadd -g 3003 komodo
 groupadd -g 3004 iguana
 groupadd -g 3005 shared
-useradd -u 3001 -g bitcoin -G shared -m -d /home/bitcoin
-useradd -u 3003 -g komodo -G shared -m -d /home/komodo
-useradd -u 3004 -g iguana -G shared -m -d /home/iguana
+groupadd -g 3006 kmdadm
+useradd -u 3001 -g bitcoin -G shared -m -d /home/bitcoin bitcoin
+useradd -u 3003 -g komodo -G shared -m -d /home/komodo komodo
+useradd -u 3004 -g iguana -G shared -m -d /home/iguana iguana
+useradd -u 3006 -g kmdadm -G shared -m -d /home/kmdadm kmdadm
+passwd kmdadm
 ```
 ### Generate random passphrase which will be used for Iguana wallet
 ```
@@ -31,7 +34,7 @@ useradd -u 3004 -g iguana -G shared -m -d /home/iguana
 ...
 BITCOIN_DATA=/mnt/docker/bitcoin_data
 KOMODO_DATA=/mnt/docker/komodo__data
-IGUANA_DATA=/mnt/docker_/iguana_data
+IGUANA_DATA=/mnt/docker/iguana_data
 SHARED_DATA=/mnt/docker/shared_data
 ...
 ```
@@ -44,13 +47,13 @@ source .env
 
 ### Create directories with proper permissions and ownership
 ```
-mkdir ${BITCOIN_DATA} -m 0750 && chown bitcoin:shared ${BITCOIN_DATA}
-mkdir ${KOMODO_DATA} -m 0750 && chown komodo:shared ${KOMODO_DATA}
-mkdir ${IGUANA_DATA} -m 0750 && chown iguana:shared ${IGUANA_DATA}
-mkdir ${SHARED_DATA} -m 0750 && chown iguana:shared ${SHARED_DATA}
+mkdir ${BITCOIN_DATA} -m 0750 && chown bitcoin:shared -R ${BITCOIN_DATA}
+mkdir ${KOMODO_DATA} -m 0750 && chown komodo:shared -R ${KOMODO_DATA}
+mkdir ${IGUANA_DATA} -m 0750 && chown iguana:shared -R ${IGUANA_DATA}
+mkdir ${SHARED_DATA} -m 0750 && chown iguana:shared -R ${SHARED_DATA}
 ```
 
-### Prepare storage for docker layers/images - direct-lvm mode
+### Prepare storage for docker layers/images - xfs+overlay2
 https://docs.docker.com/storage/storagedriver/device-mapper-driver/
 
 ## First init - Start everything up
@@ -59,6 +62,10 @@ Docker images are built automatically by running `docker-compose run <service>`.
 docker-compose build bitcoin
 docker-compose build komodo
 docker-compose build iguana
+```
+or if you want to build dev branch of iguana
+```
+docker-compose -f docker-compose.yml -f docker-compose-dev.yml build iguana
 ```
 
 First startup of containers will create needed config files. Some files are stored on shared volumes, so other containers can access generated keys.
@@ -72,17 +79,27 @@ or
 docker-compose up #(not tested yet)
 ```
 
+For starting iguana dev container start:
+```
+docker-compose -f docker-compose.yml -f docker-compose-dev.yml run --rm iguana
+```
+
 ## Import of privkeys
 Run these commands one by one.
 
 We need to create iguana wallet. IGUANA_WALLET_PASSPHRASE variable inside .env file is used to pass passphrase into container.
 ### Create Iguana wallet
+Stop bitcoin service now, iguana in basilisk mode is trying start something on port 8332 (bitcoind default rpc port).
 ```
 docker-compose run --rm iguana first_time_init
 ```
+or in testnet:
+```
+docker-compose -f docker-compose.yml -f docker-compose-dev.yml run --rm iguana first_time_init
+```
 
 ### Import the privkey of your BTCD address into Komodo
-Stop bitcoin service now, iguana in basilisk mode is trying start something on port 8332 (bitcoind default rpc port).
+Keep bitcoind stopped.
 ```
 docker-compose run --rm komodo import_key
 ```
@@ -93,6 +110,7 @@ Stop iguana now because it occupies port 8332 and start bitcoind:
 docker-compose run --rm bitcoin
 ```
 
+Import privkey:
 ```
 docker-compose run --rm bitcoin import_key
 ```
@@ -130,11 +148,19 @@ This script should download yaml file with all assetchains and all its data and 
 - docker-compose_assets.yml yaml file which can be used to spin up containers
 - bash/python script which will allow to run new ./assetchains script [WIP]
 ```
-./init_gen_assetchains.py -h
-
-  -r option will run assetchains
-  -g generate option is for creating docker compose yml for assetchains
+./init_gen_assetchains.py          
+usage: init_gen_assetchains.py [-h] [-r] [-g] -b BRANCH
+init_gen_assetchains.py: error: the following arguments are required: -b
 ```
+
+Example:
+To generate docker-compose.yml file for DEV/TEST assetchains:
+```
+./init_gen_assetchains.py -b dev -g
+Creating new docker compose file for assetchains:
+```
+
+
 
 Start all assetchains:
 ```
@@ -166,4 +192,9 @@ wallet.dat/bitcoin.conf/komodo.conf files are created upon first start if they d
 - noticed this error in komodod console
 ```
 ERROR: Write: Failed to open file /home/komodo/.komodo/peers.dat.f7d9
+```
+
+- iguana shows this message when first_time_init is run
+```
+couldnt load (confs/969559dcebfb568349d19bff7a314eff4777ed7b7ec79f6980784c9d64d55b6d)
 ```

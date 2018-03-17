@@ -3,6 +3,7 @@ version: '3'
 
 services:
   {% for assetname, asset in items.items() %}
+  {% for mine in mined %}
   {{ assetname }}:
     image: kmdplatform_komodo
     network_mode: "host" 
@@ -23,9 +24,13 @@ services:
       bash -c "komodod -pubkey=$$pubkey 
       -ac_name={{ assetname }} 
       -ac_supply={{ asset.amount }} 
-      -addnode={{ seed_ip }}{% if range(0, 32767) | random % 10 == 1 %} 
-      -gen{% endif %}"
-
+      -addnode={{ seed_ip }}{% if assetname in mine %} -gen{% endif %}
+      {% if 'random' in mine %}
+      {% if range(0, 32767) | random % 10 == 1 %} 
+      -gen{% endif %}
+      {% endif %}"
+  
+  {% endfor %}
   {% endfor %}
 volumes:
   komodo-data:
