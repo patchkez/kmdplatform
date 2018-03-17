@@ -32,6 +32,7 @@ RUN git clone https://github.com/nanomsg/nanomsg && \
 
 USER iguana
 WORKDIR /home/iguana
+RUN mkdir -p /home/iguana/.iguana
 RUN mkdir -p /home/iguana/.shared
 RUN mkdir -p /home/iguana/.komodo
 
