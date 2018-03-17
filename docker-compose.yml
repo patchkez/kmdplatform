@@ -40,6 +40,8 @@ services:
     #  - komodo
     build: 
       context: ./iguana
+      args:
+        IGUANA_BRANCH: beta
     network_mode: "host"
     ports:
       - "127.0.0.1:7778:7778"
@@ -54,8 +56,6 @@ services:
       - IGUANA_WALLET_PASSPHRASE=${IGUANA_WALLET_PASSPHRASE}
       - RPC_USER=${RPC_USER}
       - RPC_PASSWORD=${RPC_PASSWORD}
-      - IGUANA_BRANCH=beta
-
 
 volumes:
   bitcoin-data:

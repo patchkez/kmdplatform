@@ -6,7 +6,7 @@ LABEL maintainer="Emmanux <infra@komodo.rocks>"
 #ARG BUILD_PACKAGES
 
 ARG IGUANA_BRANCH
-ENV BRANCH=${IGUANA_BRANCH}
+# ENV IGUANA_BRANCH=${IGUANA_BRANCH}
 
 
 ENV USER_ID ${USER_ID:-3004}
@@ -39,7 +39,7 @@ RUN whoami && ls -ltrh /home && touch /home/iguana/test && ls -ltrh /home/iguana
 
 RUN git clone https://github.com/jl777/SuperNET && \
     cd SuperNET/iguana && \
-    git checkout ${BRANCH} && \
+    git checkout ${IGUANA_BRANCH} && \
     ./m_LP
 # OR????
 #git clone https://github.com/jl777/SuperNET; cd SuperNET; ./m_onetime m_unix;

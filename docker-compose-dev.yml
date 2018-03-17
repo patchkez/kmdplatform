@@ -7,6 +7,6 @@ services:
     #  - komodo
     build: 
       context: ./iguana
+      args:
+        IGUANA_BRANCH: dev
     image: kmdplatform_iguana_dev
-    environment:
-      - IGUANA_BRANCH=dev
