@@ -19,8 +19,15 @@ fi
 #ln -s ${HOME}/.iguana/gensecret/userhome.txt ${HOME}/SuperNET/iguana/userhome.txt
 if [ -s ${HOME}/SuperNET/iguana/pubkey.txt -a -z "${IGUANA_MODE}" ]; then
     m_notary_run_docker
-elif [ -s ${HOME}/SuperNET/iguana/pubkey.txt -a "${IGUANA_MODE}" = "dev" ]; then
-    m_notary_run_docker_testnet
+#elif [ -s ${HOME}/SuperNET/iguana/pubkey.txt -a "${IGUANA_MODE}" = "dev" ]; then
+elif [ "${IGUANA_MODE}" = "dev" ]; then
+    if [ -s ${HOME}/SuperNET/iguana/pubkey.txt ];then
+	m_notary_run_docker_testnet
+    else
+	cd ${HOME}/SuperNET/iguana
+	curl -o testnet https://raw.githubusercontent.com/KomodoPlatform/vote2018/master/testnet/testnet.json		
+	exec ${HOME}/SuperNET/agents/iguana "${args[@]}"
+    fi
 else
     exec ${HOME}/SuperNET/agents/iguana "${args[@]}"
 fi
