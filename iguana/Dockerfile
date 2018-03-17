@@ -71,12 +71,15 @@ RUN cd SuperNET/iguana && \
     gcc -g -o ../agents/iguana *.o ./secp256k1/*.o ../agents/libcrypto777.a /usr/local/lib/libnanomsg.so \
         -lcurl -lssl -lcrypto -lpthread -lz -lm
 
-# USER root
+USER root
+RUN apt update && \
+    apt install -y strace \
+    rm -rf /var/lib/apt/lists/*
 # remove unnecessary packages
 # RUN apt remove --purge -y $BUILD_PACKAGES $(apt-mark showauto) && \
 #    apt install -y curl libcurl4-openssl-dev telnet net-tools && \
 # rm -rf /var/lib/apt/lists/* 
-# USER iguana
+USER iguana
 
 #RUN apt remove --purge -y $BUILD_PACKAGES $(apt-mark showauto) && \
 #    rm -rf /var/lib/apt/lists/* && \
