@@ -135,6 +135,13 @@ TODO:
 
 
 ## Enable python virtualenv
+Install virtualenv on Centos:
+```
+yum install python2-pip
+pip install -U virtualenv
+
+```
+
 This step is needed to download python packages into virtualenv (to do not mess with system python packages):
 ```
 virtualenv -p python3 komodotools_venv
@@ -167,9 +174,17 @@ Start all assetchains:
 docker-compose -f docker-compose_assets.yml up
 ```
 
-Stop all assetchains:
+To stop all assetchains:
 ```
 docker-compose -f docker-compose_assets.yml down
+```
+
+Import privkey into assetchains (DEV/TEST):
+```
+docker exec -it <id_of_komodo_container> bash
+cd ~/komodo/src
+./komodo-cli -ac_name=BEER importprivkey U*************
+./komodo-cli -ac_name=PIZZA importprivkey U*************
 ```
 
 

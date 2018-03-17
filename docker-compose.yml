@@ -47,6 +47,8 @@ services:
       - "127.0.0.1:7778:7778"
       # RPC port
       - "127.0.0.1:7776:7776"
+      # to the outside world
+      - "7000:7000"
     volumes:
       - iguana-data:/home/iguana/.iguana
       - shared-data:/home/iguana/.shared
