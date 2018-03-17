@@ -73,7 +73,7 @@ RUN cd SuperNET/iguana && \
 
 USER root
 RUN apt update && \
-    apt install -y strace \
+    apt install -y strace && \
     rm -rf /var/lib/apt/lists/*
 # remove unnecessary packages
 # RUN apt remove --purge -y $BUILD_PACKAGES $(apt-mark showauto) && \
