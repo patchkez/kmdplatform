@@ -5,6 +5,8 @@ cd ${HOME}/SuperNET/iguana
 ../agents/iguana testnet & #> iguana.log 2> error.log  &
 myip=`curl -s4 checkip.amazonaws.com`
 
+curl -o testnet https://raw.githubusercontent.com/KomodoPlatform/vote2018/master/testnet/testnet.json
+
 source pubkey.txt
 sleep 4
 
