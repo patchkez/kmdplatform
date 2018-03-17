@@ -17,7 +17,7 @@ RUN groupadd -g ${GROUP_ID} iguana && \
     groupadd -g ${SHARED_GROUP_ID} shared && \
     useradd -u ${USER_ID} -g iguana -G shared -s /bin/bash -m -d /home/iguana iguana
 
-ENV BUILD_PACKAGES="git libcurl4-openssl-dev build-essential libnanomsg-dev cmake libssl-dev clang libcurl4-gnutls-dev curl"
+ENV BUILD_PACKAGES="git libcurl4-openssl-dev build-essential libnanomsg-dev cmake libssl-dev clang curl"
 RUN apt update && \
      apt install -y $BUILD_PACKAGES && \
      apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
@@ -25,7 +25,7 @@ RUN apt update && \
 
 RUN git clone https://github.com/nanomsg/nanomsg && \
     cd nanomsg && \
-    cmake . && \
+    cmake . -DNN_TESTS=OFF -DNN_ENABLE_DOC=OFF && \
     make && \
     make install && \
     ldconfig
