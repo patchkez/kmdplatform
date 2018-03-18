@@ -80,7 +80,7 @@ RUN cd SuperNET/iguana && \
     gcc -g -Wno-aggressive-loop-optimizations -Wno-deprecated -c -DISNOTARYNODE=1 -DLIQUIDITY_PROVIDER=1 \
         main.c iguana777.c iguana_bundles.c ../basilisk/basilisk.c && \
     # gcc -g -o ../agents/iguana *.o ./secp256k1/*.o ../agents/libcrypto777.a /usr/local/lib/libnanomsg.so \
-    gcc -g -o ../agents/iguana *.o  ../agents/libcrypto777.a \
+    gcc -g -o ../agents/iguana *.o ./secp256k1/*.o ../agents/libcrypto777.a \
         -lnanomsg -lcurl -lssl -lcrypto -lpthread -lz -lm
 
 # RUN cd SuperNET/iguana && \
