@@ -56,26 +56,37 @@ RUN cd SuperNET/iguana/secp256k1 && \
     -Wno-unused-function -Wno-long-long -Wno-overlength-strings -fvisibility=hidden -DHAVE_CONFIG_H \
     src/secp256k1.c
 
+# gcc -c -o ../secp256k1.o -I. -I./src -I./include -I./src \
+# -O3 -W -std=c89 -pedantic -Wall -Wextra -Wcast-align -Wnested-externs -Wshadow -Wstrict-prototypes \
+# -Wno-unused-function -Wno-long-long -Wno-overlength-strings -fvisibility=hidden -DHAVE_CONFIG_H \
+# src/secp256k1.c
+
 # build crypto777
 RUN cd SuperNET/crypto777 && \
     gcc -c -DLIQUIDITY_PROVIDER=1 -O2 *.c jpeg/*.c jpeg/unix/*.c \
-    -I/usr/include/curl && \
+    -I/usr/lib/x86_64-linux-gnu/curl && \
+    rm -f ../agents/libcrypto777.a && \
     ar rc ../agents/libcrypto777.a *.o
 
-# build iguana
-RUN cd SuperNET/iguana && \
-    gcc -g -Wno-aggressive-loop-optimizations -Wno-deprecated -c -O2 -DLIQUIDITY_PROVIDER=1 \
-        *.c ../basilisk/basilisk.c ../gecko/gecko.c ../datachain/datachain.c && \
-    gcc -g -Wno-aggressive-loop-optimizations -Wno-deprecated -c -DLIQUIDITY_PROVIDER=1 \
-        main.c iguana777.c iguana_bundles.c ../basilisk/basilisk.c iguana_ramchain.c && \
-    # gcc -g -o ../agents/iguana *.o ./secp256k1/*.o ../agents/libcrypto777.a /usr/local/lib/libnanomsg.so \
-    gcc -g -o ../agents/iguana *.o ./secp256k1/*.o ../agents/libcrypto777.a \
-        -lnanomsg -lcurl -lssl -lcrypto -lpthread -lz -lm
+# git pull
+# rm *.o
+# gcc -c -DLIQUIDITY_PROVIDER=1 -O2 *.c jpeg/*.c jpeg/unix/*.c -I/usr/lib/x86_64-linux-gnu/curl 
+# rm -f ../agents/libcrypto777.a; ar rc ../agents/libcrypto777.a *.o 
 
+# build iguana
 # RUN cd SuperNET/iguana && \
-#    clang -g -Wno-deprecated -c -O2 -DISNOTARYNODE=1 -DLIQUIDITY_PROVIDER=1 *.c ../basilisk/basilisk.c ../gecko/gecko.c ../datachain/datachain.c && \
-#    clang -g  -Wno-deprecated -c -DISNOTARYNODE=1 -DLIQUIDITY_PROVIDER=1  main.c iguana777.c iguana_bundles.c ../basilisk/basilisk.c && \
-#    clang -g -o ../agents/iguana *.o ../agents/libcrypto777.a -lnanomsg -lcurl -lssl -lcrypto -lpthread -lz -lm
+#     gcc -g -Wno-aggressive-loop-optimizations -Wno-deprecated -c -O2 -DLIQUIDITY_PROVIDER=1 \
+#         *.c ../basilisk/basilisk.c ../gecko/gecko.c ../datachain/datachain.c && \
+#     gcc -g -Wno-aggressive-loop-optimizations -Wno-deprecated -c -DLIQUIDITY_PROVIDER=1 \
+#         main.c iguana777.c iguana_bundles.c ../basilisk/basilisk.c iguana_ramchain.c && \
+#     # gcc -g -o ../agents/iguana *.o ./secp256k1/*.o ../agents/libcrypto777.a /usr/local/lib/libnanomsg.so \
+#     gcc -g -o ../agents/iguana *.o ./secp256k1/*.o ../agents/libcrypto777.a \
+#         -lnanomsg -lcurl -lssl -lcrypto -lpthread -lz -lm
+
+RUN cd SuperNET/iguana && \
+    clang -g -Wno-deprecated -c -O2 -DISNOTARYNODE=1 -DLIQUIDITY_PROVIDER=1 *.c ../basilisk/basilisk.c ../gecko/gecko.c ../datachain/datachain.c && \
+    clang -g  -Wno-deprecated -c -DISNOTARYNODE=1 -DLIQUIDITY_PROVIDER=1  main.c iguana777.c iguana_bundles.c ../basilisk/basilisk.c && \
+    clang -g -o ../agents/iguana *.o ../agents/libcrypto777.a -lnanomsg -lcurl -lssl -lcrypto -lpthread -lz -lm
 
 
 USER root
