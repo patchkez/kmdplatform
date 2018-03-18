@@ -1,0 +1,17 @@
+[DEFAULT]
+rpcuser = myuser
+rpcpassword = mypassword
+rpcip = 127.0.0.1
+utxo_size = 0.0005
+threshold = 50
+target = 100
+
+[KMD]
+rpcport = 7771
+
+[BEER]
+rpcport = 8923
+
+[PIZZA]
+rpcport = 11608
+

@@ -1,0 +1,2 @@
+*/10 * * * * root /opt/kmdplatform/iguana/tools/recharge.py >/dev/null 2>&1 
+
