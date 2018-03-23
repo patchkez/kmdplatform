@@ -9,6 +9,7 @@ git clone https://github.com/Emmanux/kmdplatform.git
 cd kmdplatform/iguana/tools
 cp recharge.ini.example recharge.ini
 cp cron.recharge.iguana /etc/cron.d/rechargeiguana
+service cron reload
 vim recharge.ini
 ```
 Change your rpcuser and rpcpassword and save the file.
