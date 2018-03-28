@@ -1,0 +1,78 @@
+diff --git a/iguana/dpow/dpow_rpc.c b/iguana/dpow/dpow_rpc.c
+index 07822f6..fd7463a 100755
+--- a/iguana/dpow/dpow_rpc.c
++++ b/iguana/dpow/dpow_rpc.c
+@@ -863,14 +863,14 @@ int32_t dpow_haveutxo(struct supernet_info *myinfo,struct iguana_info *coin,bits
+     return(haveutxo);
+ }
+ 
+-char *dpow_issuemethod(char *userpass,char *method,char *params,uint16_t port)
++char *dpow_issuemethod(char *userpass,char *method,char *params,uint16_t port,char *symbol)
+ {
+     char url[512],*retstr=0,*retstr2=0,postdata[8192];
+     if ( params == 0 || params[0] == 0 )
+         params = (char *)"[]";
+     if ( strlen(params) < sizeof(postdata)-128 )
+     {
+-        sprintf(url,(char *)"http://127.0.0.1:%u",port);
++        sprintf(url,(char *)"http://%s:%u",symbol,port);
+         sprintf(postdata,"{\"method\":\"%s\",\"params\":%s}",method,params);
+         //printf("postdata.(%s) USERPASS.(%s)\n",postdata,KMDUSERPASS);
+         retstr2 = bitcoind_RPC(&retstr,(char *)"debug",url,userpass,method,params,0);
+@@ -884,7 +884,7 @@ uint64_t dpow_paxprice(uint64_t *seedp,int32_t height,char *base,char *rel,uint6
+     kmdcoin = iguana_coinfind("KMD");
+     *seedp = 0;
+     sprintf(params,"[\"%s\", \"%s\", \"%d\", \"%.8f\"]",base,rel,height,(double)basevolume/SATOSHIDEN);
+-    if ( kmdcoin != 0 && (retstr= dpow_issuemethod(kmdcoin->chain->userpass,"paxprice",params,kmdcoin->chain->rpcport)) != 0 )
++    if ( kmdcoin != 0 && (retstr= dpow_issuemethod(kmdcoin->chain->userpass,"paxprice",params,kmdcoin->chain->rpcport,kmdcoin->symbol)) != 0 )
+     {
+         if ( (retjson= cJSON_Parse(retstr)) != 0 )
+         {
+@@ -1193,7 +1193,7 @@ int32_t dpow_issuer_tx(int32_t *isspecialp,struct dpow_info *dp,struct iguana_in
+     char *retstr,params[256],*hexstr; uint8_t script[16384]; cJSON *json,*oldpub,*newpub,*result,*vouts,*item,*sobj; int32_t vout,n,len,retval = -1; uint64_t value; bits256 txid;
+     sprintf(params,"[\"%s\", 1]",txidstr);
+     *isspecialp = 0;
+-    if ( (retstr= dpow_issuemethod(coin->chain->userpass,(char *)"getrawtransaction",params,port)) != 0 )
++    if ( (retstr= dpow_issuemethod(coin->chain->userpass,(char *)"getrawtransaction",params,port,coin->symbol)) != 0 )
+     {
+         if ( (json= cJSON_Parse(retstr)) != 0 )
+         {
+@@ -1238,14 +1238,14 @@ int32_t dpow_issuer_block(struct dpow_info *dp,struct iguana_info *coin,int32_t
+ {
+     char *retstr,*retstr2,params[128],*txidstr; int32_t i,isspecial,n,retval = -1; cJSON *json,*tx=0,*result=0,*result2;
+     sprintf(params,"[%d]",height);
+-    if ( (retstr= dpow_issuemethod(coin->chain->userpass,(char *)"getblockhash",params,port)) != 0 )
++    if ( (retstr= dpow_issuemethod(coin->chain->userpass,(char *)"getblockhash",params,port,coin->symbol)) != 0 )
+     {
+         if ( (result= cJSON_Parse(retstr)) != 0 )
+         {
+             if ( (txidstr= jstr(result,(char *)"result")) != 0 && strlen(txidstr) == 64 )
+             {
+                 sprintf(params,"[\"%s\"]",txidstr);
+-                if ( (retstr2= dpow_issuemethod(coin->chain->userpass,(char *)"getblock",params,port)) != 0 )
++                if ( (retstr2= dpow_issuemethod(coin->chain->userpass,(char *)"getblock",params,port,coin->symbol)) != 0 )
+                 {
+                     //printf("getblock.(%s)\n",retstr2);
+                     if ( (json= cJSON_Parse(retstr2)) != 0 )
+@@ -1279,7 +1279,7 @@ int32_t dpow_issuer_iteration(struct dpow_info *dp,struct iguana_info *coin,int3
+     *isrealtimep = 0;
+     if ( coin->getinfostr[0] == 0 )
+         strcpy(coin->getinfostr,"getinfo");
+-    if ( (retstr= dpow_issuemethod(coin->chain->userpass,(char *)coin->getinfostr,0,port)) != 0 )
++    if ( (retstr= dpow_issuemethod(coin->chain->userpass,(char *)coin->getinfostr,0,port,coin->symbol)) != 0 )
+     {
+         if ( (infoobj= cJSON_Parse(retstr)) != 0 )
+         {
+diff --git a/iguana/iguana_chains.c b/iguana/iguana_chains.c
+index 4fc5a0b..8897183 100755
+--- a/iguana/iguana_chains.c
++++ b/iguana/iguana_chains.c
+@@ -378,7 +378,7 @@ void iguana_chainparms(struct supernet_info *myinfo,struct iguana_chain *chain,c
+             chain->initialreward = jdouble(argjson,"reward") * SATOSHIDEN;
+         else chain->initialreward = 50 * SATOSHIDEN;
+         if ( chain->serverport[0] == 0 )
+-            sprintf(chain->serverport,"127.0.0.1:%u",chain->rpcport);
++            sprintf(chain->serverport,"%s:%u",chain->symbol,chain->rpcport);
+         if ( strcmp(chain->symbol,"BTC") != 0 && strcmp(chain->symbol,"BTCD") != 0 )
+         {
+             chain->pubtype = juint(argjson,"pubval");

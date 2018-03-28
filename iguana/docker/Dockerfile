@@ -1,9 +1,9 @@
 FROM ubuntu:16.04
 MAINTAINER emmanux
-LABEL version="0.5"
+LABEL version="0.5c"
 
 # prepare system to build things
-COPY listen-all.patch /
+COPY *.patch /
 COPY x-cli.sh /
 
 ENV BUILD_PACKAGES="git build-essential cmake libssl-dev clang libcurl4-openssl-dev"
@@ -22,9 +22,10 @@ RUN git clone https://github.com/nanomsg/nanomsg && \
 
 # get iguana code
 RUN git clone https://github.com/jl777/SuperNET && \
+    echo "trying jl777 branch" && \
     cd SuperNET/iguana && \
-    git checkout dev && \
-    git apply /listen-all.patch 
+    git checkout jl777 && \
+    git apply -v /*.patch
 
 # build secp256k1
 RUN cd SuperNET/iguana/secp256k1 && \
@@ -49,9 +50,9 @@ RUN cd SuperNET/iguana && \
     clang -g -o ../agents/iguana *.o ../agents/libcrypto777.a \
         -lnanomsg -lcurl -lssl -lcrypto -lpthread -lz -lm
 
-# remove unnecessary packages
+# remove unnecessary packages and install useful tools
 RUN apt remove --purge -y $BUILD_PACKAGES $(apt-mark showauto) && \
-    apt install -y curl libcurl4-openssl-dev telnet net-tools && \
+    apt install -y curl libcurl4-openssl-dev telnet net-tools redir screen && \
     rm -rf /var/lib/apt/lists/* 
 
 # install x-cli.sh wrapper
@@ -64,6 +65,10 @@ RUN useradd -u 3004 -m iguana
 ENV PATH="/SuperNET/iguana:${PATH}"
 USER iguana
 WORKDIR /home/iguana
+ENV HOME=/home/iguana
+
+# get testnet file
+RUN curl -so /home/iguana/testnet https://raw.githubusercontent.com/KomodoPlatform/vote2018/master/testnet/testnet.json
 
 ENTRYPOINT ["/SuperNET/agents/iguana"]
 
