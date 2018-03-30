@@ -26,7 +26,8 @@ ENV PATH="/komodo/src/:${PATH}"
 USER komodod
 WORKDIR /home/komodod
 RUN mkdir ~/.komodo && \
-    touch ~/.komodo/komodo.conf
+    touch ~/.komodo/komodo.conf && \
+    chown komodod:komodod ~/.komodo/komodo.conf
 
 ENTRYPOINT ["/komodo/src/komodod"]
 
