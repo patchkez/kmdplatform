@@ -2,6 +2,8 @@
 FROM ubuntu:16.04
 LABEL maintainer="Emmanux <infra@komodo.rocks>"
 
+ARG KOMODO_BRANCH
+
 ENV USER_ID ${USER_ID:-3003}
 ENV GROUP_ID ${GROUP_ID:-3003}
 ENV SHARED_GROUP_ID ${SHARED_GROUP_ID:-3005}
@@ -22,7 +24,7 @@ WORKDIR /home/komodo
 
 RUN git clone https://github.com/jl777/komodo && \
     cd komodo && \
-    git checkout beta && \
+    git checkout ${KOMODO_BRANCH} && \
     ./zcutil/fetch-params.sh && \
     ./zcutil/build.sh -j$(nproc)
     

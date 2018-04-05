@@ -121,6 +121,11 @@ VOLUME ["/home/iguana/.shared"]
 VOLUME ["/home/iguana/.komodo"]
 
 ADD ./bin /usr/local/bin
+
+ADD ./templates /templates
+
+VOLUME ["/yaml_data"]
+
 COPY docker-entrypoint.sh /usr/local/bin/
 #ENTRYPOINT ["docker-entrypoint.sh"]
 

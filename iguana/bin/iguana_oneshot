@@ -29,5 +29,6 @@ elif [ "${IGUANA_MODE}" = "dev" ]; then
 	exec ${HOME}/SuperNET/agents/iguana "${args[@]}"
     fi
 else
+    cd ${HOME}/SuperNET/iguana
     exec ${HOME}/SuperNET/agents/iguana "${args[@]}"
 fi

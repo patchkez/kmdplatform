@@ -1,5 +1,6 @@
 *.swp
 .env
 assetchains
-docker-compose_assets.yml
 komodotools_venv/
+docker-compose_assets_development.yml
+docker-compose_assets_production.yml

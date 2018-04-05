@@ -96,6 +96,10 @@ assetchains:
       amount: 100000000
       p2p_port: 15430
       rpc_port: 15431
+    CHIPS:
+      amount: 100000000
+      p2p_port: 57777
+      rpc_port: 57776
   development:
     PIZZA:
       amount: 100000000

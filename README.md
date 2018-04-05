@@ -16,10 +16,12 @@ groupadd -g 3003 komodo
 groupadd -g 3004 iguana
 groupadd -g 3005 shared
 groupadd -g 3006 kmdadm
+groupadd -g 3007 chips
 useradd -u 3001 -g bitcoin -G shared -m -d /home/bitcoin bitcoin
 useradd -u 3003 -g komodo -G shared -m -d /home/komodo komodo
 useradd -u 3004 -g iguana -G shared -m -d /home/iguana iguana
 useradd -u 3006 -g kmdadm -G shared -m -d /home/kmdadm kmdadm
+useradd -u 3007 -g chips -G shared -m -d /home/chips chips
 passwd kmdadm
 ```
 ### Generate random passphrase which will be used for Iguana wallet
@@ -33,8 +35,9 @@ passwd kmdadm
 ```
 ...
 BITCOIN_DATA=/mnt/docker/bitcoin_data
-KOMODO_DATA=/mnt/docker/komodo__data
+KOMODO_DATA=/mnt/docker/komodo_data
 IGUANA_DATA=/mnt/docker/iguana_data
+CHIPS_DATA=/mnt/docker/chips_data
 SHARED_DATA=/mnt/docker/shared_data
 ...
 ```
@@ -50,6 +53,7 @@ source .env
 mkdir ${BITCOIN_DATA} -m 0750 && chown bitcoin:shared -R ${BITCOIN_DATA}
 mkdir ${KOMODO_DATA} -m 0750 && chown komodo:shared -R ${KOMODO_DATA}
 mkdir ${IGUANA_DATA} -m 0750 && chown iguana:shared -R ${IGUANA_DATA}
+mkdir ${CHIPS_DATA} -m 0750 && chown chips:shared -R ${CHIPS_DATA}
 mkdir ${SHARED_DATA} -m 0750 && chown iguana:shared -R ${SHARED_DATA}
 ```
 
@@ -62,16 +66,18 @@ Docker images are built automatically by running `docker-compose run <service>`.
 docker-compose build bitcoin
 docker-compose build komodo
 docker-compose build iguana
+docker-compose build chips
 ```
 or if you want to build dev branch of iguana
 ```
-docker-compose -f docker-compose.yml -f docker-compose-dev.yml build iguana
+docker-compose -f docker-compose.yml -f docker-compose-dev.yml build --no-cache iguana
 ```
 
 First startup of containers will create needed config files. Some files are stored on shared volumes, so other containers can access generated keys.
 ```
 docker-compose run --rm bitcoin
 docker-compose run --rm komodo
+docker-compose run --rm chips
 docker-compose run --rm iguana
 ```
 or
@@ -115,6 +121,14 @@ Import privkey:
 docker-compose run --rm bitcoin import_key
 ```
 
+### Import BTCD privkey into Chips
+Import privkey:
+```
+docker-compose run --rm chips import_key
+```
+
+
+
 Stop all containers now.
 
 ## Start everything with pubkey
@@ -124,6 +138,7 @@ All config files were generated and stored to corresponding volumes. Each contai
 ```
 docker-compose run --rm bitcoin
 docker-compose run --rm komodo
+docker-compose run --rm chips
 docker-compose run --rm iguana
 ```
 `docker-compose up` should also start all containers, but did not have time to test it.

@@ -19,6 +19,21 @@ services:
       - BITCOIN_GROUP_ID=${BITCOIN_GROUP_ID}
       - BITCOIN_RPC_USER=${BITCOIN_RPC_USER}
       - BITCOIN_RPC_PASSWORD=${BITCOIN_RPC_PASSWORD}
+ 
+  chips:
+    build: 
+      context: ./chips
+    network_mode: "host" 
+    ports:
+      - "127.0.0.1:57776:57776"
+      # RPC port ?
+      - "127.0.0.1:577777:57777"
+    volumes:
+      - chips-data:/home/chips/.chips
+      - shared-data:/home/komodo/.shared:ro
+    environment:
+      - CHIPS_RPC_USER=${CHIPS_RPC_USER}
+      - CHIPS_RPC_PASSWORD=${CHIPS_RPC_PASSWORD}
 
   komodo:
     build: 
@@ -53,7 +68,9 @@ services:
       - iguana-data:/home/iguana/.iguana
       - shared-data:/home/iguana/.shared
       # - bitcoin-data:/home/bitcoin/
-      - komodo-data:/home/iguana/.komodo
+      #TEST
+      # - komodo-data:/home/iguana/.komodo
+      # - yaml-data:/yaml_data/
     environment:
       - IGUANA_WALLET_PASSPHRASE=${IGUANA_WALLET_PASSPHRASE}
       - RPC_USER=${RPC_USER}
@@ -64,6 +81,11 @@ volumes:
     driver_opts:
       type: none
       device: ${BITCOIN_DATA}
+      o: bind
+  chips-data:
+    driver_opts:
+      type: none
+      device: ${CHIPS_DATA}
       o: bind
   komodo-data:
     driver_opts:
@@ -79,4 +101,9 @@ volumes:
     driver_opts:
       type: none
       device: ${SHARED_DATA}
+      o: bind
+  yaml-data:
+    driver_opts:
+      type: none
+      device: ${YAML_DATA}
       o: bind

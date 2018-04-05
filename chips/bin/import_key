@@ -1,0 +1,32 @@
+#!/bin/bash
+
+### ====================== CHIPS Import BTCD privkey ===================================
+OUT=${HOME}/.shared/keys.txt
+if [ -f ${OUT} ];then
+
+    # read vars
+    echo "BTC address is:"
+    BTCDADDR=`cat ${OUT} | sed -n 's/^.*"BTCD":"\(.[^"]*\).*$/\1/gp'`
+    echo ${BTCADDR}
+
+    echo "BTCwif is:"
+    BTCDWIF=`cat ${OUT} | sed -n 's/^.*"BTCDwif":"\(.[^"]*\).*$/\1/gp'`
+    echo ${BTCDWIF}
+
+
+    # use rescan=false param to bitcoin-cli to have it faster?
+    chips-cli importprivkey ${BTCDWIF}
+
+    BTCD_ISMINE=`chips-cli validateaddress ${BTCDADDR}`
+    if echo ${BTCD_ISMINE} | grep -q '"ismine": true';then
+	echo "BTCD privkey imported successfully!!!"
+    else
+	echo "BTCD privkey import FAILED!!!"
+    fi
+
+    # This is seen in  bitcoind logs, it is checking if key was not used before
+    # Still rescanning. At block 184551. Progress=0.137976
+    # Still rescanning. At block 205351. Progress=0.157062
+    # Still rescanning. At block 229526. Progress=0.175925
+    # Still rescanning. At block 252962. Progress=0.195673
+fi

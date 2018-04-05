@@ -1,0 +1,29 @@
+#!/bin/bash
+
+set -ex
+
+# This shouldn't be in the Dockerfile or containers built from the same image
+# will have the same credentials.
+
+if [ ! -s "$HOME/.chips/chips.conf" ]; then
+    mkdir -p $HOME/.chips
+
+    echo "Creating chips.conf"
+
+    # Seed a random password for JSON RPC server
+    cat <<EOF > $HOME/.chips/chips.conf
+printtoconsole=${PRINTTOCONSOLE:-1}
+rpcuser=${CHIPS_RPC_USER:-chipsrpc}
+rpcpassword=${CHIPS_RPC_PASSWORD:-`dd if=/dev/urandom bs=33 count=1 2>/dev/null | base64`}
+server=1
+txindex=1
+bind=127.0.0.1
+rpcbind=127.0.0.1
+EOF
+
+fi
+
+chmod 0600 $HOME/.chips/chips.conf
+cat $HOME/.chips/chips.conf
+
+echo "Initialization completed successfully"
