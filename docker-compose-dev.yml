@@ -2,6 +2,13 @@
 version: '3'
 
 services:
+  komodo:
+    build: 
+      context: ./komodo
+      args:
+        KOMODO_BRANCH: dev
+    image: kmdplatform_komodo_dev
+
   iguana:
     # depends_on:
     #  - komodo
