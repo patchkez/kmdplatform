@@ -1,0 +1,7 @@
+rpcuser={{ or (getenv "CHIPS_RPC_USER") "chipsrpc" }}
+rpcpassword={{ or (getenv "CHIPS_RPC_PASSWORD") "chipsrpcpassword" }}
+server=1
+txindex=1
+bind={{ or (getenv "CHIPS_BIND") "127.0.0.1" }}
+rpcbind={{ or (getenv "CHIPS_RPC_BIND") "127.0.0.1" }}
+rpcallowip={{ or (getenv "CHIPS_RPC_ALLOWIP") "0.0.0.0/0" }}
