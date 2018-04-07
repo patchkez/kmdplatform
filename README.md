@@ -23,6 +23,7 @@ useradd -u 3004 -g iguana -G shared -m -d /home/iguana iguana
 useradd -u 3006 -g kmdadm -G shared -m -d /home/kmdadm kmdadm
 useradd -u 3007 -g chips -G shared -m -d /home/chips chips
 passwd kmdadm
+usermod -G docker kmdadm
 ```
 ### Generate random passphrase which will be used for Iguana wallet
 ```
