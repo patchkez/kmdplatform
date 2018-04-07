@@ -29,16 +29,18 @@ passwd kmdadm
 < /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c${1:-64};echo;
 ```
 
+su - kmdadm
+git clone https://github.com/patchkez/kmdplatform
 
 ### Modify .env file and point variables to place where data for each volume can be stored
 - see .env.example how .env should look like
 ```
 ...
-BITCOIN_DATA=/mnt/docker/bitcoin_data
-KOMODO_DATA=/mnt/docker/komodo_data
-IGUANA_DATA=/mnt/docker/iguana_data
-CHIPS_DATA=/mnt/docker/chips_data
-SHARED_DATA=/mnt/docker/shared_data
+BITCOIN_DATA=/mnt/komodo-data/bitcoin_data
+KOMODO_DATA=/mnt/komodo-data/komodo_data
+IGUANA_DATA=/mnt/komodo-data/iguana_data
+CHIPS_DATA=/mnt/komodo-data/chips_data
+SHARED_DATA=/mnt/komodo-data/shared_data
 ...
 ```
 Replace IGUANA_WALLET_PASSPHRASE with the one generated above. Make sure you safely store it!
@@ -59,6 +61,9 @@ mkdir ${SHARED_DATA} -m 0750 && chown iguana:shared -R ${SHARED_DATA}
 
 ### Prepare storage for docker layers/images - xfs+overlay2
 https://docs.docker.com/storage/storagedriver/device-mapper-driver/
+
+
+
 
 ## First init - Start everything up
 Docker images are built automatically by running `docker-compose run <service>`. You can build images manually by executing:
