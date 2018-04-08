@@ -26,7 +26,7 @@ RUN mkdir ${BITCOIN_HOME}/.bitcoin && \
     chmod 0750 ${BITCOIN_HOME}/.bitcoin && \
     chown bitcoin:bitcoin -R ${BITCOIN_HOME}/.bitcoin
 
-VOLUME ["/home/bitcoin/.bitcoin"] 
+VOLUME ["/home/bitcoin"] 
 
 ENTRYPOINT ["entrypoint.sh"]
 CMD ["bitcoind"]
