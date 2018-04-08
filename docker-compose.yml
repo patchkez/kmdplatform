@@ -1,0 +1,96 @@
+# vim: ts=2 sw=2 et
+version: '3'
+
+services:
+  bitcoind:
+    build: ./bitcoind
+    network_mode: "host"
+    ports:
+      # RPC port
+      - "127.0.0.1:8332:8332"
+      - "127.0.0.1:8333:8333"
+    volumes:
+      - bitcoin-data:/home/bitcoin
+      - shared-data:/home/bitcoin/.shared:ro
+    environment:
+      - BITCOIN_DATA=${BITCOIN_DATA}
+      - BITCOIN_USER_ID=${BITCOIN_USER_ID}
+      - BITCOIN_GROUP_ID=${BITCOIN_GROUP_ID}
+      - BITCOIN_RPC_USER=${BITCOIN_RPC_USER}
+      - BITCOIN_RPC_PASSWORD=${BITCOIN_RPC_PASSWORD}
+ 
+  chipsd:
+    build: 
+      context: ./chipsd
+    network_mode: "host" 
+    ports:
+      - "127.0.0.1:57776:57776"
+      # RPC port ?
+      - "127.0.0.1:57777:57777"
+    volumes:
+      - chips-data:/home/chips/.chips
+      - shared-data:/home/komodo/.shared:ro
+    environment:
+      - CHIPS_RPC_USER=${CHIPS_RPC_USER}
+      - CHIPS_RPC_PASSWORD=${CHIPS_RPC_PASSWORD}
+
+  komodod:
+    build: 
+      context: ./komodod
+    network_mode: "host" 
+    ports:
+      - "127.0.0.1:7770:7770"
+      # RPC port
+      - "127.0.0.1:7771:7771"
+    volumes:
+      - komodo-data:/home/komodo/.komodo
+      - shared-data:/home/komodo/.shared:ro
+    environment:
+      - KOMODO_RPC_USER=${KOMODO_RPC_USER}
+      - KOMODO_RPC_PASSWORD=${KOMODO_RPC_PASSWORD}
+
+  iguana:
+    build: 
+      context: ./iguana/docker
+      args:
+        IGUANA_BRANCH: beta
+    network_mode: "host"
+    ports:
+      - "127.0.0.1:7778:7778"
+      # RPC port
+      - "127.0.0.1:7776:7776"
+      # to the outside world
+      - "7000:7000"
+    volumes:
+      - iguana-data:/home/iguana/.iguana
+      - shared-data:/home/iguana/.shared
+    environment:
+      - IGUANA_RPC_USER=${IGUANA_RPC_USER}
+      - IGUANA_RPC_PASSWORD=${IGUANA_RPC_PASSWORD}
+
+volumes:
+  bitcoin-data:
+    driver_opts:
+      type: none
+      device: ${BITCOIN_DATA}
+      o: bind
+  chips-data:
+    driver_opts:
+      type: none
+      device: ${CHIPS_DATA}
+      o: bind
+  komodo-data:
+    driver_opts:
+      type: none
+      device: ${KOMODO_DATA}
+      o: bind
+  iguana-data:
+    driver_opts:
+      type: none
+      device: ${IGUANA_DATA}
+      o: bind
+  shared-data:
+    driver_opts:
+      type: none
+      device: ${SHARED_DATA}
+      o: bind
