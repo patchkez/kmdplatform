@@ -48,6 +48,7 @@ services:
     environment:
       - KOMODO_RPC_USER=${KOMODO_RPC_USER}
       - KOMODO_RPC_PASSWORD=${KOMODO_RPC_PASSWORD}
+      - KOMODO_BRANCH=beta
 
   iguana:
     build: 
