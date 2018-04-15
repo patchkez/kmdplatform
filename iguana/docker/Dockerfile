@@ -2,6 +2,8 @@ FROM ubuntu:16.04
 MAINTAINER emmanux
 LABEL version="0.5c"
 
+ARG IGUANA_BRANCH
+ENV IGUANA_HOME /home/iguana
 # prepare system to build things
 COPY *.patch /
 COPY x-cli.sh /
@@ -20,11 +22,15 @@ RUN git clone https://github.com/nanomsg/nanomsg && \
     ldconfig && \
     cd .. && rm -rf nanomsg
 
+# initialize things
+RUN useradd -u 3004 -m iguana
+
+USER iguana
+WORKDIR ${IGUANA_HOME}
 # get iguana code
 RUN git clone https://github.com/jl777/SuperNET && \
-    echo "trying jl777 branch" && \
     cd SuperNET/iguana && \
-    git checkout jl777 && \
+    git checkout ${IGUANA_BRANCH} && \
     git apply -v /*.patch
 
 # build secp256k1
@@ -50,25 +56,53 @@ RUN cd SuperNET/iguana && \
     clang -g -o ../agents/iguana *.o ../agents/libcrypto777.a \
         -lnanomsg -lcurl -lssl -lcrypto -lpthread -lz -lm
 
+USER root
 # remove unnecessary packages and install useful tools
 RUN apt remove --purge -y $BUILD_PACKAGES $(apt-mark showauto) && \
-    apt install -y curl libcurl4-openssl-dev telnet net-tools redir screen && \
+    apt install -y curl libcurl4-openssl-dev telnet net-tools redir screen python3-pip git && \
+    pip3 install virtualenv && \
     rm -rf /var/lib/apt/lists/* 
+
 
 # install x-cli.sh wrapper
 RUN ln -s /x-cli.sh /usr/bin/bitcoin-cli && \
     ln -s /x-cli.sh /usr/bin/komodo-cli && \
-    ln -s /x-cli.sh /SuperNET/agents/komodo-cli
+    ln -s /x-cli.sh ${IGUANA_HOME}/SuperNET/agents/komodo-cli
 
-# initialize things
-RUN useradd -u 3004 -m iguana
-ENV PATH="/SuperNET/iguana:${PATH}"
+# confd
+RUN curl -L -o /usr/local/bin/confd https://github.com/kelseyhightower/confd/releases/download/v0.15.0/confd-0.15.0-linux-amd64 && \
+    chmod +x /usr/local/bin/confd
+
+ADD entrypoint.sh /usr/local/bin
+COPY confd/ "${IGUANA_HOME}"/confd
+RUN chown -R iguana:iguana "${IGUANA_HOME}"/confd
+
+ENV PATH="~/SuperNET/agents/:~/SuperNET/iguana:${PATH}"
 USER iguana
 WORKDIR /home/iguana
-ENV HOME=/home/iguana
 
-# get testnet file
-RUN curl -so /home/iguana/testnet https://raw.githubusercontent.com/KomodoPlatform/vote2018/master/testnet/testnet.json
+# Create directories for configs, it seems confd cannot create them
+RUN mkdir ${IGUANA_HOME}/.bitcoin && \
+    mkdir ${IGUANA_HOME}/.komodo
 
-ENTRYPOINT ["/SuperNET/agents/iguana"]
+# Create python3 venv
+RUN virtualenv komodotools-venv && \
+    # Export needed variables for Python3
+    echo 'export LC_ALL=C.UTF-8' >> ~/.bashrc && \
+    echo 'export LANG=C.UTF-8' >> ~/.bashrc && \
+    # Acivate environment on container startup
+    echo 'source ~/komodotools-venv/bin/activate' >> ~/.bashrc && \
+    # Activate env now
+    . ~/komodotools-venv/bin/activate && \
+    # Clone komodotools repo
+    git clone https://github.com/KomodoPlatform/komodotools && \
+    # Install needed requirements
+    cd komodotools/dragonriders && pip install -Ur requirements.txt && \
+    # Install this repo as pip package
+    pip install --editable .
+
+
+ENTRYPOINT ["entrypoint.sh"] 
+CMD ["~/SuperNET/agents/iguana"]
+#ENTRYPOINT ["/SuperNET/agents/iguana"]
 

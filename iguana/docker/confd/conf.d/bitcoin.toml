@@ -1,0 +1,10 @@
+[template]
+src = "bitcoin.conf.tmpl"
+dest = "/home/iguana/.bitcoin/bitcoin.conf"
+keys = [
+    "BITCOIN_RPC_USER",
+    "BITCOIN_RPC_PASSWORD",
+    "BITCOIN_BIND",
+    "BITCOIN_RPC_BIND",
+    "BITCOIN_RPC_ALLOWIP"
+]
