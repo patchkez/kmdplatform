@@ -37,6 +37,8 @@ services:
   komodod:
     build: 
       context: ./komodod
+      args:
+        KOMODO_BRANCH: beta
     network_mode: "host" 
     ports:
       - "127.0.0.1:7770:7770"
