@@ -4,7 +4,9 @@ version: '3'
 services:
   bitcoind:
     build: ./bitcoind
-    network_mode: "host"
+    # network_mode: "host"
+    networks:
+      - komodo
     ports:
       # RPC port
       - "127.0.0.1:8332:8332"
@@ -22,7 +24,9 @@ services:
   chipsd:
     build: 
       context: ./chipsd
-    network_mode: "host" 
+    # network_mode: "host" 
+    networks:
+      - komodo
     ports:
       - "127.0.0.1:57776:57776"
       # RPC port ?
@@ -40,6 +44,8 @@ services:
       args:
         KOMODO_BRANCH: beta
     network_mode: "host" 
+    networks:
+      - komodo
     ports:
       - "127.0.0.1:7770:7770"
       # RPC port
@@ -57,7 +63,9 @@ services:
       context: ./iguana/docker
       args:
         IGUANA_BRANCH: beta
-    network_mode: "host"
+    # network_mode: "host"
+    networks:
+      - komodo
     ports:
       - "127.0.0.1:7778:7778"
       # RPC port
@@ -97,3 +105,6 @@ volumes:
       type: none
       device: ${SHARED_DATA}
       o: bind
+
+  networks:
+    komodo:
