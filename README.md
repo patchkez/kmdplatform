@@ -86,6 +86,11 @@ or
 docker-compose up #(not tested yet)
 ```
 
+If you are running all containers in custom network (bridged), most probably ports won't be exposed to localhost. You need to add --service-ports parameter to each container run e.g.:
+```
+docker-compose run --service-ports --rm komodod
+```
+
 For starting iguana dev container start:
 ```
 docker-compose -f docker-compose.yml -f docker-compose-dev.yml run --rm iguana
