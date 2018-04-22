@@ -105,4 +105,3 @@ RUN virtualenv komodotools-venv && \
 ENTRYPOINT ["entrypoint.sh"] 
 CMD ["~/SuperNET/agents/iguana"]
 #ENTRYPOINT ["/SuperNET/agents/iguana"]
-

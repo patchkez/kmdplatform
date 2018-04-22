@@ -76,6 +76,7 @@ services:
       - iguana-data:/home/iguana/.iguana
       - shared-data:/home/iguana/.shared
     environment:
+      - IGUANA_BRANCH=beta
       - IGUANA_RPC_USER=${IGUANA_RPC_USER}
       - IGUANA_RPC_PASSWORD=${IGUANA_RPC_PASSWORD}
 
@@ -106,5 +107,5 @@ volumes:
       device: ${SHARED_DATA}
       o: bind
 
-  networks:
-    komodo:
+networks:
+  komodo:
