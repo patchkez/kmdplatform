@@ -17,4 +17,4 @@ services:
       context: ./komodod
       args:
         KOMODO_BRANCH: dev
-    image: kmdplatform_komodo_dev
+    image: kmdplatform_komodod_dev
