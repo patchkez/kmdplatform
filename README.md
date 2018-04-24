@@ -82,7 +82,15 @@ docker-compose run --rm komodod
 docker-compose run --rm chipsd
 docker-compose run --rm iguana
 ```
-or
+or with service ports (service ports are needed with custom network and docker-compose run):
+```
+docker-compose -f docker-compose.yml -f docker-compose-dev.yml run --rm --service-ports bitcoind
+docker-compose -f docker-compose.yml -f docker-compose-dev.yml run --rm --service-ports komodod
+docker-compose -f docker-compose.yml -f docker-compose-dev.yml run --rm --service-ports chipsd
+docker-compose -f docker-compose.yml -f docker-compose-dev.yml run --rm --service-ports iguana
+```
+
+
 ```
 docker-compose up #(not tested yet)
 ```
