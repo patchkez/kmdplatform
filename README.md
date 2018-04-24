@@ -69,9 +69,10 @@ docker-compose build komodod
 docker-compose build iguana
 docker-compose build chipsd
 ```
-or if you want to build dev branch of iguana
+or if you want to build dev branch of iguana and komodod:
 ```
 docker-compose -f docker-compose.yml -f docker-compose-dev.yml build --no-cache iguana
+docker-compose -f docker-compose.yml -f docker-compose-dev.yml build --no-cache komodod
 ```
 
 First startup of containers will create needed config files. Some files are stored on shared volumes, so other containers can access generated keys.
