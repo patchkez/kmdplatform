@@ -1,0 +1,20 @@
+# vim: ts=2 sw=2 et
+version: '3'
+
+services:
+  iguana:
+    build:
+      context: ./iguana/docker
+      args:
+        IGUANA_BRANCH: dev
+    image: kmdplatform_iguana_dev
+    environment:
+    # If this variable is set to dev or jl777, iguana will be started in testnet
+      - IGUANA_MODE=dev
+
+  komodod:
+    build:
+      context: ./komodod
+      args:
+        KOMODO_BRANCH: dev
+    image: kmdplatform_komodod_dev

@@ -4,7 +4,9 @@ version: '3'
 services:
   bitcoind:
     build: ./bitcoind
-    network_mode: "host"
+    # network_mode: "host"
+    networks:
+      - komodo
     ports:
       # RPC port
       - "127.0.0.1:8332:8332"
@@ -18,11 +20,13 @@ services:
       - BITCOIN_GROUP_ID=${BITCOIN_GROUP_ID}
       - BITCOIN_RPC_USER=${BITCOIN_RPC_USER}
       - BITCOIN_RPC_PASSWORD=${BITCOIN_RPC_PASSWORD}
- 
+
   chipsd:
-    build: 
+    build:
       context: ./chipsd
-    network_mode: "host" 
+    # network_mode: "host"
+    networks:
+      - komodo
     ports:
       - "127.0.0.1:57776:57776"
       # RPC port ?
@@ -35,11 +39,13 @@ services:
       - CHIPS_RPC_PASSWORD=${CHIPS_RPC_PASSWORD}
 
   komodod:
-    build: 
+    build:
       context: ./komodod
       args:
         KOMODO_BRANCH: beta
-    network_mode: "host" 
+      # network_mode: "host"
+    networks:
+      - komodo
     ports:
       - "127.0.0.1:7770:7770"
       # RPC port
@@ -53,11 +59,13 @@ services:
       - KOMODO_BRANCH=beta
 
   iguana:
-    build: 
+    build:
       context: ./iguana/docker
       args:
         IGUANA_BRANCH: beta
-    network_mode: "host"
+    # network_mode: "host"
+    networks:
+      - komodo
     ports:
       - "127.0.0.1:7778:7778"
       # RPC port
@@ -68,6 +76,7 @@ services:
       - iguana-data:/home/iguana/.iguana
       - shared-data:/home/iguana/.shared
     environment:
+      - IGUANA_BRANCH=beta
       - IGUANA_RPC_USER=${IGUANA_RPC_USER}
       - IGUANA_RPC_PASSWORD=${IGUANA_RPC_PASSWORD}
 
@@ -97,3 +106,6 @@ volumes:
       type: none
       device: ${SHARED_DATA}
       o: bind
+
+networks:
+  komodo:
