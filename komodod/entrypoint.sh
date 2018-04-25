@@ -2,7 +2,7 @@
 
 KOMODO_HOME="/home/komodo"
 
-if [ -n "${ASSET_NAME}" -a -n "${ASSET_RPC_PORT} "];then
+if [ -n "${ASSET_NAME}" -a -n "${ASSET_RPC_PORT}" ];then
 
     cat > ${KOMODO_HOME}/confd/conf.d/assetchain.toml <<EOF
 [template]
