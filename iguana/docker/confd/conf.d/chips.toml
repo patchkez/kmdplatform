@@ -1,0 +1,10 @@
+[template]
+src = "chips.conf.tmpl"
+dest = "/home/iguana/.chips/chips.conf"
+keys = [
+    "CHIPS_RPC_USER",
+    "CHIPS_RPC_PASSWORD",
+    "CHIPS_BIND",
+    "CHIPS_RPC_BIND",
+    "CHIPS_RPC_ALLOWIP"
+]

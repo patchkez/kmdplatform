@@ -83,7 +83,8 @@ WORKDIR /home/iguana
 
 # Create directories for configs, it seems confd cannot create them
 RUN mkdir ${IGUANA_HOME}/.bitcoin && \
-    mkdir ${IGUANA_HOME}/.komodo
+    mkdir ${IGUANA_HOME}/.komodo && \
+    mkdir ${IGUANA_HOME}/.chips
 
 # Create python3 venv
 RUN virtualenv komodotools-venv && \
