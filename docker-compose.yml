@@ -20,6 +20,9 @@ services:
       - BITCOIN_GROUP_ID=${BITCOIN_GROUP_ID}
       - BITCOIN_RPC_USER=${BITCOIN_RPC_USER}
       - BITCOIN_RPC_PASSWORD=${BITCOIN_RPC_PASSWORD}
+      - BITCOIN_BIND=127.0.0.1
+      - BITCOIN_RPC_BIND=0.0.0.0
+      - BITCOIN_RPC_ALLOWIP=0.0.0.0/0
 
   chipsd:
     build:
@@ -37,6 +40,9 @@ services:
     environment:
       - CHIPS_RPC_USER=${CHIPS_RPC_USER}
       - CHIPS_RPC_PASSWORD=${CHIPS_RPC_PASSWORD}
+      - CHIPS_BIND=127.0.0.1
+      - CHIPS_RPC_BIND=0.0.0.0
+      - CHIPS_RPC_ALLOWIP=0.0.0.0/0
 
   komodod:
     build:
@@ -56,6 +62,9 @@ services:
     environment:
       - KOMODO_RPC_USER=${KOMODO_RPC_USER}
       - KOMODO_RPC_PASSWORD=${KOMODO_RPC_PASSWORD}
+      - KOMODO_BIND=127.0.0.1
+      - KOMODO_RPC_BIND=0.0.0.0
+      - KOMODO_RPC_ALLOWIP=0.0.0.0/0
       - KOMODO_BRANCH=beta
 
   iguana:
@@ -76,9 +85,9 @@ services:
       - iguana-data:/home/iguana/.iguana
       - shared-data:/home/iguana/.shared
     environment:
-      - IGUANA_BRANCH=beta
       - IGUANA_RPC_USER=${IGUANA_RPC_USER}
       - IGUANA_RPC_PASSWORD=${IGUANA_RPC_PASSWORD}
+      - IGUANA_BRANCH=beta
 
 volumes:
   bitcoin-data:

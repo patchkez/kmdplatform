@@ -61,6 +61,11 @@ mkdir ${SHARED_DATA} -m 0750 && chown iguana:shared -R ${SHARED_DATA}
 ### Prepare storage for docker layers/images - xfs+overlay2
 https://docs.docker.com/storage/storagedriver/device-mapper-driver/
 
+### Install needed tools on host
+```
+yum install tcpdump
+```
+
 ## First init - Start everything up
 Docker images are built automatically by running `docker-compose run <service>`. You can build images manually by executing:
 ```
@@ -113,49 +118,25 @@ Follow these 2 sections to install pip and python3 and enable virtualenvironment
 [Enable python3 virtualenv](https://github.com/KomodoPlatform/komodotools/tree/master/dragonriders#enable-python3-virtualenv)
 [Clone komodotools repository](https://github.com/KomodoPlatform/komodotools/tree/master/dragonriders#clone-this-repository)
 
+
+### Create iguana wallet, import privkey into btc and btcd
 ```
 cd iguana/
 ./init_iguana.py
 ```
 
-
-
-### Create Iguana wallet
-Stop bitcoin service now, iguana in basilisk mode is trying start something on port 8332 (bitcoind default rpc port).
-```
-docker-compose run --rm iguana first_time_init
-```
-or in testnet:
-```
-docker-compose -f docker-compose.yml -f docker-compose-dev.yml run --rm iguana first_time_init
-```
-
-### Import the privkey of your BTCD address into Komodo
-Keep bitcoind stopped.
-```
-docker-compose run --rm komodo import_key
-```
-
-### Import BTC privkey into Bitcoin
-Stop iguana now because it occupies port 8332 and start bitcoind:
-```
-docker-compose run --rm bitcoin
-```
-
-Import privkey:
-```
-docker-compose run --rm bitcoin import_key
-```
-
 ### Import BTCD privkey into Chips
 Import privkey:
-```
-docker-compose run --rm chips import_key
-```
 
+TODO
 
 
 Stop all containers now.
+### Force rescan manually
+```
+docker-compose run -service-ports --rm bitcoind bitcoind -rescan
+docker-compose run -service-ports --rm komodod komodod -rescan
+```
 
 ## Start everything with pubkey
 All config files were generated and stored to corresponding volumes. Each container has entrypoint script which detects e.g. if pubkey file exists and starts daemon with different arguments.
