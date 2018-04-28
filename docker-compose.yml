@@ -26,10 +26,10 @@ services:
 
   KMD:
     build:
-    image: kmdplatform_komodod
       context: ./komodod
       args:
         KOMODO_BRANCH: beta
+    image: kmdplatform_komodod
     networks:
       - komodo
     links:
