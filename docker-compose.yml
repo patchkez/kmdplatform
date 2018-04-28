@@ -72,8 +72,8 @@ services:
       - chips-data:/home/chips/.chips
       - shared-data:/home/komodo/.shared:ro
     environment:
-      - CHIPS_RPC_USER=${CHIPS_RPC_USER}
-      - CHIPS_RPC_PASSWORD=${CHIPS_RPC_PASSWORD}
+      - CHIPS_RPC_USER=${ASSET_RPC_USER}
+      - CHIPS_RPC_PASSWORD=${ASSET_RPC_PASSWORD}
       - CHIPS_BIND=127.0.0.1
       - CHIPS_RPC_BIND=0.0.0.0
       - CHIPS_RPC_ALLOWIP=0.0.0.0/0
