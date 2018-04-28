@@ -33,6 +33,7 @@ RUN curl -L -o /usr/local/bin/confd https://github.com/kelseyhightower/confd/rel
     chmod +x /usr/local/bin/confd
 
 ADD entrypoint.sh /usr/local/bin
+ADD start-komodod.sh /usr/local/bin
 COPY confd/ "${KOMODO_HOME}"/confd
 RUN chown -R komodo:komodo "${KOMODO_HOME}"/confd
 
@@ -47,6 +48,7 @@ RUN mkdir ${KOMODO_HOME}/.komodo && \
 VOLUME ["/home/komodo/.komodo"]
 
 ENTRYPOINT ["entrypoint.sh"]
-CMD ["komodod"]
+#CMD ["komodod"]
+CMD ["start-komodod.sh"]
 
 EXPOSE 7770 7771
