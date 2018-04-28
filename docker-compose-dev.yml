@@ -4,17 +4,22 @@ version: '3'
 services:
   iguana:
     build:
-      context: ./iguana/docker
       args:
         IGUANA_BRANCH: dev
     image: kmdplatform_iguana_dev
     environment:
     # If this variable is set to dev or jl777, iguana will be started in testnet
-      - IGUANA_MODE=dev
+      - IGUANA_MODE=production
 
-  komodod:
+  KMD:
     build:
-      context: ./komodod
       args:
         KOMODO_BRANCH: dev
     image: kmdplatform_komodod_dev
+
+  CHIPS:
+    build:
+      args:
+        CHIPS_BRANCH: dev
+    image: kmdplatform_chipsd_dev
+

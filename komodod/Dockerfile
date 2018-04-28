@@ -40,12 +40,13 @@ ENV PATH="~/komodo/src/:${PATH}"
 USER komodo
 WORKDIR "${KOMODO_HOME}"
 RUN mkdir ${KOMODO_HOME}/.komodo && \
+    mkdir ${KOMODO_HOME}/.bitcoin && \
     touch ${KOMODO_HOME}/.komodo/komodo.conf && \
     chown komodo:komodo "${KOMODO_HOME}"/.komodo/komodo.conf
 
 VOLUME ["/home/komodo/.komodo"]
 
-ENTRYPOINT ["entrypoint.sh"] 
+ENTRYPOINT ["entrypoint.sh"]
 CMD ["komodod"]
 
 EXPOSE 7770 7771
