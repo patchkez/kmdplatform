@@ -32,8 +32,8 @@ services:
     image: kmdplatform_komodod
     networks:
       - komodo
-    links:
-      - BTC
+    # links:
+    #  - BTC
     ports:
       - "127.0.0.1:7770:7770"
       # RPC port
@@ -61,9 +61,9 @@ services:
     image: kmdplatform_chipsd
     networks:
       - komodo
-    links:
-      - BTC
-      - KMD
+    # links:
+    #  - BTC
+    #  - KMD
     ports:
       - "127.0.0.1:57776:57776"
       # RPC port ?
@@ -82,7 +82,7 @@ services:
       - BITCOIN_RPC_BIND=BTC
       - KOMODO_RPC_USER=${KOMODO_RPC_USER}
       - KOMODO_RPC_PASSWORD=${KOMODO_RPC_PASSWORD}
-      - KOMODO_RPC_BIND=KMD
+      # - KOMODO_RPC_BIND=KMD
 
   iguana:
     build:
@@ -92,10 +92,10 @@ services:
     image: kmdplatform_iguana
     networks:
       - komodo
-    links:
-      - BTC
-      - KMD
-      - CHIPS
+    # links:
+    #  - BTC
+    #  - KMD
+    #  - CHIPS
     ports:
       - "127.0.0.1:7778:7778"
       # RPC port
