@@ -4,6 +4,7 @@ version: '3'
 services:
   BTC:
     build: ./bitcoind
+    image: kmdplatform_bitcoind
     networks:
       - komodo
     ports:
@@ -25,6 +26,7 @@ services:
 
   KMD:
     build:
+    image: kmdplatform_komodod
       context: ./komodod
       args:
         KOMODO_BRANCH: beta
@@ -55,6 +57,7 @@ services:
       context: ./chipsd
       args:
         CHIPS_BRANCH: master
+    image: kmdplatform_chipsd
     networks:
       - komodo
     links:
@@ -85,6 +88,7 @@ services:
       context: ./iguana/docker
       args:
         IGUANA_BRANCH: beta
+    image: kmdplatform_iguana
     networks:
       - komodo
     links:
