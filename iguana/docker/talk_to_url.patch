@@ -67,10 +67,12 @@ diff --git a/iguana/iguana_chains.c b/iguana/iguana_chains.c
 index 4fc5a0b..8897183 100755
 --- a/iguana/iguana_chains.c
 +++ b/iguana/iguana_chains.c
-@@ -378,7 +378,7 @@ void iguana_chainparms(struct supernet_info *myinfo,struct iguana_chain *chain,c
+@@ -377,7 +377,7 @@ void iguana_chainparms(struct supernet_info *myinfo,struct iguana_chain *chain,c
+         if ( jobj(argjson,"reward") != 0 )
              chain->initialreward = jdouble(argjson,"reward") * SATOSHIDEN;
          else chain->initialreward = 50 * SATOSHIDEN;
-         if ( chain->serverport[0] == 0 )
+-        if ( chain->serverport[0] == 0 )
++        //if ( chain->serverport[0] == 0 )
 -            sprintf(chain->serverport,"127.0.0.1:%u",chain->rpcport);
 +            sprintf(chain->serverport,"%s:%u",chain->symbol,chain->rpcport);
          if ( strcmp(chain->symbol,"BTC") != 0 && strcmp(chain->symbol,"BTCD") != 0 )
