@@ -23,7 +23,8 @@ ENV BDB_PREFIX "${CHIPS_HOME}/db4"
 
 # Clone CHIPS repository
 RUN cd ${CHIPS_HOME} && \
-    git clone https://github.com/jl777/chips3.git
+    git clone https://github.com/jl777/chips3.git && \
+    cd chips3 && git checkout ${CHIPS_BRANCH}
 
 # Build Berkly DB 4.8
 RUN cd ${CHIPS_HOME} && \
