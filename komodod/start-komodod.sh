@@ -2,7 +2,7 @@
 
 # If BTC_PUBKEY variable is not empty string and no arguments were passed to container, start mining with pubkey
 if [ -n "${BTC_PUBKEY}" -a $# -eq 0 ]; then
-  exec komodod -gen -genproclimit=2 -notary -pubkey="${BTC_PUBKEY}"
+  exec komodod -gen -genproclimit=3 -notary -pubkey="${BTC_PUBKEY}"
 
 # We do not have pubkey yeti and no arguments passed to container
 elif [ -z "${BTC_PUBKEY}" -a $# -eq 0 ]; then

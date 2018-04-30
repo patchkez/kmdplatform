@@ -5,7 +5,6 @@ import pprint
 import sys
 import os
 
-
 # config area
 iguana_ip = '127.0.0.1'
 iguana_port = '7776'
@@ -19,24 +18,27 @@ komodod_ip = '127.0.0.1'
 komodod_port = '7771'
 komodod_rpcuser = 'komodo-rpc-user'
 komodod_rpcpassword = 'komodo-rpc-password'
+
+# Set to True if you want to rescan blockchain after privkey import 
+rescan_btc = False
+rescan_btcd = False
 # end of config area
 
 
 # define url's
 iguana_url = 'http://' + iguana_ip + ':' + iguana_port
+iguana_auth=('', '')
 bitcoind_url = (
     'http://' +
-    bitcoind_rpcuser + ':' +
-    bitcoind_rpcpassword + '@' +
     bitcoind_ip + ':' +
     bitcoind_port)
+# bitcoind_auth=(bitcoind_rpcuser, bitcoind_rpcpassword)
+bitcoind_auth=(bitcoind_rpcuser , bitcoind_rpcpassword)
 komodod_url = (
     'http://' +
-    komodod_rpcuser + ':' +
-    komodod_rpcpassword + '@' +
     komodod_ip + ':' +
     komodod_port)
-
+komodod_auth=(komodod_rpcuser, komodod_rpcpassword)
 # read passphrase from environment variable
 try:
     passphrase = sys.argv[1]
@@ -53,9 +55,9 @@ pp = pprint.PrettyPrinter(width=41, compact=True)
 
 
 # define function that posts json data to iguana
-def post_rpc(url, payload):
+def post_rpc(url, payload, auth):
     try:
-        r = requests.post(url, data=json.dumps(payload))
+        r = requests.post(url, data=json.dumps(payload), auth=auth)
         return(json.loads(r.text))
     except Exception as e:
         print("Couldn't connect to " + url, e)
@@ -79,7 +81,7 @@ addcoin_BTCD = {
     "portp2p": 14631,
     "rpc": 14632
 }
-response_addcoin_BTCD = post_rpc(iguana_url, addcoin_BTCD)
+response_addcoin_BTCD = post_rpc(iguana_url, addcoin_BTCD, iguana_auth)
 print('== response_addcoin_BTCD ==')
 pp.pprint(response_addcoin_BTCD)
 
@@ -98,7 +100,7 @@ addcoin_BTC = {
     "VALIDATE": 0,
     "portp2p": 8333
 }
-response_addcoin_BTC = post_rpc(iguana_url, addcoin_BTC)
+response_addcoin_BTC = post_rpc(iguana_url, addcoin_BTC, iguana_auth)
 print('== response_addcoin_BTC ==')
 pp.pprint(response_addcoin_BTC)
 
@@ -113,7 +115,7 @@ encryptwallet = {
     "method": "encryptwallet",
     "passphrase": passphrase
 }
-response_encryptwallet = post_rpc(iguana_url, encryptwallet)
+response_encryptwallet = post_rpc(iguana_url, encryptwallet, iguana_auth)
 
 try:
     # store BTCDwif
@@ -152,7 +154,7 @@ walletpassphrase = {
         9999999
     ]
 }
-response_walletpassphrase = post_rpc(iguana_url, walletpassphrase)
+response_walletpassphrase = post_rpc(iguana_url, walletpassphrase, iguana_auth)
 
 # store btcpubkey
 btcpubkey = response_walletpassphrase['btcpubkey']
@@ -170,18 +172,18 @@ pp.pprint(response_walletpassphrase)
 btc_importprivkey = {
     "agent": "bitcoinrpc",
     "method": "importprivkey",
-    "params": [BTCwif, "", False]
+    "params": [BTCwif, "", rescan_btc]
 }
-response_btc_importprivkey = post_rpc(bitcoind_url, btc_importprivkey)
+response_btc_importprivkey = post_rpc(bitcoind_url, btc_importprivkey, bitcoind_auth)
 print('== response_btc_importprivkey ==')
 pp.pprint(response_btc_importprivkey)
 
 btcd_importprivkey = {
     "agent": "bitcoinrpc",
     "method": "importprivkey",
-    "params": [BTCDwif, "", False]
+    "params": [BTCDwif, "", rescan_btcd]
 }
-response_btcd_importprivkey = post_rpc(komodod_url, btcd_importprivkey)
+response_btcd_importprivkey = post_rpc(komodod_url, btcd_importprivkey, komodod_auth)
 print('== response_btcd_importprivkey ==')
 pp.pprint(response_btcd_importprivkey)
 
@@ -193,7 +195,7 @@ btc_validateaddress = {
     "method": "validateaddress",
     "params": [BTC]
 }
-response_btc_validateaddress = post_rpc(bitcoind_url, btc_validateaddress)
+response_btc_validateaddress = post_rpc(bitcoind_url, btc_validateaddress, bitcoind_auth)
 print('== response_btc_validateaddress ==')
 pp.pprint(response_btc_validateaddress)
 
@@ -201,6 +203,6 @@ btcd_validateaddress = {
     "method": "validateaddress",
     "params": [BTCD]
 }
-response_btcd_validateaddress = post_rpc(komodod_url, btcd_validateaddress)
+response_btcd_validateaddress = post_rpc(komodod_url, btcd_validateaddress, komodod_auth)
 print('== response_btcd_validateaddress ==')
 pp.pprint(response_btcd_validateaddress)

@@ -51,4 +51,4 @@ ENTRYPOINT ["entrypoint.sh"]
 #CMD ["komodod"]
 CMD ["start-komodod.sh"]
 
-EXPOSE 7770 7771
+# EXPOSE 7770 7771
