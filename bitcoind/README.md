@@ -6,16 +6,17 @@ useradd -u 3001 -m bitcoin
 
 Run container:
 ```
-docker run -d --rm --name bitcoin -ti \
-    -p 172.17.0.1:8332:8332 \
-    -p 172.17.0.1:8333:8333 \
-    -v /home/bitcoin:/home/bitcoin/.bitcoin \
+docker run -d --rm \
+    -p 127.0.0.1:8333:8333 \
+    -p 127.0.0.1:8332:8332 \
+    --mount 'src=BTC_VOL,dst=/home/bitcoin' \
+    --name BTC \
     kmdplatform/bitcoind
 ```
 Optionally if you want to override settings in config file:
 ```
-docker run --rm --name bitcoin -ti \
-    -v /home/bitcoin/:/home/bitcoin/.bitcoin \
+docker run -d --rm --name bitcoin -ti \
+    --mount 'src=BTC_VOL,dst=/home/bitcoin' \
     -p 127.0.0.1:8332:8332 \
     -p 127.0.0.1:8333:8333 \
     -e BITCOIN_BIND=0.0.0.0 \
