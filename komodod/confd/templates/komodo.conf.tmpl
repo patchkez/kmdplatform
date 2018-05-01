@@ -1,7 +1,7 @@
-rpcuser={{ or (getenv "KOMODO_RPC_USER") "komodorpc" }}
-rpcpassword={{ or (getenv "KOMODO_RPC_PASSWORD") "komodorpcpassword" }}
+rpcuser={{ or (getenv "KOMODO_RPC_USER") "rpcuser" }}
+rpcpassword={{ or (getenv "KOMODO_RPC_PASSWORD") "rpcpassword" }}
 server=1
 txindex=1
 bind={{ or (getenv "KOMODO_BIND") "127.0.0.1" }}
-rpcbind={{ or (getenv "KOMODO_RPC_BIND") "127.0.0.1" }}
-rpcallowip={{ or (getenv "KOMODO_RPC_ALLOWIP") "0.0.0.0" }}
+rpcbind={{ or (getenv "KOMODO_RPC_BIND") "0.0.0.0" }}
+rpcallowip={{ or (getenv "KOMODO_RPC_ALLOWIP") "0.0.0.0/0" }}

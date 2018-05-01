@@ -14,6 +14,7 @@ RUN useradd -u 3001 -m bitcoin
 # Add confd files as root
 COPY confd/ /etc/confd
 ADD entrypoint.sh /usr/local/bin
+ADD start-bitcoind.sh /usr/local/bin
 
 # confd
 RUN curl -L -o /usr/local/bin/confd https://github.com/kelseyhightower/confd/releases/download/v0.15.0/confd-0.15.0-linux-amd64 && \
@@ -29,6 +30,7 @@ RUN mkdir ${BITCOIN_HOME}/.bitcoin && \
 VOLUME ["/home/bitcoin"] 
 
 ENTRYPOINT ["entrypoint.sh"]
-CMD ["bitcoind"]
+CMD ["start-bitcoind.sh"]
+# CMD ["bitcoind"]
 
 EXPOSE 8332 8333

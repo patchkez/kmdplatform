@@ -33,6 +33,7 @@ RUN curl -L -o /usr/local/bin/confd https://github.com/kelseyhightower/confd/rel
     chmod +x /usr/local/bin/confd
 
 ADD entrypoint.sh /usr/local/bin
+ADD start-komodod.sh /usr/local/bin
 COPY confd/ "${KOMODO_HOME}"/confd
 RUN chown -R komodo:komodo "${KOMODO_HOME}"/confd
 
@@ -40,12 +41,14 @@ ENV PATH="~/komodo/src/:${PATH}"
 USER komodo
 WORKDIR "${KOMODO_HOME}"
 RUN mkdir ${KOMODO_HOME}/.komodo && \
+    mkdir ${KOMODO_HOME}/.bitcoin && \
     touch ${KOMODO_HOME}/.komodo/komodo.conf && \
     chown komodo:komodo "${KOMODO_HOME}"/.komodo/komodo.conf
 
 VOLUME ["/home/komodo/.komodo"]
 
-ENTRYPOINT ["entrypoint.sh"] 
-CMD ["komodod"]
+ENTRYPOINT ["entrypoint.sh"]
+#CMD ["komodod"]
+CMD ["start-komodod.sh"]
 
-EXPOSE 7770 7771
+# EXPOSE 7770 7771

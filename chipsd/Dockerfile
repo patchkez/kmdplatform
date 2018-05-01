@@ -52,6 +52,7 @@ USER chips
 ENV PATH="${CHIPS_HOME}:${CHIPS}/src:${PATH}"
 
 RUN mkdir ${CHIPS_HOME}/.chips && \
+    mkdir ${CHIPS_HOME}/.komodo && \
     chmod 0750 ${CHIPS_HOME}/.chips && \
     chown chips:chips -R ${CHIPS_HOME}/.chips
 

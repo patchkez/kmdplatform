@@ -1,5 +1,5 @@
-rpcuser={{ or (getenv "BITCOIN_RPC_USER") "bitcoinrpc" }}
-rpcpassword={{ or (getenv "BITCOIN_RPC_PASSWORD") "bitcoinrpcpassword" }}
+rpcuser={{ or (getenv "BITCOIN_RPC_USER") "rpcuser" }}
+rpcpassword={{ or (getenv "BITCOIN_RPC_PASSWORD") "rpcpassword" }}
 server=1
 txindex=1
 bind={{ or (getenv "BITCOIN_BIND") "127.0.0.1" }}
