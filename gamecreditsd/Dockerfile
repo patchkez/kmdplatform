@@ -1,7 +1,7 @@
 FROM ubuntu:16.04
 LABEL maintainer="Dragon Riders <infra@komodo.rocks>"
 
-ARG GAMECREDITS_BRANCH
+ARG GAME_BRANCH
 
 ENV USER_ID ${USER_ID:-3008}
 ENV GROUP_ID ${GROUP_ID:-3008}
