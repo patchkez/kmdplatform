@@ -36,6 +36,10 @@ elif [ -f /home/komodo/.komodo/${ASSET_NAME}/${ASSET_NAME}.conf ]; then
   rm /home/komodo/.komodo/${ASSET_NAME}/${ASSET_NAME}.conf
 fi
 
+if [ ! -d /home/komodo/.komodo/${ASSET_NAME} ];then
+  mkdir -p /home/komodo/.komodo/${ASSET_NAME}
+fi
+
 confd -confdir ${KOMODO_HOME}/confd -onetime -backend env
 
 exec "$@"

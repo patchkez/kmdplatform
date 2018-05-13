@@ -67,7 +67,7 @@ USER root
 RUN apt remove --purge -y $BUILD_PACKAGES $(apt-mark showauto) && \
     apt install -y curl libcurl4-openssl-dev telnet net-tools redir screen python3-pip git && \
     pip3 install virtualenv && \
-    rm -rf /var/lib/apt/lists/* 
+    rm -rf /var/lib/apt/lists/*
 
 
 # install x-cli.sh wrapper
@@ -90,7 +90,8 @@ WORKDIR /home/iguana
 # Create directories for configs, it seems confd cannot create them
 RUN mkdir ${IGUANA_HOME}/.bitcoin && \
     mkdir ${IGUANA_HOME}/.komodo && \
-    mkdir ${IGUANA_HOME}/.chips
+    mkdir ${IGUANA_HOME}/.chips && \
+    mkdir ${IGUANA_HOME}/.gamecredits
 
 # Create python3 venv
 RUN virtualenv komodotools-venv && \
@@ -109,6 +110,6 @@ RUN virtualenv komodotools-venv && \
     pip install --editable .
 
 
-ENTRYPOINT ["entrypoint.sh"] 
+ENTRYPOINT ["entrypoint.sh"]
 CMD ["~/SuperNET/agents/iguana"]
 #ENTRYPOINT ["/SuperNET/agents/iguana"]

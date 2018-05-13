@@ -1,0 +1,10 @@
+[template]
+src = "gamecredits.conf.tmpl"
+dest = "/home/iguana/.gamecredits/gamecredits.conf"
+keys = [
+    "GAME_RPC_USER",
+    "GAME_RPC_PASSWORD",
+    "GAME_BIND",
+    "GAME_RPC_BIND",
+    "GAME_RPC_ALLOWIP"
+]

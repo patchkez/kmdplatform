@@ -1,0 +1,7 @@
+rpcuser={{ or (getenv "GAME_RPC_USER") "rpcuser" }}
+rpcpassword={{ or (getenv "GAME_RPC_PASSWORD") "rpcpassword" }}
+server=1
+txindex=1
+bind={{ or (getenv "GAME_BIND") "127.0.0.1" }}
+rpcbind={{ or (getenv "GAME_RPC_BIND") "0.0.0.0" }}
+rpcallowip={{ or (getenv "GAME_RPC_ALLOWIP") "0.0.0.0/0" }}

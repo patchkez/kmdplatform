@@ -17,11 +17,13 @@ groupadd -g 3004 iguana
 groupadd -g 3005 shared
 groupadd -g 3006 kmdadm
 groupadd -g 3007 chips
+groupadd -g 3008 gamecredits
 useradd -u 3001 -g bitcoin -G shared -m -d /home/bitcoin bitcoin
 useradd -u 3003 -g komodo -G shared -m -d /home/komodo komodo
 useradd -u 3004 -g iguana -G shared -m -d /home/iguana iguana
 useradd -u 3006 -g kmdadm -G shared -m -d /home/kmdadm kmdadm
 useradd -u 3007 -g chips -G shared -m -d /home/chips chips
+useradd -u 3008 -g gamecredits -G gamecredits -m -d /home/gamecredits gamecredits
 passwd kmdadm
 ```
 ### Generate random passphrase which will be used for Iguana wallet
@@ -55,6 +57,7 @@ mkdir ${BITCOIN_DATA} -m 0750 && chown bitcoin:shared -R ${BITCOIN_DATA}
 mkdir ${KOMODO_DATA} -m 0750 && chown komodo:shared -R ${KOMODO_DATA}
 mkdir ${IGUANA_DATA} -m 0750 && chown iguana:shared -R ${IGUANA_DATA}
 mkdir ${CHIPS_DATA} -m 0750 && chown chips:shared -R ${CHIPS_DATA}
+mkdir ${GAME_DATA} -m 0750 && chown gamecredits:gamecredits -R ${GAME_DATA}
 mkdir ${SHARED_DATA} -m 0750 && chown iguana:shared -R ${SHARED_DATA}
 ```
 
