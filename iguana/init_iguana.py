@@ -11,13 +11,13 @@ iguana_port = '7776'
 
 bitcoind_ip = '127.0.0.1'
 bitcoind_port = '8332'
-bitcoind_rpcuser = 'bitcoin-rpc-user'
-bitcoind_rpcpassword = 'bitcoin-rpc-password'
+bitcoind_rpcuser = 'bitcoinrpc'
+bitcoind_rpcpassword = 'bitcoinrpcpassword'
 
 komodod_ip = '127.0.0.1'
 komodod_port = '7771'
-komodod_rpcuser = 'komodo-rpc-user'
-komodod_rpcpassword = 'komodo-rpc-password'
+komodod_rpcuser = 'komodorpc'
+komodod_rpcpassword = 'komodorpcpassword'
 
 # Set to True if you want to rescan blockchain after privkey import 
 rescan_btc = False
@@ -27,18 +27,18 @@ rescan_btcd = False
 
 # define url's
 iguana_url = 'http://' + iguana_ip + ':' + iguana_port
-iguana_auth=('', '')
+iguana_auth = ('', '')
 bitcoind_url = (
     'http://' +
     bitcoind_ip + ':' +
     bitcoind_port)
 # bitcoind_auth=(bitcoind_rpcuser, bitcoind_rpcpassword)
-bitcoind_auth=(bitcoind_rpcuser , bitcoind_rpcpassword)
+bitcoind_auth = (bitcoind_rpcuser, bitcoind_rpcpassword)
 komodod_url = (
     'http://' +
     komodod_ip + ':' +
     komodod_port)
-komodod_auth=(komodod_rpcuser, komodod_rpcpassword)
+komodod_auth = (komodod_rpcuser, komodod_rpcpassword)
 # read passphrase from environment variable
 try:
     passphrase = sys.argv[1]
