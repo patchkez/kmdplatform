@@ -1,0 +1,25 @@
+From d65cf0cec22e52b7aa7d55173c9717b8caeb969e Mon Sep 17 00:00:00 2001
+From: papa <test@test.com>
+Date: Tue, 9 Oct 2018 22:45:06 +0100
+Subject: [PATCH] change bdb cache size for walet to 64MB
+
+---
+ src/wallet/db.cpp | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/src/wallet/db.cpp b/src/wallet/db.cpp
+index c6beb8a52..9086373e9 100644
+--- a/src/wallet/db.cpp
++++ b/src/wallet/db.cpp
+@@ -90,7 +90,8 @@ bool CDBEnv::Open(const boost::filesystem::path& pathIn)
+         nEnvFlags |= DB_PRIVATE;
+ 
+     dbenv->set_lg_dir(pathLogDir.string().c_str());
+-    dbenv->set_cachesize(0, 0x100000, 1); // 1 MiB should be enough for just the wallet
++    // patchkez dbenv->set_cachesize(0, 0x100000, 1); // 1 MiB should be enough for just the wallet
++    dbenv->set_cachesize(0, 0x4000000, 1); // 67108864 bytes
+     dbenv->set_lg_bsize(0x10000);
+     dbenv->set_lg_max(1048576);
+     dbenv->set_lk_max_locks(40000);
+-- 
+2.18.0

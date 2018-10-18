@@ -1,0 +1,10 @@
+[template]
+src = "komodo.conf.tmpl"
+dest = "/home/einsteinium/.komodo/komodo.conf"
+keys = [
+    "KOMODO_RPC_USER",
+    "KOMODO_RPC_PASSWORD",
+    "KOMODO_BIND",
+    "KOMODO_RPC_BIND",
+    "KOMODO_RPC_ALLOWIP"
+]

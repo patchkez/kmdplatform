@@ -49,7 +49,8 @@ RUN cd ${GAMECREDITS_HOME} && \
 
 # Build GameCredits
 RUN cd ${GAMECREDITS_HOME} && \
-    git clone https://github.com/jl777/GameCredits && \
+    # git clone https://github.com/jl777/GameCredits && \
+    git clone https://github.com/gamecredits-project/GameCredits && \
     cd GameCredits && git checkout ${GAME_BRANCH} && ./autogen.sh && \
    ./configure LIBS="-ldl" PKG_CONFIG_PATH="${SSL_PREFIX}/pkgconfig" LDFLAGS="-L${SSL_PREFIX}/lib -L${BDB_PREFIX}/lib/ -static" CXXFLAGS="-I${SSL_PREFIX}/include -I${BDB_PREFIX}/include/" \
        -without-gui -without-miniupnpc --disable-tests --disable-bench --enable-static --disable-shared && \
@@ -74,9 +75,10 @@ VOLUME ["/home/gamecredits/.gamecredits"]
 
 # confd
 ADD entrypoint.sh "${GAMECREDITS_HOME}"
+ADD start-gamecreditsd.sh "${GAMECREDITS_HOME}"
 RUN curl -L -o confd https://github.com/kelseyhightower/confd/releases/download/v0.15.0/confd-0.15.0-linux-amd64 && \
     chmod +x confd
 
 
 ENTRYPOINT ["entrypoint.sh"]
-CMD ["gamecreditsd"]
+CMD ["start-gamecreditsd.sh"]

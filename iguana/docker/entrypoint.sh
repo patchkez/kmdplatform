@@ -32,7 +32,7 @@ fi
 
 # Are we running in TEST/DEV mode?
 if [ "${IGUANA_MODE}" = "production" ];then
-  MODE="notary"
+  MODE="notary_nosplit"
 elif [ "${IGUANA_MODE}" = "development" ];then
   MODE="testnet"
   curl -o testnet https://raw.githubusercontent.com/KomodoPlatform/vote2018/master/testnet/testnet.json

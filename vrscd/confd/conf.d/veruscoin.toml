@@ -1,0 +1,12 @@
+[template]
+src = "veruscoin.conf.tmpl"
+dest = "/home/veruscoin/.komodo/VRSC/VRSC.conf"
+keys = [
+    "VRSC_RPC_USER",
+    "VRSC_RPC_PASSWORD",
+    "VRSC_BIND",
+    "VRSC_RPC_BIND",
+    "VRSC_RPC_ALLOWIP",
+    "VRSC_RPC_WORKQUEUE",
+    "VRSC_RPC_PORT"
+    ]

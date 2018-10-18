@@ -1,0 +1,40 @@
+From ae709c2c1016c1692116782fb67479be2b014cb6 Mon Sep 17 00:00:00 2001
+From: DeckerSU <support@decker.su>
+Date: Sat, 2 Jun 2018 02:00:49 +0300
+Subject: [PATCH] rename standart iguana's vcalc_sha256 ->
+ vcalc_sha256_software
+
+---
+ crypto777/curve25519.c | 2 +-
+ includes/curve25519.h  | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/crypto777/curve25519.c b/crypto777/curve25519.c
+index 2f8f8dc..563ec89 100755
+--- a/crypto777/curve25519.c
++++ b/crypto777/curve25519.c
+@@ -1125,7 +1125,7 @@ static inline int32_t sha256_vdone(struct sha256_vstate *md,uint8_t *out)
+ 
+ int32_t init_hexbytes_noT(char *hexbytes,uint8_t *message,long len);
+ 
+-void vcalc_sha256(char hashstr[(256 >> 3) * 2 + 1],uint8_t hash[256 >> 3],uint8_t *src,int32_t len)
++void vcalc_sha256_software(char hashstr[(256 >> 3) * 2 + 1],uint8_t hash[256 >> 3],uint8_t *src,int32_t len)
+ {
+     struct sha256_vstate md;
+     sha256_vinit(&md);
+diff --git a/includes/curve25519.h b/includes/curve25519.h
+index 9f8c9ba..b12925d 100755
+--- a/includes/curve25519.h
++++ b/includes/curve25519.h
+@@ -51,7 +51,7 @@ bits256 rand256(int32_t privkeyflag);
+ bits256 curve25519_basepoint9();
+ bits256 curve25519_keypair(bits256 *pubkeyp);
+ 
+-void vcalc_sha256(char hashstr[(256 >> 3) * 2 + 1],uint8_t hash[256 >> 3],uint8_t *src,int32_t len);
++void vcalc_sha256_software(char hashstr[(256 >> 3) * 2 + 1],uint8_t hash[256 >> 3],uint8_t *src,int32_t len);
+ void vcalc_sha256cat(uint8_t hash[256 >> 3],uint8_t *src,int32_t len,uint8_t *src2,int32_t len2);
+ void vupdate_sha256(uint8_t hash[256 >> 3],struct sha256_vstate *state,uint8_t *src,int32_t len);
+ bits256 curve25519_shared(bits256 privkey,bits256 otherpub);
+-- 
+1.8.3.1
+

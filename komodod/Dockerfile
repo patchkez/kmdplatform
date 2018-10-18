@@ -3,6 +3,7 @@ LABEL maintainer="Emmanux <infra@komodo.rocks>"
 
 ARG KOMODO_BRANCH
 ENV KOMODO_HOME /home/komodo
+COPY *.patch /tmp/
 
 ENV BUILD_PACKAGES="build-essential pkg-config libcurl3-gnutls-dev libc6-dev libevent-dev m4 g++-multilib autoconf libtool ncurses-dev unzip git python zlib1g-dev wget bsdmainutils automake libboost-all-dev libssl-dev libprotobuf-dev protobuf-compiler libqt4-dev libqrencode-dev libdb++-dev curl libcurl3-gnutls-dev libgomp1"
 
@@ -16,7 +17,8 @@ WORKDIR ${KOMODO_HOME}
 
 RUN git clone https://github.com/jl777/komodo && \
     cd komodo && \
-    git checkout ${KOMODO_BRANCH} 
+    git checkout ${KOMODO_BRANCH} && \
+    git apply -v /tmp/*.patch
 RUN cd komodo && ./zcutil/fetch-params.sh
 RUN cd komodo && ./zcutil/build.sh -j$(nproc)
 

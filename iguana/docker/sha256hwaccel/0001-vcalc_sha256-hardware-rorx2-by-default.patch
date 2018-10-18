@@ -1,0 +1,69 @@
+From 08e8be8e9827ec177b8b08e2adb4871d598384d4 Mon Sep 17 00:00:00 2001
+From: DeckerSU <support@decker.su>
+Date: Sat, 2 Jun 2018 02:05:38 +0300
+Subject: [PATCH] vcalc_sha256 -> hardware (rorx2 by default)
+
+---
+ crypto777/curve25519.c |  8 ++++++++
+ crypto777/m_LP         | 10 ++++++++--
+ includes/curve25519.h  |  1 +
+ 3 files changed, 17 insertions(+), 2 deletions(-)
+
+diff --git a/crypto777/curve25519.c b/crypto777/curve25519.c
+index 563ec89..52308a0 100755
+--- a/crypto777/curve25519.c
++++ b/crypto777/curve25519.c
+@@ -15,6 +15,7 @@
+ // derived from curve25519_donna
+ 
+ #include "../includes/curve25519.h"
++#include "cryptoext/sha256_hardware.h"
+ 
+ //#undef force_inline
+ //#define force_inline  __attribute__((always_inline))
+@@ -1125,6 +1126,13 @@ static inline int32_t sha256_vdone(struct sha256_vstate *md,uint8_t *out)
+ 
+ int32_t init_hexbytes_noT(char *hexbytes,uint8_t *message,long len);
+ 
++void vcalc_sha256(char hashstr[(256 >> 3) * 2 + 1],uint8_t hash[256 >> 3],uint8_t *src,int32_t len)
++{
++    SHA256_hash(src, len, hash);
++     if ( hashstr != 0 )
++        init_hexbytes_noT(hashstr,hash,256 >> 3);
++}
++
+ void vcalc_sha256_software(char hashstr[(256 >> 3) * 2 + 1],uint8_t hash[256 >> 3],uint8_t *src,int32_t len)
+ {
+     struct sha256_vstate md;
+diff --git a/crypto777/m_LP b/crypto777/m_LP
+index bc143b5..5c360d9 100755
+--- a/crypto777/m_LP
++++ b/crypto777/m_LP
+@@ -1,4 +1,10 @@
+-git pull
++#git pull
+ rm *.o
+-gcc -c -DLIQUIDITY_PROVIDER=1 -O2 *.c jpeg/*.c jpeg/unix/*.c -I/usr/lib/x86_64-linux-gnu/curl 
++
++yasm -f x64 -f elf64 -D LINUX -o sha256_avx.o cryptoext/intel/sha256_avx.asm 
++yasm -f x64 -f elf64 -D LINUX -o sha256_sse4.o cryptoext/intel/sha256_sse4.asm 
++yasm -f x64 -f elf64 -D LINUX -o sha256_avx2_rorx2.o cryptoext/intel/sha256_avx2_rorx2.asm 
++yasm -f x64 -f elf64 -D LINUX -o sha256_avx2_rorx8.o cryptoext/intel/sha256_avx2_rorx8.asm
++
++gcc -c -DLIQUIDITY_PROVIDER=1 -O2 *.c jpeg/*.c jpeg/unix/*.c cryptoext/sha256_hardware.c -I/usr/lib/x86_64-linux-gnu/curl 
+ rm -f ../agents/libcrypto777.a; ar rc ../agents/libcrypto777.a *.o 
+diff --git a/includes/curve25519.h b/includes/curve25519.h
+index b12925d..b14d82e 100755
+--- a/includes/curve25519.h
++++ b/includes/curve25519.h
+@@ -51,6 +51,7 @@ bits256 rand256(int32_t privkeyflag);
+ bits256 curve25519_basepoint9();
+ bits256 curve25519_keypair(bits256 *pubkeyp);
+ 
++void vcalc_sha256(char hashstr[(256 >> 3) * 2 + 1],uint8_t hash[256 >> 3],uint8_t *src,int32_t len);
+ void vcalc_sha256_software(char hashstr[(256 >> 3) * 2 + 1],uint8_t hash[256 >> 3],uint8_t *src,int32_t len);
+ void vcalc_sha256cat(uint8_t hash[256 >> 3],uint8_t *src,int32_t len,uint8_t *src2,int32_t len2);
+ void vupdate_sha256(uint8_t hash[256 >> 3],struct sha256_vstate *state,uint8_t *src,int32_t len);
+-- 
+1.8.3.1
+

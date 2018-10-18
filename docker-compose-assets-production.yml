@@ -1,0 +1,1454 @@
+# vim: ts=2 sw=2 et
+version: '3.6'
+
+services:
+  BET:
+    image: kmdplatform_komodod_dev
+    network_mode: "host"
+    # networks:
+    #  - komodo
+    ports:
+      - "127.0.0.1:14250:14250"
+      - "14249:14249"
+    volumes:
+      - komodo-data:/home/komodo/.komodo
+      - shared-data:/home/komodo/.shared:ro
+    environment:
+      - ASSET_RPC_USER=${RPC_USER}
+      - ASSET_RPC_PASSWORD=${RPC_PASSWORD}
+      - ASSET_RPC_WORKQUEUE=64
+      - ASSET_BIND=0.0.0.0
+      - ASSET_RPC_BIND=0.0.0.0
+      - ASSET_RPC_ALLOWIP=0.0.0.0/0
+      - ASSET_RPC_PORT=14250
+      - ASSET_NAME=BET
+      - KOMODO_RPC_USER=${KOMODO_RPC_USER}
+      - KOMODO_RPC_PASSWORD=${KOMODO_RPC_PASSWORD}
+      - BTC_PUBKEY=${BTC_PUBKEY}
+
+    command: >
+      bash -c "komodod -pubkey=${BTC_PUBKEY}
+      -ac_name=BET
+      -ac_supply=999999
+      -addnode=74.208.211.94
+      -addnode=78.47.196.146
+      -addnode=46.4.33.66
+      -addnode=209.58.144.205
+      -addnode=149.56.240.91
+      -addnode=43.245.162.106
+      -addnode=54.36.51.177"
+
+  MNZ:
+    image: kmdplatform_komodod_dev
+    network_mode: "host"
+    #networks:
+    #  - komodo
+    ports:
+      - "127.0.0.1:14337:14337"
+      - "14336:14336"
+    volumes:
+      - komodo-data:/home/komodo/.komodo
+      - shared-data:/home/komodo/.shared:ro
+    environment:
+      - ASSET_RPC_USER=${RPC_USER}
+      - ASSET_RPC_PASSWORD=${RPC_PASSWORD}
+      - ASSET_RPC_WORKQUEUE=64
+      - ASSET_BIND=0.0.0.0
+      - ASSET_RPC_BIND=0.0.0.0
+      - ASSET_RPC_ALLOWIP=0.0.0.0/0
+      - ASSET_RPC_PORT=14337
+      - ASSET_NAME=MNZ
+      - KOMODO_RPC_USER=${KOMODO_RPC_USER}
+      - KOMODO_RPC_PASSWORD=${KOMODO_RPC_PASSWORD}
+      - BTC_PUBKEY=${BTC_PUBKEY}
+
+    command: >
+      bash -c "komodod -pubkey=${BTC_PUBKEY}
+      -ac_name=MNZ
+      -ac_supply=257142858
+      -addnode=74.208.211.94
+      -addnode=78.47.196.146
+      -addnode=46.4.33.66
+      -addnode=209.58.144.205
+      -addnode=149.56.240.91
+      -addnode=43.245.162.106
+      -addnode=54.36.51.177"
+
+  MGW:
+    image: kmdplatform_komodod_dev
+    network_mode: "host"
+    # networks:
+    #  - komodo
+    ports:
+      - "127.0.0.1:12386:12386"
+      - "12385:12385"
+    volumes:
+      - komodo-data:/home/komodo/.komodo
+      - shared-data:/home/komodo/.shared:ro
+    environment:
+      - ASSET_RPC_USER=${RPC_USER}
+      - ASSET_RPC_PASSWORD=${RPC_PASSWORD}
+      - ASSET_RPC_WORKQUEUE=64
+      - ASSET_BIND=0.0.0.0
+      - ASSET_RPC_BIND=0.0.0.0
+      - ASSET_RPC_ALLOWIP=0.0.0.0/0
+      - ASSET_RPC_PORT=12386
+      - ASSET_NAME=MGW
+      - KOMODO_RPC_USER=${KOMODO_RPC_USER}
+      - KOMODO_RPC_PASSWORD=${KOMODO_RPC_PASSWORD}
+      - BTC_PUBKEY=${BTC_PUBKEY}
+
+    command: >
+      bash -c "komodod -pubkey=${BTC_PUBKEY}
+      -ac_name=MGW
+      -ac_supply=999999
+      -addnode=74.208.211.94
+      -addnode=78.47.196.146
+      -addnode=46.4.33.66
+      -addnode=209.58.144.205
+      -addnode=149.56.240.91
+      -addnode=43.245.162.106
+      -addnode=54.36.51.177"
+
+  HODL:
+    image: kmdplatform_komodod_dev
+    network_mode: "host"
+    # networks:
+    #  - komodo
+    ports:
+      - "127.0.0.1:14431:14431"
+      - "14430:14430"
+    volumes:
+      - komodo-data:/home/komodo/.komodo
+      - shared-data:/home/komodo/.shared:ro
+    environment:
+      - ASSET_RPC_USER=${RPC_USER}
+      - ASSET_RPC_PASSWORD=${RPC_PASSWORD}
+      - ASSET_RPC_WORKQUEUE=64
+      - ASSET_BIND=0.0.0.0
+      - ASSET_RPC_BIND=0.0.0.0
+      - ASSET_RPC_ALLOWIP=0.0.0.0/0
+      - ASSET_RPC_PORT=14431
+      - ASSET_NAME=HODL
+      - KOMODO_RPC_USER=${KOMODO_RPC_USER}
+      - KOMODO_RPC_PASSWORD=${KOMODO_RPC_PASSWORD}
+      - BTC_PUBKEY=${BTC_PUBKEY}
+
+    command: >
+      bash -c "komodod -pubkey=${BTC_PUBKEY}
+      -ac_name=HODL
+      -ac_supply=9999999
+      -addnode=74.208.211.94
+      -addnode=78.47.196.146
+      -addnode=46.4.33.66
+      -addnode=209.58.144.205
+      -addnode=149.56.240.91
+      -addnode=43.245.162.106
+      -addnode=54.36.51.177"
+
+  SUPERNET:
+    image: kmdplatform_komodod_dev
+    network_mode: "host"
+    #networks:
+    #  - komodo
+    ports:
+      - "127.0.0.1:11341:11341"
+      - "11340:11340"
+    volumes:
+      - komodo-data:/home/komodo/.komodo
+      - shared-data:/home/komodo/.shared:ro
+    environment:
+      - ASSET_RPC_USER=${RPC_USER}
+      - ASSET_RPC_PASSWORD=${RPC_PASSWORD}
+      - ASSET_RPC_WORKQUEUE=64
+      - ASSET_BIND=0.0.0.0
+      - ASSET_RPC_BIND=0.0.0.0
+      - ASSET_RPC_ALLOWIP=0.0.0.0/0
+      - ASSET_RPC_PORT=11341
+      - ASSET_NAME=SUPERNET
+      - KOMODO_RPC_USER=${KOMODO_RPC_USER}
+      - KOMODO_RPC_PASSWORD=${KOMODO_RPC_PASSWORD}
+      - BTC_PUBKEY=${BTC_PUBKEY}
+
+    command: >
+      bash -c "komodod -pubkey=${BTC_PUBKEY}
+      -ac_name=SUPERNET
+      -ac_supply=816061
+      -addnode=74.208.211.94
+      -addnode=78.47.196.146
+      -addnode=46.4.33.66
+      -addnode=209.58.144.205
+      -addnode=149.56.240.91
+      -addnode=43.245.162.106
+      -addnode=54.36.51.177"
+
+  CRYPTO:
+    image: kmdplatform_komodod_dev
+    network_mode: "host"
+    # networks:
+    #  - komodo
+    ports:
+      - "127.0.0.1:8516:8516"
+      - "8515:8515"
+    volumes:
+      - komodo-data:/home/komodo/.komodo
+      - shared-data:/home/komodo/.shared:ro
+    environment:
+      - ASSET_RPC_USER=${RPC_USER}
+      - ASSET_RPC_PASSWORD=${RPC_PASSWORD}
+      - ASSET_RPC_WORKQUEUE=64
+      - ASSET_BIND=0.0.0.0
+      - ASSET_RPC_BIND=0.0.0.0
+      - ASSET_RPC_ALLOWIP=0.0.0.0/0
+      - ASSET_RPC_PORT=8516
+      - ASSET_NAME=CRYPTO
+      - KOMODO_RPC_USER=${KOMODO_RPC_USER}
+      - KOMODO_RPC_PASSWORD=${KOMODO_RPC_PASSWORD}
+      - BTC_PUBKEY=${BTC_PUBKEY}
+
+    command: >
+      bash -c "komodod -pubkey=${BTC_PUBKEY}
+      -ac_name=CRYPTO
+      -ac_supply=999999
+      -addnode=74.208.211.94
+      -addnode=78.47.196.146
+      -addnode=46.4.33.66
+      -addnode=209.58.144.205
+      -addnode=149.56.240.91
+      -addnode=43.245.162.106
+      -addnode=54.36.51.177"
+
+  JUMBLR:
+    image: kmdplatform_komodod_dev
+    network_mode: "host"
+    # networks:
+    #  - komodo
+    ports:
+      - "127.0.0.1:15106:15106"
+      - "15105:15105"
+    volumes:
+      - komodo-data:/home/komodo/.komodo
+      - shared-data:/home/komodo/.shared:ro
+    environment:
+      - ASSET_RPC_USER=${RPC_USER}
+      - ASSET_RPC_PASSWORD=${RPC_PASSWORD}
+      - ASSET_RPC_WORKQUEUE=64
+      - ASSET_BIND=0.0.0.0
+      - ASSET_RPC_BIND=0.0.0.0
+      - ASSET_RPC_ALLOWIP=0.0.0.0/0
+      - ASSET_RPC_PORT=15106
+      - ASSET_NAME=JUMBLR
+      - KOMODO_RPC_USER=${KOMODO_RPC_USER}
+      - KOMODO_RPC_PASSWORD=${KOMODO_RPC_PASSWORD}
+      - BTC_PUBKEY=${BTC_PUBKEY}
+
+    command: >
+      bash -c "komodod -pubkey=${BTC_PUBKEY}
+      -ac_name=JUMBLR
+      -ac_supply=999999
+      -addnode=74.208.211.94
+      -addnode=78.47.196.146
+      -addnode=46.4.33.66
+      -addnode=209.58.144.205
+      -addnode=149.56.240.91
+      -addnode=43.245.162.106
+      -addnode=54.36.51.177"
+
+  WLC:
+    image: kmdplatform_komodod_dev
+    network_mode: "host"
+    #networks:
+    #  - komodo
+    ports:
+      - "127.0.0.1:12167:12167"
+      - "12166:12166"
+    volumes:
+      - komodo-data:/home/komodo/.komodo
+      - shared-data:/home/komodo/.shared:ro
+    environment:
+      - ASSET_RPC_USER=${RPC_USER}
+      - ASSET_RPC_PASSWORD=${RPC_PASSWORD}
+      - ASSET_RPC_WORKQUEUE=64
+      - ASSET_BIND=0.0.0.0
+      - ASSET_RPC_BIND=0.0.0.0
+      - ASSET_RPC_ALLOWIP=0.0.0.0/0
+      - ASSET_RPC_PORT=12167
+      - ASSET_NAME=WLC
+      - KOMODO_RPC_USER=${KOMODO_RPC_USER}
+      - KOMODO_RPC_PASSWORD=${KOMODO_RPC_PASSWORD}
+      - BTC_PUBKEY=${BTC_PUBKEY}
+
+    command: >
+      bash -c "komodod -pubkey=${BTC_PUBKEY}
+      -ac_name=WLC
+      -ac_supply=210000000
+      -addnode=74.208.211.94
+      -addnode=78.47.196.146
+      -addnode=46.4.33.66
+      -addnode=209.58.144.205
+      -addnode=149.56.240.91
+      -addnode=43.245.162.106
+      -addnode=54.36.51.177"
+
+  PIZZA:
+    image: kmdplatform_komodod_dev
+    network_mode: "host"
+    # networks:
+    #  - komodo
+    ports:
+      - "127.0.0.1:11608:11608"
+      - "11607:11607"
+    volumes:
+      - komodo-data:/home/komodo/.komodo
+      - shared-data:/home/komodo/.shared:ro
+    environment:
+      - ASSET_RPC_USER=${RPC_USER}
+      - ASSET_RPC_PASSWORD=${RPC_PASSWORD}
+      - ASSET_RPC_WORKQUEUE=64
+      - ASSET_BIND=0.0.0.0
+      - ASSET_RPC_BIND=0.0.0.0
+      - ASSET_RPC_ALLOWIP=0.0.0.0/0
+      - ASSET_RPC_PORT=11608
+      - ASSET_NAME=PIZZA
+      - KOMODO_RPC_USER=${KOMODO_RPC_USER}
+      - KOMODO_RPC_PASSWORD=${KOMODO_RPC_PASSWORD}
+      - BTC_PUBKEY=${BTC_PUBKEY}
+
+    command: >
+      bash -c "komodod -pubkey=${BTC_PUBKEY}
+      -ac_name=PIZZA
+      -ac_supply=100000000
+      -addnode=74.208.211.94
+      -addnode=78.47.196.146
+      -addnode=46.4.33.66
+      -addnode=209.58.144.205
+      -addnode=149.56.240.91
+      -addnode=43.245.162.106
+      -addnode=54.36.51.177"
+
+  REVS:
+    image: kmdplatform_komodod_dev
+    network_mode: "host"
+    # networks:
+    #  - komodo
+    ports:
+      - "127.0.0.1:10196:10196"
+      - "10195:10195"
+    volumes:
+      - komodo-data:/home/komodo/.komodo
+      - shared-data:/home/komodo/.shared:ro
+    environment:
+      - ASSET_RPC_USER=${RPC_USER}
+      - ASSET_RPC_PASSWORD=${RPC_PASSWORD}
+      - ASSET_RPC_WORKQUEUE=64
+      - ASSET_BIND=0.0.0.0
+      - ASSET_RPC_BIND=0.0.0.0
+      - ASSET_RPC_ALLOWIP=0.0.0.0/0
+      - ASSET_RPC_PORT=10196
+      - ASSET_NAME=REVS
+      - KOMODO_RPC_USER=${KOMODO_RPC_USER}
+      - KOMODO_RPC_PASSWORD=${KOMODO_RPC_PASSWORD}
+      - BTC_PUBKEY=${BTC_PUBKEY}
+
+    command: >
+      bash -c "komodod -pubkey=${BTC_PUBKEY}
+      -ac_name=REVS
+      -ac_supply=1300000
+      -addnode=74.208.211.94
+      -addnode=78.47.196.146
+      -addnode=46.4.33.66
+      -addnode=209.58.144.205
+      -addnode=149.56.240.91
+      -addnode=43.245.162.106
+      -addnode=54.36.51.177"
+
+  OOT:
+    image: kmdplatform_komodod_dev
+    network_mode: "host"
+    # networks:
+    #  - komodo
+    ports:
+      - "127.0.0.1:12467:12467"
+      - "12466:12466"
+    volumes:
+      - komodo-data:/home/komodo/.komodo
+      - shared-data:/home/komodo/.shared:ro
+    environment:
+      - ASSET_RPC_USER=${RPC_USER}
+      - ASSET_RPC_PASSWORD=${RPC_PASSWORD}
+      - ASSET_RPC_WORKQUEUE=64
+      - ASSET_BIND=0.0.0.0
+      - ASSET_RPC_BIND=0.0.0.0
+      - ASSET_RPC_ALLOWIP=0.0.0.0/0
+      - ASSET_RPC_PORT=12467
+      - ASSET_NAME=OOT
+      - KOMODO_RPC_USER=${KOMODO_RPC_USER}
+      - KOMODO_RPC_PASSWORD=${KOMODO_RPC_PASSWORD}
+      - BTC_PUBKEY=${BTC_PUBKEY}
+
+    command: >
+      bash -c "komodod -pubkey=${BTC_PUBKEY}
+      -ac_name=OOT
+      -ac_supply=216000000
+      -addnode=74.208.211.94
+      -addnode=78.47.196.146
+      -addnode=46.4.33.66
+      -addnode=209.58.144.205
+      -addnode=149.56.240.91
+      -addnode=43.245.162.106
+      -addnode=54.36.51.177"
+
+  MESH:
+    image: kmdplatform_komodod_dev
+    network_mode: "host"
+    # networks:
+    #  - komodo
+    ports:
+      - "127.0.0.1:9455:9455"
+      - "9454:9454"
+    volumes:
+      - komodo-data:/home/komodo/.komodo
+      - shared-data:/home/komodo/.shared:ro
+    environment:
+      - ASSET_RPC_USER=${RPC_USER}
+      - ASSET_RPC_PASSWORD=${RPC_PASSWORD}
+      - ASSET_RPC_WORKQUEUE=64
+      - ASSET_BIND=0.0.0.0
+      - ASSET_RPC_BIND=0.0.0.0
+      - ASSET_RPC_ALLOWIP=0.0.0.0/0
+      - ASSET_RPC_PORT=9455
+      - ASSET_NAME=MESH
+      - KOMODO_RPC_USER=${KOMODO_RPC_USER}
+      - KOMODO_RPC_PASSWORD=${KOMODO_RPC_PASSWORD}
+      - BTC_PUBKEY=${BTC_PUBKEY}
+
+    command: >
+      bash -c "komodod -pubkey=${BTC_PUBKEY}
+      -ac_name=MESH
+      -ac_supply=1000007
+      -addnode=74.208.211.94
+      -addnode=78.47.196.146
+      -addnode=46.4.33.66
+      -addnode=209.58.144.205
+      -addnode=149.56.240.91
+      -addnode=43.245.162.106
+      -addnode=54.36.51.177"
+
+  CHAIN:
+    image: kmdplatform_komodod_dev
+    network_mode: "host"
+    # networks:
+    #  - komodo
+    ports:
+      - "127.0.0.1:15587:15587"
+      - "15586:15586"
+    volumes:
+      - komodo-data:/home/komodo/.komodo
+      - shared-data:/home/komodo/.shared:ro
+    environment:
+      - ASSET_RPC_USER=${RPC_USER}
+      - ASSET_RPC_PASSWORD=${RPC_PASSWORD}
+      - ASSET_RPC_WORKQUEUE=64
+      - ASSET_BIND=0.0.0.0
+      - ASSET_RPC_BIND=0.0.0.0
+      - ASSET_RPC_ALLOWIP=0.0.0.0/0
+      - ASSET_RPC_PORT=15587
+      - ASSET_NAME=CHAIN
+      - KOMODO_RPC_USER=${KOMODO_RPC_USER}
+      - KOMODO_RPC_PASSWORD=${KOMODO_RPC_PASSWORD}
+      - BTC_PUBKEY=${BTC_PUBKEY}
+
+    command: >
+      bash -c "komodod -pubkey=${BTC_PUBKEY}
+      -ac_name=CHAIN
+      -ac_supply=999999
+      -addnode=74.208.211.94
+      -addnode=78.47.196.146
+      -addnode=46.4.33.66
+      -addnode=209.58.144.205
+      -addnode=149.56.240.91
+      -addnode=43.245.162.106
+      -addnode=54.36.51.177"
+
+  VOTE2018:
+    image: kmdplatform_komodod_dev
+    network_mode: "host"
+    # networks:
+    #  - komodo
+    ports:
+      - "127.0.0.1:15488:15488"
+      - "15487:15487"
+    volumes:
+      - komodo-data:/home/komodo/.komodo
+      - shared-data:/home/komodo/.shared:ro
+    environment:
+      - ASSET_RPC_USER=${RPC_USER}
+      - ASSET_RPC_PASSWORD=${RPC_PASSWORD}
+      - ASSET_RPC_WORKQUEUE=64
+      - ASSET_BIND=0.0.0.0
+      - ASSET_RPC_BIND=0.0.0.0
+      - ASSET_RPC_ALLOWIP=0.0.0.0/0
+      - ASSET_RPC_PORT=15488
+      - ASSET_NAME=VOTE2018
+      - KOMODO_RPC_USER=${KOMODO_RPC_USER}
+      - KOMODO_RPC_PASSWORD=${KOMODO_RPC_PASSWORD}
+      - BTC_PUBKEY=${BTC_PUBKEY}
+
+    command: >
+      bash -c "komodod -pubkey=${BTC_PUBKEY}
+      -ac_name=VOTE2018
+      -ac_supply=600000000
+      -addnode=74.208.211.94
+      -addnode=78.47.196.146
+      -addnode=46.4.33.66
+      -addnode=209.58.144.205
+      -addnode=149.56.240.91
+      -addnode=43.245.162.106
+      -addnode=54.36.51.177"
+
+  MSHARK:
+    image: kmdplatform_komodod_dev
+    network_mode: "host"
+    # networks:
+    #  - komodo
+    ports:
+      - "127.0.0.1:8846:8846"
+      - "8845:8845"
+    volumes:
+      - komodo-data:/home/komodo/.komodo
+      - shared-data:/home/komodo/.shared:ro
+    environment:
+      - ASSET_RPC_USER=${RPC_USER}
+      - ASSET_RPC_PASSWORD=${RPC_PASSWORD}
+      - ASSET_RPC_WORKQUEUE=64
+      - ASSET_BIND=0.0.0.0
+      - ASSET_RPC_BIND=0.0.0.0
+      - ASSET_RPC_ALLOWIP=0.0.0.0/0
+      - ASSET_RPC_PORT=8846
+      - ASSET_NAME=MSHARK
+      - KOMODO_RPC_USER=${KOMODO_RPC_USER}
+      - KOMODO_RPC_PASSWORD=${KOMODO_RPC_PASSWORD}
+      - BTC_PUBKEY=${BTC_PUBKEY}
+
+    command: >
+      bash -c "komodod -pubkey=${BTC_PUBKEY}
+      -ac_name=MSHARK
+      -ac_supply=1400000
+      -addnode=74.208.211.94
+      -addnode=78.47.196.146
+      -addnode=46.4.33.66
+      -addnode=209.58.144.205
+      -addnode=149.56.240.91
+      -addnode=43.245.162.106
+      -addnode=54.36.51.177"
+
+  BOTS:
+    image: kmdplatform_komodod_dev
+    network_mode: "host"
+    # networks:
+    #  - komodo
+    ports:
+      - "127.0.0.1:11964:11964"
+      - "11963:11963"
+    volumes:
+      - komodo-data:/home/komodo/.komodo
+      - shared-data:/home/komodo/.shared:ro
+    environment:
+      - ASSET_RPC_USER=${RPC_USER}
+      - ASSET_RPC_PASSWORD=${RPC_PASSWORD}
+      - ASSET_RPC_WORKQUEUE=64
+      - ASSET_BIND=0.0.0.0
+      - ASSET_RPC_BIND=0.0.0.0
+      - ASSET_RPC_ALLOWIP=0.0.0.0/0
+      - ASSET_RPC_PORT=11964
+      - ASSET_NAME=BOTS
+      - KOMODO_RPC_USER=${KOMODO_RPC_USER}
+      - KOMODO_RPC_PASSWORD=${KOMODO_RPC_PASSWORD}
+      - BTC_PUBKEY=${BTC_PUBKEY}
+
+    command: >
+      bash -c "komodod -pubkey=${BTC_PUBKEY}
+      -ac_name=BOTS
+      -ac_supply=999999
+      -addnode=74.208.211.94
+      -addnode=78.47.196.146
+      -addnode=46.4.33.66
+      -addnode=209.58.144.205
+      -addnode=149.56.240.91
+      -addnode=43.245.162.106
+      -addnode=54.36.51.177"
+
+  PRLPAY:
+    image: kmdplatform_komodod_dev
+    network_mode: "host"
+    # networks:
+    #  - komodo
+    ports:
+      - "127.0.0.1:9679:9679"
+      - "9678:9678"
+    volumes:
+      - komodo-data:/home/komodo/.komodo
+      - shared-data:/home/komodo/.shared:ro
+    environment:
+      - ASSET_RPC_USER=${RPC_USER}
+      - ASSET_RPC_PASSWORD=${RPC_PASSWORD}
+      - ASSET_RPC_WORKQUEUE=64
+      - ASSET_BIND=0.0.0.0
+      - ASSET_RPC_BIND=0.0.0.0
+      - ASSET_RPC_ALLOWIP=0.0.0.0/0
+      - ASSET_RPC_PORT=9679
+      - ASSET_NAME=PRLPAY
+      - KOMODO_RPC_USER=${KOMODO_RPC_USER}
+      - KOMODO_RPC_PASSWORD=${KOMODO_RPC_PASSWORD}
+      - BTC_PUBKEY=${BTC_PUBKEY}
+
+    command: >
+      bash -c "komodod -pubkey=${BTC_PUBKEY}
+      -ac_name=PRLPAY
+      -ac_supply=500000000
+      -addnode=74.208.211.94
+      -addnode=78.47.196.146
+      -addnode=46.4.33.66
+      -addnode=209.58.144.205
+      -addnode=149.56.240.91
+      -addnode=43.245.162.106
+      -addnode=54.36.51.177"
+
+  BEER:
+    image: kmdplatform_komodod_dev
+    network_mode: "host"
+    # networks:
+    #  - komodo
+    ports:
+      - "127.0.0.1:8923:8923"
+      - "8922:8922"
+    volumes:
+      - komodo-data:/home/komodo/.komodo
+      - shared-data:/home/komodo/.shared:ro
+    environment:
+      - ASSET_RPC_USER=${RPC_USER}
+      - ASSET_RPC_PASSWORD=${RPC_PASSWORD}
+      - ASSET_RPC_WORKQUEUE=64
+      - ASSET_BIND=0.0.0.0
+      - ASSET_RPC_BIND=0.0.0.0
+      - ASSET_RPC_ALLOWIP=0.0.0.0/0
+      - ASSET_RPC_PORT=8923
+      - ASSET_NAME=BEER
+      - KOMODO_RPC_USER=${KOMODO_RPC_USER}
+      - KOMODO_RPC_PASSWORD=${KOMODO_RPC_PASSWORD}
+      - BTC_PUBKEY=${BTC_PUBKEY}
+
+    command: >
+      bash -c "komodod -pubkey=${BTC_PUBKEY}
+      -ac_name=BEER
+      -ac_supply=100000000
+      -addnode=74.208.211.94
+      -addnode=78.47.196.146
+      -addnode=46.4.33.66
+      -addnode=209.58.144.205
+      -addnode=149.56.240.91
+      -addnode=43.245.162.106
+      -addnode=54.36.51.177"
+
+  COQUI:
+    image: kmdplatform_komodod_dev
+    network_mode: "host"
+    # networks:
+    #  - komodo
+    ports:
+      - "127.0.0.1:14276:14276"
+      - "14275:14275"
+    volumes:
+      - komodo-data:/home/komodo/.komodo
+      - shared-data:/home/komodo/.shared:ro
+    environment:
+      - ASSET_RPC_USER=${RPC_USER}
+      - ASSET_RPC_PASSWORD=${RPC_PASSWORD}
+      - ASSET_RPC_WORKQUEUE=64
+      - ASSET_BIND=0.0.0.0
+      - ASSET_RPC_BIND=0.0.0.0
+      - ASSET_RPC_ALLOWIP=0.0.0.0/0
+      - ASSET_RPC_PORT=14276
+      - ASSET_NAME=COQUI
+      - KOMODO_RPC_USER=${KOMODO_RPC_USER}
+      - KOMODO_RPC_PASSWORD=${KOMODO_RPC_PASSWORD}
+      - BTC_PUBKEY=${BTC_PUBKEY}
+
+    command: >
+      bash -c "komodod -pubkey=${BTC_PUBKEY}
+      -ac_name=COQUI
+      -ac_supply=72000000
+      -ac_ccactivate=200000
+      -addnode=74.208.211.94
+      -addnode=78.47.196.146
+      -addnode=46.4.33.66
+      -addnode=209.58.144.205
+      -addnode=149.56.240.91
+      -addnode=43.245.162.106
+      -addnode=54.36.51.177"
+
+  KV:
+    image: kmdplatform_komodod_dev
+    network_mode: "host"
+    # networks:
+    #  - komodo
+    ports:
+      - "127.0.0.1:8299:8299"
+      - "8298:8298"
+    volumes:
+      - komodo-data:/home/komodo/.komodo
+      - shared-data:/home/komodo/.shared:ro
+    environment:
+      - ASSET_RPC_USER=${RPC_USER}
+      - ASSET_RPC_PASSWORD=${RPC_PASSWORD}
+      - ASSET_RPC_WORKQUEUE=64
+      - ASSET_BIND=0.0.0.0
+      - ASSET_RPC_BIND=0.0.0.0
+      - ASSET_RPC_ALLOWIP=0.0.0.0/0
+      - ASSET_RPC_PORT=8299
+      - ASSET_NAME=KV
+      - KOMODO_RPC_USER=${KOMODO_RPC_USER}
+      - KOMODO_RPC_PASSWORD=${KOMODO_RPC_PASSWORD}
+      - BTC_PUBKEY=${BTC_PUBKEY}
+
+    command: >
+      bash -c "komodod -pubkey=${BTC_PUBKEY}
+      -ac_name=KV
+      -ac_supply=1000000
+      -addnode=74.208.211.94
+      -addnode=78.47.196.146
+      -addnode=46.4.33.66
+      -addnode=209.58.144.205
+      -addnode=149.56.240.91
+      -addnode=43.245.162.106
+      -addnode=54.36.51.177"
+
+  AXO:
+    image: kmdplatform_komodod_dev
+    network_mode: "host"
+    # networks:
+    #  - komodo
+    ports:
+      - "127.0.0.1:12927:12927"
+      - "12926:12926"
+    volumes:
+      - komodo-data:/home/komodo/.komodo
+      - shared-data:/home/komodo/.shared:ro
+    environment:
+      - ASSET_RPC_USER=${RPC_USER}
+      - ASSET_RPC_PASSWORD=${RPC_PASSWORD}
+      - ASSET_RPC_WORKQUEUE=64
+      - ASSET_BIND=0.0.0.0
+      - ASSET_RPC_BIND=0.0.0.0
+      - ASSET_RPC_ALLOWIP=0.0.0.0/0
+      - ASSET_RPC_PORT=12927
+      - ASSET_NAME=AXO
+      - KOMODO_RPC_USER=${KOMODO_RPC_USER}
+      - KOMODO_RPC_PASSWORD=${KOMODO_RPC_PASSWORD}
+      - BTC_PUBKEY=${BTC_PUBKEY}
+
+    command: >
+      bash -c "komodod -pubkey=${BTC_PUBKEY}
+      -ac_name=AXO
+      -ac_supply=200000000
+      -addnode=74.208.211.94
+      -addnode=78.47.196.146
+      -addnode=46.4.33.66
+      -addnode=209.58.144.205
+      -addnode=149.56.240.91
+      -addnode=43.245.162.106
+      -addnode=54.36.51.177"
+
+  BTCH:
+    image: kmdplatform_komodod_dev
+    network_mode: "host"
+    # networks:
+    #  - komodo
+    ports:
+      - "127.0.0.1:8800:8800"
+      - "8799:8799"
+    volumes:
+      - komodo-data:/home/komodo/.komodo
+      - shared-data:/home/komodo/.shared:ro
+    environment:
+      - ASSET_RPC_USER=${RPC_USER}
+      - ASSET_RPC_PASSWORD=${RPC_PASSWORD}
+      - ASSET_RPC_WORKQUEUE=64
+      - ASSET_BIND=0.0.0.0
+      - ASSET_RPC_BIND=0.0.0.0
+      - ASSET_RPC_ALLOWIP=0.0.0.0/0
+      - ASSET_RPC_PORT=8800
+      - ASSET_NAME=BTCH
+      - KOMODO_RPC_USER=${KOMODO_RPC_USER}
+      - KOMODO_RPC_PASSWORD=${KOMODO_RPC_PASSWORD}
+      - BTC_PUBKEY=${BTC_PUBKEY}
+
+    command: >
+      bash -c "komodod -pubkey=${BTC_PUBKEY}
+      -ac_name=BTCH
+      -ac_supply=20998641
+      -addnode=74.208.211.94
+      -addnode=78.47.196.146
+      -addnode=46.4.33.66
+      -addnode=209.58.144.205
+      -addnode=149.56.240.91
+      -addnode=43.245.162.106
+      -addnode=54.36.51.177"
+
+  NINJA:
+    image: kmdplatform_komodod_dev
+    network_mode: "host"
+    # networks:
+    #  - komodo
+    ports:
+      - "127.0.0.1:8427:8427"
+      - "8426:8426"
+    volumes:
+      - komodo-data:/home/komodo/.komodo
+      - shared-data:/home/komodo/.shared:ro
+    environment:
+      - ASSET_RPC_USER=${RPC_USER}
+      - ASSET_RPC_PASSWORD=${RPC_PASSWORD}
+      - ASSET_RPC_WORKQUEUE=64
+      - ASSET_BIND=0.0.0.0
+      - ASSET_RPC_BIND=0.0.0.0
+      - ASSET_RPC_ALLOWIP=0.0.0.0/0
+      - ASSET_RPC_PORT=8427
+      - ASSET_NAME=NINJA
+      - KOMODO_RPC_USER=${KOMODO_RPC_USER}
+      - KOMODO_RPC_PASSWORD=${KOMODO_RPC_PASSWORD}
+      - BTC_PUBKEY=${BTC_PUBKEY}
+
+    command: >
+      bash -c "komodod -pubkey=${BTC_PUBKEY}
+      -ac_name=NINJA
+      -ac_supply=100000000
+      -addnode=74.208.211.94
+      -addnode=78.47.196.146
+      -addnode=46.4.33.66
+      -addnode=209.58.144.205
+      -addnode=149.56.240.91
+      -addnode=43.245.162.106
+      -addnode=54.36.51.177"
+
+  BNTN:
+    image: kmdplatform_komodod_dev
+    network_mode: "host"
+    # networks:
+    #  - komodo
+    ports:
+      - "127.0.0.1:14358:14358"
+      - "14357:14357"
+    volumes:
+      - komodo-data:/home/komodo/.komodo
+      - shared-data:/home/komodo/.shared:ro
+    environment:
+      - ASSET_RPC_USER=${RPC_USER}
+      - ASSET_RPC_PASSWORD=${RPC_PASSWORD}
+      - ASSET_RPC_WORKQUEUE=64
+      - ASSET_BIND=0.0.0.0
+      - ASSET_RPC_BIND=0.0.0.0
+      - ASSET_RPC_ALLOWIP=0.0.0.0/0
+      - ASSET_RPC_PORT=14358
+      - ASSET_NAME=BNTN
+      - KOMODO_RPC_USER=${KOMODO_RPC_USER}
+      - KOMODO_RPC_PASSWORD=${KOMODO_RPC_PASSWORD}
+      - BTC_PUBKEY=${BTC_PUBKEY}
+
+    command: >
+      bash -c "komodod -pubkey=${BTC_PUBKEY}
+      -ac_name=BNTN
+      -ac_supply=500000000
+      -addnode=74.208.211.94
+      -addnode=78.47.196.146
+      -addnode=46.4.33.66
+      -addnode=209.58.144.205
+      -addnode=149.56.240.91
+      -addnode=43.245.162.106
+      -addnode=54.36.51.177"
+
+  PANGEA:
+    image: kmdplatform_komodod_dev
+    network_mode: "host"
+    # networks:
+    #  - komodo
+    ports:
+      - "127.0.0.1:14068:14068"
+      - "14067:14067"
+    volumes:
+      - komodo-data:/home/komodo/.komodo
+      - shared-data:/home/komodo/.shared:ro
+    environment:
+      - ASSET_RPC_USER=${RPC_USER}
+      - ASSET_RPC_PASSWORD=${RPC_PASSWORD}
+      - ASSET_RPC_WORKQUEUE=64
+      - ASSET_BIND=0.0.0.0
+      - ASSET_RPC_BIND=0.0.0.0
+      - ASSET_RPC_ALLOWIP=0.0.0.0/0
+      - ASSET_RPC_PORT=14068
+      - ASSET_NAME=PANGEA
+      - KOMODO_RPC_USER=${KOMODO_RPC_USER}
+      - KOMODO_RPC_PASSWORD=${KOMODO_RPC_PASSWORD}
+      - BTC_PUBKEY=${BTC_PUBKEY}
+
+    command: >
+      bash -c "komodod -pubkey=${BTC_PUBKEY}
+      -ac_name=PANGEA
+      -ac_supply=999999
+      -addnode=74.208.211.94
+      -addnode=78.47.196.146
+      -addnode=46.4.33.66
+      -addnode=209.58.144.205
+      -addnode=149.56.240.91
+      -addnode=43.245.162.106
+      -addnode=54.36.51.177"
+
+  DEX:
+    image: kmdplatform_komodod_dev
+    network_mode: "host"
+    # networks:
+    #  - komodo
+    ports:
+      - "127.0.0.1:11890:11890"
+      - "11889:11889"
+    volumes:
+      - komodo-data:/home/komodo/.komodo
+      - shared-data:/home/komodo/.shared:ro
+    environment:
+      - ASSET_RPC_USER=${RPC_USER}
+      - ASSET_RPC_PASSWORD=${RPC_PASSWORD}
+      - ASSET_RPC_WORKQUEUE=64
+      - ASSET_BIND=0.0.0.0
+      - ASSET_RPC_BIND=0.0.0.0
+      - ASSET_RPC_ALLOWIP=0.0.0.0/0
+      - ASSET_RPC_PORT=11890
+      - ASSET_NAME=DEX
+      - KOMODO_RPC_USER=${KOMODO_RPC_USER}
+      - KOMODO_RPC_PASSWORD=${KOMODO_RPC_PASSWORD}
+      - BTC_PUBKEY=${BTC_PUBKEY}
+
+    command: >
+      bash -c "komodod -pubkey=${BTC_PUBKEY}
+      -ac_name=DEX
+      -ac_supply=999999
+      -addnode=74.208.211.94
+      -addnode=78.47.196.146
+      -addnode=46.4.33.66
+      -addnode=209.58.144.205
+      -addnode=149.56.240.91
+      -addnode=43.245.162.106
+      -addnode=54.36.51.177"
+
+  ETOMIC:
+    image: kmdplatform_komodod_dev
+    network_mode: "host"
+    # networks:
+    #  - komodo
+    ports:
+      - "127.0.0.1:10271:10271"
+      - "10270:10270"
+    volumes:
+      - komodo-data:/home/komodo/.komodo
+      - shared-data:/home/komodo/.shared:ro
+    environment:
+      - ASSET_RPC_USER=${RPC_USER}
+      - ASSET_RPC_PASSWORD=${RPC_PASSWORD}
+      - ASSET_RPC_WORKQUEUE=64
+      - ASSET_BIND=0.0.0.0
+      - ASSET_RPC_BIND=0.0.0.0
+      - ASSET_RPC_ALLOWIP=0.0.0.0/0
+      - ASSET_RPC_PORT=10271
+      - ASSET_NAME=ETOMIC
+      - KOMODO_RPC_USER=${KOMODO_RPC_USER}
+      - KOMODO_RPC_PASSWORD=${KOMODO_RPC_PASSWORD}
+      - BTC_PUBKEY=${BTC_PUBKEY}
+
+    command: >
+      bash -c "komodod -pubkey=${BTC_PUBKEY}
+      -ac_name=ETOMIC
+      -ac_supply=100000000
+      -addnode=74.208.211.94
+      -addnode=78.47.196.146
+      -addnode=46.4.33.66
+      -addnode=209.58.144.205
+      -addnode=149.56.240.91
+      -addnode=43.245.162.106
+      -addnode=54.36.51.177"
+
+  CEAL:
+    image: kmdplatform_komodod_dev
+    network_mode: "host"
+    # networks:
+    #  - komodo
+    ports:
+      - "127.0.0.1:11116:11116"
+      - "11115:11115"
+    volumes:
+      - komodo-data:/home/komodo/.komodo
+      - shared-data:/home/komodo/.shared:ro
+    environment:
+      - ASSET_RPC_USER=${RPC_USER}
+      - ASSET_RPC_PASSWORD=${RPC_PASSWORD}
+      - ASSET_RPC_WORKQUEUE=64
+      - ASSET_BIND=0.0.0.0
+      - ASSET_RPC_BIND=0.0.0.0
+      - ASSET_RPC_ALLOWIP=0.0.0.0/0
+      - ASSET_RPC_PORT=11116
+      - ASSET_NAME=CEAL
+      - KOMODO_RPC_USER=${KOMODO_RPC_USER}
+      - KOMODO_RPC_PASSWORD=${KOMODO_RPC_PASSWORD}
+      - BTC_PUBKEY=${BTC_PUBKEY}
+
+    command: >
+      bash -c "komodod -pubkey=${BTC_PUBKEY}
+      -ac_name=CEAL
+      -ac_supply=366666666
+      -addnode=74.208.211.94
+      -addnode=78.47.196.146
+      -addnode=46.4.33.66
+      -addnode=209.58.144.205
+      -addnode=149.56.240.91
+      -addnode=43.245.162.106
+      -addnode=54.36.51.177"
+  
+  DSEC:
+    image: kmdplatform_komodod_dev
+    network_mode: "host"
+    # networks:
+    #  - komodo
+    ports:
+      - "127.0.0.1:11557:11557"
+      - "11556:11556"
+    volumes:
+      - komodo-data:/home/komodo/.komodo
+      - shared-data:/home/komodo/.shared:ro
+    environment:
+      - ASSET_RPC_USER=${RPC_USER}
+      - ASSET_RPC_PASSWORD=${RPC_PASSWORD}
+      - ASSET_RPC_WORKQUEUE=64
+      - ASSET_BIND=0.0.0.0
+      - ASSET_RPC_BIND=0.0.0.0
+      - ASSET_RPC_ALLOWIP=0.0.0.0/0
+      - ASSET_RPC_PORT=11557
+      - ASSET_NAME=DSEC
+      - KOMODO_RPC_USER=${KOMODO_RPC_USER}
+      - KOMODO_RPC_PASSWORD=${KOMODO_RPC_PASSWORD}
+      - BTC_PUBKEY=${BTC_PUBKEY}
+
+    command: >
+      bash -c "komodod -pubkey=${BTC_PUBKEY}
+      -ac_name=DSEC
+      -ac_supply=7000000
+      -addnode=74.208.211.94
+      -addnode=78.47.196.146
+      -addnode=46.4.33.66
+      -addnode=209.58.144.205
+      -addnode=149.56.240.91
+      -addnode=43.245.162.106
+      -addnode=54.36.51.177"
+  
+  GLXT:
+    image: kmdplatform_komodod_dev
+    network_mode: "host"
+    # networks:
+    #  - komodo
+    ports:
+      - "127.0.0.1:15723:15723"
+      - "15722:15722"
+    volumes:
+      - komodo-data:/home/komodo/.komodo
+      - shared-data:/home/komodo/.shared:ro
+    environment:
+      - ASSET_RPC_USER=${RPC_USER}
+      - ASSET_RPC_PASSWORD=${RPC_PASSWORD}
+      - ASSET_RPC_WORKQUEUE=64
+      - ASSET_BIND=0.0.0.0
+      - ASSET_RPC_BIND=0.0.0.0
+      - ASSET_RPC_ALLOWIP=0.0.0.0/0
+      - ASSET_RPC_PORT=15723
+      - ASSET_NAME=GLXT
+      - KOMODO_RPC_USER=${KOMODO_RPC_USER}
+      - KOMODO_RPC_PASSWORD=${KOMODO_RPC_PASSWORD}
+      - BTC_PUBKEY=${BTC_PUBKEY}
+
+    command: >
+      bash -c "komodod -pubkey=${BTC_PUBKEY}
+      -ac_name=GLXT
+      -ac_supply=10000000000
+      -addnode=74.208.211.94
+      -addnode=78.47.196.146
+      -addnode=46.4.33.66
+      -addnode=209.58.144.205
+      -addnode=149.56.240.91
+      -addnode=43.245.162.106
+      -addnode=54.36.51.177"
+  
+  EQL:
+    image: kmdplatform_komodod_dev
+    network_mode: "host"
+    # networks:
+    #  - komodo
+    ports:
+      - "127.0.0.1:10306:10306"
+      - "10305:10305"
+    volumes:
+      - komodo-data:/home/komodo/.komodo
+      - shared-data:/home/komodo/.shared:ro
+    environment:
+      - ASSET_RPC_USER=${RPC_USER}
+      - ASSET_RPC_PASSWORD=${RPC_PASSWORD}
+      - ASSET_RPC_WORKQUEUE=64
+      - ASSET_BIND=0.0.0.0
+      - ASSET_RPC_BIND=0.0.0.0
+      - ASSET_RPC_ALLOWIP=0.0.0.0/0
+      - ASSET_RPC_PORT=10306
+      - ASSET_NAME=EQL
+      - KOMODO_RPC_USER=${KOMODO_RPC_USER}
+      - KOMODO_RPC_PASSWORD=${KOMODO_RPC_PASSWORD}
+      - BTC_PUBKEY=${BTC_PUBKEY}
+
+    command: >
+      bash -c "komodod -pubkey=${BTC_PUBKEY}
+      -ac_name=EQL
+      -ac_supply=500000000
+      -addnode=74.208.211.94
+      -addnode=78.47.196.146
+      -addnode=46.4.33.66
+      -addnode=209.58.144.205
+      -addnode=149.56.240.91
+      -addnode=43.245.162.106
+      -addnode=54.36.51.177"
+  
+  ZILLA:
+    image: kmdplatform_komodod_dev
+    network_mode: "host"
+    # networks:
+    #  - komodo
+    ports:
+      - "127.0.0.1:10041:10041"
+      - "10040:10040"
+    volumes:
+      - komodo-data:/home/komodo/.komodo
+      - shared-data:/home/komodo/.shared:ro
+    environment:
+      - ASSET_RPC_USER=${RPC_USER}
+      - ASSET_RPC_PASSWORD=${RPC_PASSWORD}
+      - ASSET_RPC_WORKQUEUE=64
+      - ASSET_BIND=0.0.0.0
+      - ASSET_RPC_BIND=0.0.0.0
+      - ASSET_RPC_ALLOWIP=0.0.0.0/0
+      - ASSET_RPC_PORT=10041
+      - ASSET_NAME=ZILLA
+      - KOMODO_RPC_USER=${KOMODO_RPC_USER}
+      - KOMODO_RPC_PASSWORD=${KOMODO_RPC_PASSWORD}
+      - BTC_PUBKEY=${BTC_PUBKEY}
+
+    command: >
+      bash -c "komodod -pubkey=${BTC_PUBKEY}
+      -ac_name=ZILLA
+      -ac_supply=11000000
+      -addnode=74.208.211.94
+      -addnode=78.47.196.146
+      -addnode=46.4.33.66
+      -addnode=209.58.144.205
+      -addnode=149.56.240.91
+      -addnode=43.245.162.106
+      -addnode=54.36.51.177"
+ 
+  RFOX:
+    image: kmdplatform_komodod_dev
+    network_mode: "host"
+    # networks:
+    #  - komodo
+    ports:
+      - "127.0.0.1:32269:32269"
+      - "32268:32268"
+    volumes:
+      - komodo-data:/home/komodo/.komodo
+      - shared-data:/home/komodo/.shared:ro
+    environment:
+      - ASSET_RPC_USER=${RPC_USER}
+      - ASSET_RPC_PASSWORD=${RPC_PASSWORD}
+      - ASSET_RPC_WORKQUEUE=64
+      - ASSET_BIND=0.0.0.0
+      - ASSET_RPC_BIND=0.0.0.0
+      - ASSET_RPC_ALLOWIP=0.0.0.0/0
+      - ASSET_RPC_PORT=32269
+      - ASSET_NAME=RFOX
+      - KOMODO_RPC_USER=${KOMODO_RPC_USER}
+      - KOMODO_RPC_PASSWORD=${KOMODO_RPC_PASSWORD}
+      - BTC_PUBKEY=${BTC_PUBKEY}
+
+    command: >
+      bash -c "komodod -pubkey=${BTC_PUBKEY}
+      -ac_name=RFOX
+      -ac_supply=1000000000
+      -ac_reward=100000000
+      -addnode=74.208.211.94
+      -addnode=78.47.196.146
+      -addnode=46.4.33.66
+      -addnode=209.58.144.205
+      -addnode=149.56.240.91
+      -addnode=43.245.162.106
+      -addnode=54.36.51.177"
+  
+  SEC:
+    image: kmdplatform_komodod_dev
+    network_mode: "host"
+    # networks:
+    #  - komodo
+    ports:
+      - "127.0.0.1:11540:11540"
+      - "11539:11539"
+    volumes:
+      - komodo-data:/home/komodo/.komodo
+      - shared-data:/home/komodo/.shared:ro
+    environment:
+      - ASSET_RPC_USER=${RPC_USER}
+      - ASSET_RPC_PASSWORD=${RPC_PASSWORD}
+      - ASSET_RPC_WORKQUEUE=64
+      - ASSET_BIND=0.0.0.0
+      - ASSET_RPC_BIND=0.0.0.0
+      - ASSET_RPC_ALLOWIP=0.0.0.0/0
+      - ASSET_RPC_PORT=11540
+      - ASSET_NAME=SEC
+      - KOMODO_RPC_USER=${KOMODO_RPC_USER}
+      - KOMODO_RPC_PASSWORD=${KOMODO_RPC_PASSWORD}
+      - BTC_PUBKEY=${BTC_PUBKEY}
+
+    command: >
+      bash -c "komodod -pubkey=${BTC_PUBKEY}
+      -ac_name=SEC
+      -ac_supply=1000000000
+      -ac_cc=333
+      -addnode=74.208.211.94
+      -addnode=78.47.196.146
+      -addnode=46.4.33.66
+      -addnode=209.58.144.205
+      -addnode=149.56.240.91
+      -addnode=43.245.162.106
+      -addnode=54.36.51.177"
+
+  CCL:
+    image: kmdplatform_komodod_dev
+    network_mode: "host"
+    # networks:
+    #  - komodo
+    ports:
+      - "127.0.0.1:20849:20849"
+      - "20848:20848"
+    volumes:
+      - komodo-data:/home/komodo/.komodo
+      - shared-data:/home/komodo/.shared:ro
+    environment:
+      - ASSET_RPC_USER=${RPC_USER}
+      - ASSET_RPC_PASSWORD=${RPC_PASSWORD}
+      - ASSET_RPC_WORKQUEUE=64
+      - ASSET_BIND=0.0.0.0
+      - ASSET_RPC_BIND=0.0.0.0
+      - ASSET_RPC_ALLOWIP=0.0.0.0/0
+      - ASSET_RPC_PORT=20849
+      - ASSET_NAME=CCL
+      - KOMODO_RPC_USER=${KOMODO_RPC_USER}
+      - KOMODO_RPC_PASSWORD=${KOMODO_RPC_PASSWORD}
+      - BTC_PUBKEY=${BTC_PUBKEY}
+
+    command: >
+      bash -c "komodod -pubkey=${BTC_PUBKEY}
+      -ac_name=CCL
+      -ac_supply=200000000
+      -ac_end=1
+      -ac_cc=2
+      -addressindex=1
+      -spentindex=1
+      -addnode=142.93.136.89
+      -addnode=195.201.22.89
+      -addnode=78.47.196.146
+      -addnode=46.4.33.66
+      -addnode=209.58.144.205
+      -addnode=149.56.240.91
+      -addnode=43.245.162.106
+      -addnode=54.36.51.177"
+  
+  PIRATE:
+    image: kmdplatform_komodod_dev
+    network_mode: "host"
+    # networks:
+    #  - komodo
+    ports:
+      - "127.0.0.1:45453:45453"
+      - "45452:45452"
+    volumes:
+      - komodo-data:/home/komodo/.komodo
+      - shared-data:/home/komodo/.shared:ro
+    environment:
+      - ASSET_RPC_USER=${RPC_USER}
+      - ASSET_RPC_PASSWORD=${RPC_PASSWORD}
+      - ASSET_RPC_WORKQUEUE=64
+      - ASSET_BIND=0.0.0.0
+      - ASSET_RPC_BIND=0.0.0.0
+      - ASSET_RPC_ALLOWIP=0.0.0.0/0
+      - ASSET_RPC_PORT=45453
+      - ASSET_NAME=PIRATE
+      - KOMODO_RPC_USER=${KOMODO_RPC_USER}
+      - KOMODO_RPC_PASSWORD=${KOMODO_RPC_PASSWORD}
+      - BTC_PUBKEY=${BTC_PUBKEY}
+
+    command: >
+      bash -c "komodod -pubkey=${BTC_PUBKEY}
+      -ac_name=PIRATE
+      -ac_supply=0
+      -ac_reward=25600000000
+      -ac_halving=77777
+      -ac_private=1
+      -addnode=136.243.102.225"
+  
+  MGNX:
+    image: kmdplatform_komodod_dev
+    network_mode: "host"
+    # networks:
+    #  - komodo
+    ports:
+      - "127.0.0.1:20731:20731"
+      - "20730:20730"
+    volumes:
+      - komodo-data:/home/komodo/.komodo
+      - shared-data:/home/komodo/.shared:ro
+    environment:
+      - ASSET_RPC_USER=${RPC_USER}
+      - ASSET_RPC_PASSWORD=${RPC_PASSWORD}
+      - ASSET_RPC_WORKQUEUE=64
+      - ASSET_BIND=0.0.0.0
+      - ASSET_RPC_BIND=0.0.0.0
+      - ASSET_RPC_ALLOWIP=0.0.0.0/0
+      - ASSET_RPC_PORT=20731
+      - ASSET_NAME=MGNX
+      - KOMODO_RPC_USER=${KOMODO_RPC_USER}
+      - KOMODO_RPC_PASSWORD=${KOMODO_RPC_PASSWORD}
+      - BTC_PUBKEY=${BTC_PUBKEY}
+
+    command: >
+      bash -c "komodod -pubkey=${BTC_PUBKEY}
+      -ac_name=MGNX
+      -ac_supply=12465003
+      -ac_staked=90
+      -ac_reward=2000000000
+      -ac_halving=525960
+      -ac_cc=2
+      -ac_end=2629800
+      -addnode=142.93.27.180"
+  
+  PGT:
+    image: kmdplatform_komodod_dev
+    network_mode: "host"
+    # networks:
+    #  - komodo
+    ports:
+      - "127.0.0.1:46705:46705"
+      - "46704:46704"
+    volumes:
+      - komodo-data:/home/komodo/.komodo
+      - shared-data:/home/komodo/.shared:ro
+    environment:
+      - ASSET_RPC_USER=${RPC_USER}
+      - ASSET_RPC_PASSWORD=${RPC_PASSWORD}
+      - ASSET_RPC_WORKQUEUE=64
+      - ASSET_BIND=0.0.0.0
+      - ASSET_RPC_BIND=0.0.0.0
+      - ASSET_RPC_ALLOWIP=0.0.0.0/0
+      - ASSET_RPC_PORT=46705
+      - ASSET_NAME=PGT
+      - KOMODO_RPC_USER=${KOMODO_RPC_USER}
+      - KOMODO_RPC_PASSWORD=${KOMODO_RPC_PASSWORD}
+      - BTC_PUBKEY=${BTC_PUBKEY}
+
+    command: >
+      bash -c "komodod -pubkey=${BTC_PUBKEY}
+      -ac_name=PGT
+      -ac_supply=10000000
+      -ac_end=1
+      -addnode=190.114.254.104"
+  
+  KMDICE:
+    image: kmdplatform_komodod_dev
+    network_mode: "host"
+    # networks:
+    #  - komodo
+    ports:
+      - "127.0.0.1:30177:30177"
+      - "30176:30176"
+    volumes:
+      - komodo-data:/home/komodo/.komodo
+      - shared-data:/home/komodo/.shared:ro
+    environment:
+      - ASSET_RPC_USER=${RPC_USER}
+      - ASSET_RPC_PASSWORD=${RPC_PASSWORD}
+      - ASSET_RPC_WORKQUEUE=64
+      - ASSET_BIND=0.0.0.0
+      - ASSET_RPC_BIND=0.0.0.0
+      - ASSET_RPC_ALLOWIP=0.0.0.0/0
+      - ASSET_RPC_PORT=30177
+      - ASSET_NAME=KMDICE
+      - KOMODO_RPC_USER=${KOMODO_RPC_USER}
+      - KOMODO_RPC_PASSWORD=${KOMODO_RPC_PASSWORD}
+      - BTC_PUBKEY=${BTC_PUBKEY}
+
+    command: >
+      bash -c "komodod -pubkey=${BTC_PUBKEY}
+      -ac_name=KMDICE
+      -ac_supply=10500000
+      -ac_reward=2500000000
+      -ac_halving=210000
+      -ac_cc=2
+      -addressindex=1
+      -spentindex=1
+      -addnode=144.76.217.232"
+  
+  DION:
+    image: kmdplatform_komodod_dev
+    network_mode: "host"
+    # networks:
+    #  - komodo
+    ports:
+      - "127.0.0.1:23895:23895"
+      - "23894:23894"
+    volumes:
+      - komodo-data:/home/komodo/.komodo
+      - shared-data:/home/komodo/.shared:ro
+    environment:
+      - ASSET_RPC_USER=${RPC_USER}
+      - ASSET_RPC_PASSWORD=${RPC_PASSWORD}
+      - ASSET_RPC_WORKQUEUE=64
+      - ASSET_BIND=0.0.0.0
+      - ASSET_RPC_BIND=0.0.0.0
+      - ASSET_RPC_ALLOWIP=0.0.0.0/0
+      - ASSET_RPC_PORT=23895
+      - ASSET_NAME=DION
+      - KOMODO_RPC_USER=${KOMODO_RPC_USER}
+      - KOMODO_RPC_PASSWORD=${KOMODO_RPC_PASSWORD}
+      - BTC_PUBKEY=${BTC_PUBKEY}
+
+    command: >
+      bash -c "komodod -pubkey=${BTC_PUBKEY}
+      -ac_name=DION
+      -ac_supply=3900000000
+      -ac_reward=22260000000
+      -ac_staked=100
+      -ac_cc=1
+      -ac_end=4300000000
+      -addnode=51.75.124.34"
+
+volumes:
+  komodo-data:
+    driver_opts:
+      type: none
+      device: ${KOMODO_DATA}
+      o: bind
+  shared-data:
+    driver_opts:
+      type: none
+      device: ${SHARED_DATA}
+      o: bind
+
+networks:
+  komodo:
