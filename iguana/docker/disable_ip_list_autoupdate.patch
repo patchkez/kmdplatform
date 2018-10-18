@@ -1,0 +1,13 @@
+diff --git a/iguana/dpow/dpow_network.c b/iguana/dpow/dpow_network.c
+index fb8300d..f5bdb11 100755
+--- a/iguana/dpow/dpow_network.c
++++ b/iguana/dpow/dpow_network.c
+@@ -2159,7 +2159,7 @@ void dpow_ipbitsadd(struct supernet_info *myinfo,struct dpow_info *dp,uint32_t *
+             {
+                 expand_ipbits(ipaddr,ipbits[i]);
+                 //printf("ADD NOTARY.(%s) %08x\n",ipaddr,ipbits[i]);
+-                dpow_addnotary(myinfo,dp,ipaddr);
++                //dpow_addnotary(myinfo,dp,ipaddr); // commented out by dragonriders, to prevent automatic peer ip list updating
+             }
+     } else if ( missing > 0 )
+         printf("IGNORE from.%d RECV numips.%d numipbits.%d matched.%d missing.%d maxipbits.%d\n",fromid,numipbits,n,matched,missing,maxipbits);

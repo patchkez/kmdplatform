@@ -2,7 +2,7 @@
 
 # if no arguments were passed, start bitcoind
 if [ $# -eq 0 ]; then
-  exec bitcoind -deprecatedrpc=estimatefee
+  exec bitcoind
 
 # Some arguments were passed
 elif [ $# -ne 0 ]; then

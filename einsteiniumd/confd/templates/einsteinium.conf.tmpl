@@ -1,0 +1,8 @@
+rpcuser={{ or (getenv "EMC2_RPC_USER") "rpcuser" }}
+rpcpassword={{ or (getenv "EMC2_RPC_PASSWORD") "rpcpassword" }}
+server=1
+txindex=1
+rpcworkqueue=256
+bind={{ or (getenv "EMC2_BIND") "127.0.0.1" }}
+rpcbind={{ or (getenv "EMC2_RPC_BIND") "127.0.0.1" }}
+rpcallowip={{ or (getenv "EMC2_RPC_ALLOWIP") "0.0.0.0/0" }}

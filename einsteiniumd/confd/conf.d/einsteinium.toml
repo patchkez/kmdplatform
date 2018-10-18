@@ -1,0 +1,10 @@
+[template]
+src = "einsteinium.conf.tmpl"
+dest = "/home/einsteinium/.einsteinium/einsteinium.conf"
+keys = [
+    "EMC2_RPC_USER",
+    "EMC2_RPC_PASSWORD",
+    "EMC2_BIND",
+    "EMC2_RPC_BIND",
+    "EMC2_RPC_ALLOWIP"
+]

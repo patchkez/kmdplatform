@@ -5,8 +5,9 @@ LABEL version="0.5c"
 ARG IGUANA_BRANCH
 ENV IGUANA_HOME /home/iguana
 # prepare system to build things
-COPY *.patch /
-COPY x-cli.sh /
+COPY *.patch /tmp/
+COPY sha256hwaccel/*.patch /tmp/sha256hwaccel/
+COPY x-cli.sh /tmp/
 
 ENV BUILD_PACKAGES="git build-essential cmake libssl-dev clang libcurl4-openssl-dev"
 
@@ -28,11 +29,13 @@ RUN useradd -u 3004 -m iguana
 USER iguana
 WORKDIR ${IGUANA_HOME}
 # get iguana code
-RUN git clone https://github.com/jl777/SuperNET && \
-    cd SuperNET/iguana && \
+RUN git clone https://github.com/jl777/SuperNET
+RUN cd SuperNET/iguana && \
     git checkout ${IGUANA_BRANCH} && \
-    # git apply -v /*.patch && \
-    # git apply -v /listen_to_all.patch && \
+    git apply -v /tmp/sha256hwaccel/*.patch && \
+    # git apply -v /tmp/*.patch && \
+    # git apply -v /tmp/listen_to_all.patch && \
+    # git apply -v /tmp/disable_ip_list_autoupdate.patch && \
     cd secp256k1; ./m_unix; cd .. && \
     cd ../crypto777; ./m_LP; cd ../iguana && \
     clang -g -Wno-deprecated -c -O2 -DISNOTARYNODE=1 -DLIQUIDITY_PROVIDER=1 *.c ../basilisk/basilisk.c ../gecko/gecko.c ../datachain/datachain.c && \
@@ -90,8 +93,11 @@ WORKDIR /home/iguana
 # Create directories for configs, it seems confd cannot create them
 RUN mkdir ${IGUANA_HOME}/.bitcoin && \
     mkdir ${IGUANA_HOME}/.komodo && \
+    mkdir ${IGUANA_HOME}/.komodo/VRSC && \
     mkdir ${IGUANA_HOME}/.chips && \
-    mkdir ${IGUANA_HOME}/.gamecredits
+    mkdir ${IGUANA_HOME}/.gamecredits && \
+    mkdir ${IGUANA_HOME}/.hush && \
+    mkdir ${IGUANA_HOME}/.einsteinium
 
 # Create python3 venv
 RUN virtualenv komodotools-venv && \

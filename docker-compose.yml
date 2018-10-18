@@ -32,16 +32,16 @@ services:
     network_mode: host
     restart: on-failure
     ports:
-      - "127.0.0.1:7770:7770"
       # RPC port
       - "127.0.0.1:7771:7771"
+      - "7770:7770"
     volumes:
       - komodo-data:/home/komodo/.komodo
       - shared-data:/home/komodo/.shared:ro
     environment:
       - KOMODO_RPC_USER=${KOMODO_RPC_USER}
       - KOMODO_RPC_PASSWORD=${KOMODO_RPC_PASSWORD}
-      - KOMODO_BIND=127.0.0.1
+      - KOMODO_BIND=0.0.0.0
       - KOMODO_RPC_BIND=0.0.0.0
       - KOMODO_RPC_ALLOWIP=0.0.0.0/0
       - KOMODO_BRANCH=beta
@@ -58,16 +58,16 @@ services:
     image: kmdplatform_chipsd
     network_mode: host
     ports:
+      # RPC port
       - "127.0.0.1:57776:57776"
-      # RPC port ?
-      - "127.0.0.1:57777:57777"
+      - "57777:57777"
     volumes:
       - chips-data:/home/chips/.chips
       - shared-data:/home/komodo/.shared:ro
     environment:
       - CHIPS_RPC_USER=${ASSET_RPC_USER}
       - CHIPS_RPC_PASSWORD=${ASSET_RPC_PASSWORD}
-      - CHIPS_BIND=127.0.0.1
+      - CHIPS_BIND=0.0.0.0
       - CHIPS_RPC_BIND=0.0.0.0
       - CHIPS_RPC_ALLOWIP=0.0.0.0/0
       - BITCOIN_RPC_USER=${BITCOIN_RPC_USER}
@@ -75,7 +75,7 @@ services:
       - BITCOIN_RPC_BIND=BTC
       - KOMODO_RPC_USER=${KOMODO_RPC_USER}
       - KOMODO_RPC_PASSWORD=${KOMODO_RPC_PASSWORD}
-      # - KOMODO_RPC_BIND=KMD
+      - BTC_PUBKEY=${BTC_PUBKEY}
 
   GAME:
     build:
@@ -94,7 +94,7 @@ services:
     environment:
       - GAME_RPC_USER=${ASSET_RPC_USER}
       - GAME_RPC_PASSWORD=${ASSET_RPC_PASSWORD}
-      - GAME_BIND=127.0.0.1
+      - GAME_BIND=0.0.0.0
       - GAME_RPC_BIND=0.0.0.0
       - GAME_RPC_ALLOWIP=0.0.0.0/0
       - BITCOIN_RPC_USER=${BITCOIN_RPC_USER}
@@ -102,7 +102,7 @@ services:
       - BITCOIN_RPC_BIND=BTC
       - KOMODO_RPC_USER=${KOMODO_RPC_USER}
       - KOMODO_RPC_PASSWORD=${KOMODO_RPC_PASSWORD}
-      # - KOMODO_RPC_BIND=KMD
+      - BTC_PUBKEY=${BTC_PUBKEY}
 
   iguana:
     build:
@@ -133,6 +133,133 @@ services:
       - CHIPS_RPC_PASSWORD=${ASSET_RPC_PASSWORD}
       - GAME_RPC_USER=${ASSET_RPC_USER}
       - GAME_RPC_PASSWORD=${ASSET_RPC_PASSWORD}
+      - VRSC_RPC_USER=${ASSET_RPC_USER}
+      - VRSC_RPC_PASSWORD=${ASSET_RPC_PASSWORD}
+      - HUSH_RPC_USER=${HUSH_RPC_USER}
+      - HUSH_RPC_PASSWORD=${HUSH_RPC_PASSWORD}
+      - EMC2_RPC_USER=${EMC2_RPC_USER}
+      - EMC2_RPC_PASSWORD=${EMC2_RPC_PASSWORD}
+  
+  VRSC:
+    build:
+      context: ./vrscd
+      args:
+        VRSC_BRANCH: master
+    image: kmdplatform_vrscd
+    network_mode: host
+    restart: on-failure
+    ports:
+      # RPC port
+      - "127.0.0.1:27486:27486"
+      - "27485:27485"
+    volumes:
+      - veruscoin-data:/home/veruscoin/.komodo
+      - shared-data:/home/komodo/.shared:ro
+    environment:
+      - VRSC_RPC_USER=${ASSET_RPC_USER}
+      - VRSC_RPC_PASSWORD=${ASSET_RPC_PASSWORD}
+      - VRSC_BIND=0.0.0.0
+      - VRSC_RPC_BIND=0.0.0.0
+      - VRSC_RPC_ALLOWIP=0.0.0.0/0
+      - VRSC_RPC_PORT=27486
+      - BITCOIN_RPC_USER=${BITCOIN_RPC_USER}
+      - BITCOIN_RPC_PASSWORD=${BITCOIN_RPC_PASSWORD}
+      - BITCOIN_RPC_BIND=BTC
+      - KOMODO_RPC_USER=${KOMODO_RPC_USER}
+      - KOMODO_RPC_PASSWORD=${KOMODO_RPC_PASSWORD}
+      - BTC_PUBKEY=${BTC_PUBKEY}
+    command: >
+      bash -c "komodod -pubkey=${BTC_PUBKEY}
+      -ac_name=VRSC
+      -ac_algo=verushash
+      -ac_cc=1
+      -ac_veruspos=50
+      -ac_supply=0
+      -ac_eras=3
+      -ac_reward=0,38400000000,2400000000
+      -ac_halving=1,43200,1051920
+      -ac_decay=100000000,0,0
+      -ac_end=10080,226080,0
+      -ac_timelockgte=19200000000
+      -ac_timeunlockfrom=129600
+      -ac_timeunlockto=1180800
+      -addnode=95.216.13.66
+      -connect=185.25.48.236
+      -connect=185.64.105.111
+      -connect=149.202.84.141
+      -connect=158.69.118.173"
+
+  HUSH:
+    build:
+      context: ./hushd
+      args:
+        HUSH_BRANCH: master
+    image: kmdplatform_hushd
+    network_mode: host
+    restart: on-failure
+    ports:
+      # RPC port
+      - "127.0.0.1:8822:8822"
+      - "8888:8888"
+    volumes:
+      - hush-data:/home/hush/.komodo
+      - shared-data:/home/komodo/.shared:ro
+    environment:
+      - HUSH_RPC_USER=${HUSH_RPC_USER}
+      - HUSH_RPC_PASSWORD=${HUSH_RPC_PASSWORD}
+      - HUSH_BIND=0.0.0.0
+      - HUSH_RPC_BIND=0.0.0.0
+      - HUSH_RPC_ALLOWIP=0.0.0.0/0
+      - HUSH_RPC_PORT=8822
+      - BITCOIN_RPC_USER=${BITCOIN_RPC_USER}
+      - BITCOIN_RPC_PASSWORD=${BITCOIN_RPC_PASSWORD}
+      - BITCOIN_RPC_BIND=BTC
+      - KOMODO_RPC_USER=${KOMODO_RPC_USER}
+      - KOMODO_RPC_PASSWORD=${KOMODO_RPC_PASSWORD}
+      - BTC_PUBKEY=${BTC_PUBKEY}
+    command: >
+      bash -c "hushd -pubkey=${BTC_PUBKEY}
+      -addnode=explorer.myhush.org
+      -addnode=dnsseed.myhush.org
+      -addnode=dnsseed2.myhush.org
+      -addnode=dnsseed.bleuzero.com
+      -addnode=dnsseed.hush.quebec
+      -rpcworkqueue=256
+      -txindex=1
+      -server=1
+      -showmetrics=0
+      -listenonion=0
+      -addressindex=1
+      -timestampindex=1
+      -spentindex=1"
+
+  EINSTEINIUM:
+    build:
+      context: ./einsteiniumd
+      args:
+        EMC2_BRANCH: master
+    image: kmdplatform_einsteiniumd
+    network_mode: host
+    ports:
+      # RPC port
+      - "127.0.0.1:41879:41879"
+      - "41878:41878"
+    volumes:
+      - emc2-data:/home/einsteinium/.einsteinium
+      - shared-data:/home/komodo/.shared:ro
+    environment:
+      - EMC2_RPC_USER=${EMC2_RPC_USER}
+      - EMC2_RPC_PASSWORD=${EMC2_RPC_PASSWORD}
+      - EMC2_BIND=0.0.0.0
+      - EMC2_RPC_BIND=0.0.0.0
+      - EMC2_RPC_ALLOWIP=0.0.0.0/0
+      - BITCOIN_RPC_USER=${BITCOIN_RPC_USER}
+      - BITCOIN_RPC_PASSWORD=${BITCOIN_RPC_PASSWORD}
+      - BITCOIN_RPC_BIND=BTC
+      - KOMODO_RPC_USER=${KOMODO_RPC_USER}
+      - KOMODO_RPC_PASSWORD=${KOMODO_RPC_PASSWORD}
+      - BTC_PUBKEY=${BTC_PUBKEY}
+      # - KOMODO_RPC_BIND=KMD
 
 volumes:
   bitcoin-data:
@@ -149,6 +276,21 @@ volumes:
     driver_opts:
       type: none
       device: ${GAME_DATA}
+      o: bind
+  veruscoin-data:
+    driver_opts:
+      type: none
+      device: ${VRSC_DATA}
+      o: bind
+  hush-data:
+    driver_opts:
+      type: none
+      device: ${HUSH_DATA}
+      o: bind
+  emc2-data:
+    driver_opts:
+      type: none
+      device: ${EMC2_DATA}
       o: bind
   komodo-data:
     driver_opts:

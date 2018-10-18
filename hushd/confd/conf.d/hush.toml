@@ -1,0 +1,10 @@
+[template]
+src = "hush.conf.tmpl"
+dest = "/home/hush/.hush/hush.conf"
+keys = [
+    "HUSH_RPC_USER",
+    "HUSH_RPC_PASSWORD",
+    "HUSH_BIND",
+    "HUSH_RPC_BIND",
+    "HUSH_RPC_ALLOWIP"
+]
