@@ -40,8 +40,8 @@ RUN cd SuperNET/iguana && \
     cd ../crypto777; ./m_LP; cd ../iguana && \
     clang -g -Wno-deprecated -c -O2 -DISNOTARYNODE=1 -DLIQUIDITY_PROVIDER=1 *.c ../basilisk/basilisk.c ../gecko/gecko.c ../datachain/datachain.c && \
     clang -g  -Wno-deprecated -c -DISNOTARYNODE=1 -DLIQUIDITY_PROVIDER=1  main.c iguana777.c iguana_bundles.c ../basilisk/basilisk.c && \
-    clang -g -o ../agents/iguana *.o ../agents/libcrypto777.a -lnanomsg -lcurl -lssl -lcrypto -lpthread -lz -lm
-	
+    clang -g -o ../agents/iguana *.o ../agents/libcrypto777.a -lnanomsg -lcurl -lssl -lcrypto -lpthread -lz -lm -lsodium
+
 # # build secp256k1
 # RUN cd SuperNET/iguana/secp256k1 && \
 #     gcc -c -o secp256k1.o -I. -I./src  -I./include \
