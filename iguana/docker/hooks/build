@@ -1,2 +1,2 @@
 #!/bin/bash
-docker build --build-arg IGUANA_BRANCH=dev -f $DOCKERFILE_PATH -t kmdplatform_iguana_dev .
+docker build --build-arg IGUANA_BRANCH=dev -f $DOCKERFILE_PATH -t patchkez/kmdplatform_iguana_dev .
