@@ -9,7 +9,7 @@ COPY *.patch /tmp/
 COPY sha256hwaccel/*.patch /tmp/sha256hwaccel/
 COPY x-cli.sh /tmp/
 
-ENV BUILD_PACKAGES="git build-essential cmake libssl-dev clang libcurl4-openssl-dev"
+ENV BUILD_PACKAGES="git build-essential cmake libssl-dev clang libcurl4-openssl-dev libsodium-dev"
 
 RUN apt update && \
     apt install -y $BUILD_PACKAGES
