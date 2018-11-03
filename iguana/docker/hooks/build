@@ -1,3 +1,4 @@
 #!/bin/bash
-echo "Executing custom build hook..."
+echo "Executing custom build hook:"
+echo "docker build --build-arg IGUANA_BRANCH=dev -f $DOCKERFILE_PATH -t patchkez/kmdplatform_iguana_dev ."
 docker build --build-arg IGUANA_BRANCH=dev -f $DOCKERFILE_PATH -t patchkez/kmdplatform_iguana_dev .
