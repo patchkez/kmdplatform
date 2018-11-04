@@ -1,4 +1,22 @@
 #!/bin/bash
 echo "Executing custom build hook:"
+
+echo "Variables:"
+echo "
+    ${SOURCE_BRANCH} - SOURCE_BRANCH: the name of the branch or the tag that is currently being tested.
+    ${SOURCE_COMMIT} - SOURCE_COMMIT: the SHA1 hash of the commit being tested.
+    ${COMMIT_MSG} - COMMIT_MSG: the message from the commit being tested and built.
+    ${DOCKER_REPO} - DOCKER_REPO: the name of the Docker repository being built.
+    ${DOCKERFILE_PATH} - DOCKERFILE_PATH: the dockerfile currently being built.
+    ${CACHE_TAG} - CACHE_TAG: the Docker repository tag being built.
+    ${IMAGE_NAME} - IMAGE_NAME: the name and tag of the Docker repository being built. (This variable is a combination of DOCKER_REPO:CACHE_TAG.)
+"
+
 echo "docker build --build-arg IGUANA_BRANCH=dev -f $DOCKERFILE_PATH -t patchkez/kmdplatform_iguana_dev ."
+
+if [ -z ${DOCKERFILE_PATH} ]; then
+  echo "DOCKERFILE_PATH variable not set. Exiting..."
+  exit 1
+fi
+
 docker build --build-arg IGUANA_BRANCH=dev -f $DOCKERFILE_PATH -t patchkez/kmdplatform_iguana_dev .
