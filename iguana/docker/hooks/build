@@ -19,4 +19,5 @@ if [ -z ${DOCKERFILE_PATH} ]; then
   exit 1
 fi
 
-docker build --build-arg IGUANA_BRANCH=dev -f $DOCKERFILE_PATH -t patchkez/kmdplatform_iguana_dev .
+# docker build --build-arg IGUANA_BRANCH=dev -f $DOCKERFILE_PATH -t patchkez/kmdplatform_iguana_dev .
+docker build --build-arg IGUANA_BRANCH=dev -t patchkez/kmdplatform_iguana_dev .
