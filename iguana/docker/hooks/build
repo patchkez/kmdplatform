@@ -14,10 +14,10 @@ echo "
 
 echo "docker build --build-arg IGUANA_BRANCH=dev -f $DOCKERFILE_PATH -t patchkez/kmdplatform_iguana_dev ."
 
-if [ -z ${DOCKERFILE_PATH} ]; then
-  echo "DOCKERFILE_PATH variable not set. Exiting..."
-  exit 1
-fi
+# if [ -z ${DOCKERFILE_PATH} ]; then
+#  echo "DOCKERFILE_PATH variable not set. Exiting..."
+#  exit 1
+# fi
 
 # docker build --build-arg IGUANA_BRANCH=dev -f $DOCKERFILE_PATH -t patchkez/kmdplatform_iguana_dev .
 docker build --build-arg IGUANA_BRANCH=dev -t patchkez/kmdplatform_iguana_dev .
