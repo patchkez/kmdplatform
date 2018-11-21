@@ -4,6 +4,11 @@ This is preparation to run Komodo platform in K8/Openshift environment. In first
 to cut down Komodo/Bitcoin/Iguana in its own containers. 1 container = 1 process. For assetchains, there
 is also 1 container running per coin.
 
+## Read these first please
+
+- [Vision](docs/vision.md)
+- [howto contribute](docs/howto_contribute.md)
+
 ## Host preparation
 ### Prerequisities
 - docker
@@ -168,7 +173,7 @@ docker-compose run --rm iguana
 
 TODO:
 - monitoring of logs
-- files on komodo volume are created with wrong permissions 
+- files on komodo volume are created with wrong permissions
 
 
 ## Enable python virtualenv
@@ -250,4 +255,3 @@ ERROR: Write: Failed to open file /home/komodo/.komodo/peers.dat.f7d9
 ```
 couldnt load (confs/969559dcebfb568349d19bff7a314eff4777ed7b7ec79f6980784c9d64d55b6d)
 ```
-
