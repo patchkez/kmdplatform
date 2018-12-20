@@ -25,7 +25,7 @@ ENV SSL_PREFIX "${GAMECREDITS_HOME}/openssl"
 # Build Berkly DB 4.8
 RUN cd ${GAMECREDITS_HOME} && \
     mkdir -p $BDB_PREFIX && \
-    curl -O 'http://download.oracle.com/berkeley-db/db-4.8.30.NC.tar.gz' && \
+    curl -L -O 'http://download.oracle.com/berkeley-db/db-4.8.30.NC.tar.gz' && \
     echo '12edc0df75bf9abd7f82f821795bcee50f42cb2e5f76a6a281b85732798364ef  db-4.8.30.NC.tar.gz' | sha256sum -c && \
     tar -xzvf db-4.8.30.NC.tar.gz && cd db-4.8.30.NC/build_unix/ && \
     ../dist/configure -enable-cxx -disable-shared -with-pic -prefix=$BDB_PREFIX && \

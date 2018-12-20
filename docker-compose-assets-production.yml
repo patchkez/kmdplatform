@@ -3,7 +3,7 @@ version: '3.6'
 
 services:
   BET:
-    image: kmdplatform_komodod_dev
+    image: kmdplatform_komodod_dev_cache
     network_mode: "host"
     # networks:
     #  - komodo
@@ -39,7 +39,7 @@ services:
       -addnode=54.36.51.177"
 
   MNZ:
-    image: kmdplatform_komodod_dev
+    image: kmdplatform_komodod_dev_cache
     network_mode: "host"
     #networks:
     #  - komodo
@@ -75,7 +75,7 @@ services:
       -addnode=54.36.51.177"
 
   MGW:
-    image: kmdplatform_komodod_dev
+    image: kmdplatform_komodod_dev_cache
     network_mode: "host"
     # networks:
     #  - komodo
@@ -111,7 +111,7 @@ services:
       -addnode=54.36.51.177"
 
   HODL:
-    image: kmdplatform_komodod_dev
+    image: kmdplatform_komodod_dev_cache
     network_mode: "host"
     # networks:
     #  - komodo
@@ -147,7 +147,7 @@ services:
       -addnode=54.36.51.177"
 
   SUPERNET:
-    image: kmdplatform_komodod_dev
+    image: kmdplatform_komodod_dev_cache
     network_mode: "host"
     #networks:
     #  - komodo
@@ -183,7 +183,7 @@ services:
       -addnode=54.36.51.177"
 
   CRYPTO:
-    image: kmdplatform_komodod_dev
+    image: kmdplatform_komodod_dev_cache
     network_mode: "host"
     # networks:
     #  - komodo
@@ -219,7 +219,7 @@ services:
       -addnode=54.36.51.177"
 
   JUMBLR:
-    image: kmdplatform_komodod_dev
+    image: kmdplatform_komodod_dev_cache
     network_mode: "host"
     # networks:
     #  - komodo
@@ -255,7 +255,7 @@ services:
       -addnode=54.36.51.177"
 
   WLC:
-    image: kmdplatform_komodod_dev
+    image: kmdplatform_komodod_dev_cache
     network_mode: "host"
     #networks:
     #  - komodo
@@ -291,7 +291,7 @@ services:
       -addnode=54.36.51.177"
 
   PIZZA:
-    image: kmdplatform_komodod_dev
+    image: kmdplatform_komodod_dev_cache
     network_mode: "host"
     # networks:
     #  - komodo
@@ -327,7 +327,7 @@ services:
       -addnode=54.36.51.177"
 
   REVS:
-    image: kmdplatform_komodod_dev
+    image: kmdplatform_komodod_dev_cache
     network_mode: "host"
     # networks:
     #  - komodo
@@ -363,7 +363,7 @@ services:
       -addnode=54.36.51.177"
 
   OOT:
-    image: kmdplatform_komodod_dev
+    image: kmdplatform_komodod_dev_cache
     network_mode: "host"
     # networks:
     #  - komodo
@@ -390,6 +390,7 @@ services:
       bash -c "komodod -pubkey=${BTC_PUBKEY}
       -ac_name=OOT
       -ac_supply=216000000
+      -ac_sapling=5000000
       -addnode=74.208.211.94
       -addnode=78.47.196.146
       -addnode=46.4.33.66
@@ -399,7 +400,7 @@ services:
       -addnode=54.36.51.177"
 
   MESH:
-    image: kmdplatform_komodod_dev
+    image: kmdplatform_komodod_dev_cache
     network_mode: "host"
     # networks:
     #  - komodo
@@ -435,7 +436,7 @@ services:
       -addnode=54.36.51.177"
 
   CHAIN:
-    image: kmdplatform_komodod_dev
+    image: kmdplatform_komodod_dev_cache
     network_mode: "host"
     # networks:
     #  - komodo
@@ -471,7 +472,7 @@ services:
       -addnode=54.36.51.177"
 
   VOTE2018:
-    image: kmdplatform_komodod_dev
+    image: kmdplatform_komodod_dev_cache
     network_mode: "host"
     # networks:
     #  - komodo
@@ -507,7 +508,7 @@ services:
       -addnode=54.36.51.177"
 
   MSHARK:
-    image: kmdplatform_komodod_dev
+    image: kmdplatform_komodod_dev_cache
     network_mode: "host"
     # networks:
     #  - komodo
@@ -543,7 +544,7 @@ services:
       -addnode=54.36.51.177"
 
   BOTS:
-    image: kmdplatform_komodod_dev
+    image: kmdplatform_komodod_dev_cache
     network_mode: "host"
     # networks:
     #  - komodo
@@ -579,7 +580,7 @@ services:
       -addnode=54.36.51.177"
 
   PRLPAY:
-    image: kmdplatform_komodod_dev
+    image: kmdplatform_komodod_dev_cache
     network_mode: "host"
     # networks:
     #  - komodo
@@ -615,7 +616,7 @@ services:
       -addnode=54.36.51.177"
 
   BEER:
-    image: kmdplatform_komodod_dev
+    image: kmdplatform_komodod_dev_cache
     network_mode: "host"
     # networks:
     #  - komodo
@@ -651,7 +652,7 @@ services:
       -addnode=54.36.51.177"
 
   COQUI:
-    image: kmdplatform_komodod_dev
+    image: kmdplatform_komodod_dev_cache
     network_mode: "host"
     # networks:
     #  - komodo
@@ -688,7 +689,7 @@ services:
       -addnode=54.36.51.177"
 
   KV:
-    image: kmdplatform_komodod_dev
+    image: kmdplatform_komodod_dev_cache
     network_mode: "host"
     # networks:
     #  - komodo
@@ -724,7 +725,7 @@ services:
       -addnode=54.36.51.177"
 
   AXO:
-    image: kmdplatform_komodod_dev
+    image: kmdplatform_komodod_dev_cache
     network_mode: "host"
     # networks:
     #  - komodo
@@ -760,7 +761,7 @@ services:
       -addnode=54.36.51.177"
 
   BTCH:
-    image: kmdplatform_komodod_dev
+    image: kmdplatform_komodod_dev_cache
     network_mode: "host"
     # networks:
     #  - komodo
@@ -796,7 +797,7 @@ services:
       -addnode=54.36.51.177"
 
   NINJA:
-    image: kmdplatform_komodod_dev
+    image: kmdplatform_komodod_dev_cache
     network_mode: "host"
     # networks:
     #  - komodo
@@ -832,7 +833,7 @@ services:
       -addnode=54.36.51.177"
 
   BNTN:
-    image: kmdplatform_komodod_dev
+    image: kmdplatform_komodod_dev_cache
     network_mode: "host"
     # networks:
     #  - komodo
@@ -868,7 +869,7 @@ services:
       -addnode=54.36.51.177"
 
   PANGEA:
-    image: kmdplatform_komodod_dev
+    image: kmdplatform_komodod_dev_cache
     network_mode: "host"
     # networks:
     #  - komodo
@@ -904,7 +905,7 @@ services:
       -addnode=54.36.51.177"
 
   DEX:
-    image: kmdplatform_komodod_dev
+    image: kmdplatform_komodod_dev_cache
     network_mode: "host"
     # networks:
     #  - komodo
@@ -940,7 +941,7 @@ services:
       -addnode=54.36.51.177"
 
   ETOMIC:
-    image: kmdplatform_komodod_dev
+    image: kmdplatform_komodod_dev_cache
     network_mode: "host"
     # networks:
     #  - komodo
@@ -976,7 +977,7 @@ services:
       -addnode=54.36.51.177"
 
   CEAL:
-    image: kmdplatform_komodod_dev
+    image: kmdplatform_komodod_dev_cache
     network_mode: "host"
     # networks:
     #  - komodo
@@ -1012,7 +1013,7 @@ services:
       -addnode=54.36.51.177"
   
   DSEC:
-    image: kmdplatform_komodod_dev
+    image: kmdplatform_komodod_dev_cache
     network_mode: "host"
     # networks:
     #  - komodo
@@ -1048,7 +1049,7 @@ services:
       -addnode=54.36.51.177"
   
   GLXT:
-    image: kmdplatform_komodod_dev
+    image: kmdplatform_komodod_dev_cache
     network_mode: "host"
     # networks:
     #  - komodo
@@ -1084,7 +1085,7 @@ services:
       -addnode=54.36.51.177"
   
   EQL:
-    image: kmdplatform_komodod_dev
+    image: kmdplatform_komodod_dev_cache
     network_mode: "host"
     # networks:
     #  - komodo
@@ -1111,16 +1112,10 @@ services:
       bash -c "komodod -pubkey=${BTC_PUBKEY}
       -ac_name=EQL
       -ac_supply=500000000
-      -addnode=74.208.211.94
-      -addnode=78.47.196.146
-      -addnode=46.4.33.66
-      -addnode=209.58.144.205
-      -addnode=149.56.240.91
-      -addnode=43.245.162.106
-      -addnode=54.36.51.177"
-  
+      -ac_ccactivate=205000"
+
   ZILLA:
-    image: kmdplatform_komodod_dev
+    image: kmdplatform_komodod_dev_cache
     network_mode: "host"
     # networks:
     #  - komodo
@@ -1147,6 +1142,7 @@ services:
       bash -c "komodod -pubkey=${BTC_PUBKEY}
       -ac_name=ZILLA
       -ac_supply=11000000
+      -ac_sapling=5000000
       -addnode=74.208.211.94
       -addnode=78.47.196.146
       -addnode=46.4.33.66
@@ -1156,7 +1152,7 @@ services:
       -addnode=54.36.51.177"
  
   RFOX:
-    image: kmdplatform_komodod_dev
+    image: kmdplatform_komodod_dev_cache
     network_mode: "host"
     # networks:
     #  - komodo
@@ -1193,7 +1189,7 @@ services:
       -addnode=54.36.51.177"
   
   SEC:
-    image: kmdplatform_komodod_dev
+    image: kmdplatform_komodod_dev_cache
     network_mode: "host"
     # networks:
     #  - komodo
@@ -1230,7 +1226,7 @@ services:
       -addnode=54.36.51.177"
 
   CCL:
-    image: kmdplatform_komodod_dev
+    image: kmdplatform_komodod_dev_cache
     network_mode: "host"
     # networks:
     #  - komodo
@@ -1271,7 +1267,7 @@ services:
       -addnode=54.36.51.177"
   
   PIRATE:
-    image: kmdplatform_komodod_dev
+    image: kmdplatform_komodod_dev_cache
     network_mode: "host"
     # networks:
     #  - komodo
@@ -1304,7 +1300,7 @@ services:
       -addnode=136.243.102.225"
   
   MGNX:
-    image: kmdplatform_komodod_dev
+    image: kmdplatform_komodod_dev_cache
     network_mode: "host"
     # networks:
     #  - komodo
@@ -1339,7 +1335,7 @@ services:
       -addnode=142.93.27.180"
   
   PGT:
-    image: kmdplatform_komodod_dev
+    image: kmdplatform_komodod_dev_cache
     network_mode: "host"
     # networks:
     #  - komodo
@@ -1370,7 +1366,12 @@ services:
       -addnode=190.114.254.104"
   
   KMDICE:
-    image: kmdplatform_komodod_dev
+    # build:
+    #  context: ./komodod
+    #  args:
+    #    KOMODO_BRANCH: FSM
+    image: kmdplatform_komodod_dev_cache
+    # image: kmdplatform_kmdice_fsm
     network_mode: "host"
     # networks:
     #  - komodo
@@ -1405,7 +1406,7 @@ services:
       -addnode=144.76.217.232"
   
   DION:
-    image: kmdplatform_komodod_dev
+    image: kmdplatform_komodod_dev_cache
     network_mode: "host"
     # networks:
     #  - komodo
@@ -1437,6 +1438,40 @@ services:
       -ac_cc=1
       -ac_end=4300000000
       -addnode=51.75.124.34"
+  
+  ZEX:
+    image: kmdplatform_komodod_dev_cache
+    network_mode: "host"
+    # networks:
+    #  - komodo
+    ports:
+      - "127.0.0.1:26477:26477"
+      - "26476:26476"
+    volumes:
+      - komodo-data:/home/komodo/.komodo
+      - shared-data:/home/komodo/.shared:ro
+    environment:
+      - ASSET_RPC_USER=${RPC_USER}
+      - ASSET_RPC_PASSWORD=${RPC_PASSWORD}
+      - ASSET_RPC_WORKQUEUE=64
+      - ASSET_BIND=0.0.0.0
+      - ASSET_RPC_BIND=0.0.0.0
+      - ASSET_RPC_ALLOWIP=0.0.0.0/0
+      - ASSET_RPC_PORT=26477
+      - ASSET_NAME=ZEX
+      - KOMODO_RPC_USER=${KOMODO_RPC_USER}
+      - KOMODO_RPC_PASSWORD=${KOMODO_RPC_PASSWORD}
+      - BTC_PUBKEY=${BTC_PUBKEY}
+
+    command: >
+      bash -c "komodod -pubkey=${BTC_PUBKEY}
+      -ac_name=ZEX
+      -ac_founders=1
+      -ac_reward=13000000000
+      -ac_halving=525600
+      -ac_cc=2
+      -ac_pubkey=039d4a50cc70d1184e462a22edb3b66385da97cc8059196f8305c184a3e21440af
+      -addnode=5.9.102.21"
 
 volumes:
   komodo-data:

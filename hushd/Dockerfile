@@ -18,8 +18,8 @@ COPY *.patch /tmp/
 
 RUN git clone https://github.com/MyHush/hush && \
     cd hush && \
-    git checkout ${HUSH_BRANCH} && \
-    git apply -v /tmp/*.patch
+    git checkout ${HUSH_BRANCH}
+    # git apply -v /tmp/*.patch
 RUN cd hush && ./zcutil/fetch-params.sh
 RUN cd hush && ./zcutil/build.sh -j$(nproc)
 

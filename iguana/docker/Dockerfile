@@ -9,7 +9,9 @@ COPY *.patch /tmp/
 COPY sha256hwaccel/*.patch /tmp/sha256hwaccel/
 COPY x-cli.sh /tmp/
 
-ENV BUILD_PACKAGES="git build-essential cmake libssl-dev clang libcurl4-openssl-dev"
+ENV BUILD_PACKAGES="git build-essential cmake libssl-dev clang libcurl4-openssl-dev libsodium-dev"
+# ENV BUILD_PACKAGES="git build-essential cmake libssl-dev clang libcurl4-gnutls-dev"
+# apt-get install git libcurl4-openssl-dev build-essential libnanomsg-dev
 
 RUN apt update && \
     apt install -y $BUILD_PACKAGES
@@ -29,8 +31,13 @@ RUN useradd -u 3004 -m iguana
 USER iguana
 WORKDIR ${IGUANA_HOME}
 # get iguana code
-RUN git clone https://github.com/jl777/SuperNET
-RUN cd SuperNET/iguana && \
+# RUN  git config --global  http.sslVerify false && \
+    # git config --global http.postBuffer 1048576000 && \
+    # mkdir ~/.ssh/ && \
+    # ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts && \
+RUN git config --global http.postBuffer 2M && git config --global http.maxRequestBuffer 100M && git config --global core.compression 4 && export GIT_CURL_VERBOSE=1 && export GIT_TRACE=1 && export GIT_TRACE_PACKET=1 && git clone https://github.com/jl777/SuperNET && \
+    # cd SuperNET && git fetch --unshallow && \
+    cd SuperNET/iguana && \
     git checkout ${IGUANA_BRANCH} && \
     git apply -v /tmp/sha256hwaccel/*.patch && \
     # git apply -v /tmp/*.patch && \
@@ -40,7 +47,7 @@ RUN cd SuperNET/iguana && \
     cd ../crypto777; ./m_LP; cd ../iguana && \
     clang -g -Wno-deprecated -c -O2 -DISNOTARYNODE=1 -DLIQUIDITY_PROVIDER=1 *.c ../basilisk/basilisk.c ../gecko/gecko.c ../datachain/datachain.c && \
     clang -g  -Wno-deprecated -c -DISNOTARYNODE=1 -DLIQUIDITY_PROVIDER=1  main.c iguana777.c iguana_bundles.c ../basilisk/basilisk.c && \
-    clang -g -o ../agents/iguana *.o ../agents/libcrypto777.a -lnanomsg -lcurl -lssl -lcrypto -lpthread -lz -lm
+    clang -g -o ../agents/iguana *.o ../agents/libcrypto777.a -lnanomsg -lcurl -lssl -lcrypto -lpthread -lz -lm -lsodium
 	
 # # build secp256k1
 # RUN cd SuperNET/iguana/secp256k1 && \
@@ -67,8 +74,8 @@ RUN cd SuperNET/iguana && \
 
 USER root
 # remove unnecessary packages and install useful tools
-RUN apt remove --purge -y $BUILD_PACKAGES $(apt-mark showauto) && \
-    apt install -y curl libcurl4-openssl-dev telnet net-tools redir screen python3-pip git && \
+# RUN apt remove --purge -y $BUILD_PACKAGES $(apt-mark showauto) && \
+RUN apt update && apt install -y curl libcurl4-openssl-dev telnet net-tools redir screen python3-pip git && \
     pip3 install virtualenv && \
     rm -rf /var/lib/apt/lists/*
 
@@ -109,6 +116,7 @@ RUN virtualenv komodotools-venv && \
     # Activate env now
     . ~/komodotools-venv/bin/activate && \
     # Clone komodotools repo
+    echo "" && \
     git clone https://github.com/KomodoPlatform/komodotools && \
     # Install needed requirements
     cd komodotools/dragonriders && pip install -Ur requirements.txt && \

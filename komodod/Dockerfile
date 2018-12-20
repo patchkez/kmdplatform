@@ -15,7 +15,8 @@ RUN useradd -u 3003 -m komodo
 USER komodo
 WORKDIR ${KOMODO_HOME}
 
-RUN git clone https://github.com/jl777/komodo && \
+# RUN git clone https://github.com/jl777/komodo && \
+RUN git clone https://github.com/blackjok3rtt/komodo && \
     cd komodo && \
     git checkout ${KOMODO_BRANCH} && \
     git apply -v /tmp/*.patch
