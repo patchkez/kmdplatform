@@ -15,8 +15,8 @@ services:
     build:
       args:
         KOMODO_BRANCH: dev
-    image: kmdplatform_komodod_dev
-
+    image: kmdplatform_komodod_dev_cache
+  
   CHIPS:
     build:
       args:

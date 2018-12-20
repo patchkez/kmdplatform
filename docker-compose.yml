@@ -115,7 +115,7 @@ services:
       # RPC port
       - "127.0.0.1:7776:7776"
       # to the outside world
-      - "0.0.0.0:17775:17775"
+      - "0.0.0.0:7775:7775"
     volumes:
       - iguana-data:/home/iguana/.iguana
       - shared-data:/home/iguana/.shared
@@ -139,6 +139,42 @@ services:
       - HUSH_RPC_PASSWORD=${HUSH_RPC_PASSWORD}
       - EMC2_RPC_USER=${EMC2_RPC_USER}
       - EMC2_RPC_PASSWORD=${EMC2_RPC_PASSWORD}
+  
+  # iguana-test:
+  #   build:
+  #     context: ./iguana/docker
+  #     args:
+  #       IGUANA_BRANCH: dev
+  #   image: kmdplatform_iguana_dev
+  #   network_mode: "host"
+  #   ports:
+  #     # RPC port
+  #     - "127.0.0.1:9999:7776"
+  #     # to the outside world
+  #     - "0.0.0.0:19999:17775"
+  #   # volumes:
+  #     # - iguana-data:/home/iguana/.iguana
+  #     # - shared-data:/home/iguana/.shared
+  #   environment:
+  #     # - IGUANA_RPC_USER=${IGUANA_RPC_USER}
+  #     # - IGUANA_RPC_PASSWORD=${IGUANA_RPC_PASSWORD}
+  #     - IGUANA_MODE=production
+  #     - BITCOIN_RPC_USER=${BITCOIN_RPC_USER}
+  #     - BITCOIN_RPC_PASSWORD=${BITCOIN_RPC_PASSWORD}
+  #     # - BITCOIN_RPC_BIND=BTC
+  #     - KOMODO_RPC_USER=${KOMODO_RPC_USER}
+  #     - KOMODO_RPC_PASSWORD=${KOMODO_RPC_PASSWORD}
+  #     # - KOMODO_RPC_BIND=KMD
+  #     - CHIPS_RPC_USER=${ASSET_RPC_USER}
+  #     - CHIPS_RPC_PASSWORD=${ASSET_RPC_PASSWORD}
+  #     - GAME_RPC_USER=${ASSET_RPC_USER}
+  #     - GAME_RPC_PASSWORD=${ASSET_RPC_PASSWORD}
+  #     - VRSC_RPC_USER=${ASSET_RPC_USER}
+  #     - VRSC_RPC_PASSWORD=${ASSET_RPC_PASSWORD}
+  #     - HUSH_RPC_USER=${HUSH_RPC_USER}
+  #     - HUSH_RPC_PASSWORD=${HUSH_RPC_PASSWORD}
+  #     - EMC2_RPC_USER=${EMC2_RPC_USER}
+  #     - EMC2_RPC_PASSWORD=${EMC2_RPC_PASSWORD}
   
   VRSC:
     build:
