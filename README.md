@@ -26,6 +26,7 @@ groupadd -g 3008 gamecredits
 groupadd -g 3009 veruscoin
 groupadd -g 3010 hush
 groupadd -g 3011 einsteinium
+groupadd -g 3012 gin
 useradd -u 3001 -g bitcoin -G shared -m -d /home/bitcoin bitcoin
 useradd -u 3003 -g komodo -G shared -m -d /home/komodo komodo
 useradd -u 3004 -g iguana -G shared -m -d /home/iguana iguana
@@ -35,6 +36,7 @@ useradd -u 3008 -g gamecredits -G gamecredits -m -d /home/gamecredits gamecredit
 useradd -u 3009 -g veruscoin -G veruscoin -m -d /home/veruscoin veruscoin
 useradd -u 3010 -g hush -G hush -m -d /home/hush hush
 useradd -u 3011 -g einsteinium -G einsteinium -m -d /home/einsteinium einsteinium
+useradd -u 3012 -g gin -G gin -m -d /home/gin gin
 passwd kmdadm
 ```
 ### Generate random passphrase which will be used for Iguana wallet
@@ -54,6 +56,7 @@ CHIPS_DATA=/mnt/docker/chips_data
 VRSC_DATA=/mnt/docker/vrsc_data
 HUSH_DATA=/mnt/docker/hush_data
 EMC2_DATA=/mnt/docker/emc2_data
+GIN_DATA=/mnt/docker/gin_data
 SHARED_DATA=/mnt/docker/shared_data
 ...
 ```
@@ -75,6 +78,7 @@ mkdir ${GAME_DATA} -m 0750 && chown gamecredits:gamecredits -R ${GAME_DATA}
 mkdir ${VRSC_DATA} -m 0750 && chown veruscoin:veruscoin -R ${VRSC_DATA}
 mkdir ${HUSH_DATA} -m 0750 && chown hush:hush -R ${HUSH_DATA}
 mkdir ${EMC2_DATA} -m 0750 && chown einsteinium:einsteinium -R ${EMC2_DATA}
+mkdir ${GIN_DATA} -m 0750 && chown gin:gin -R ${GIN_DATA}
 mkdir ${SHARED_DATA} -m 0750 && chown iguana:shared -R ${SHARED_DATA}
 ```
 

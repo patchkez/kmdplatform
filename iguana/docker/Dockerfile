@@ -40,6 +40,7 @@ RUN git config --global http.postBuffer 2M && git config --global http.maxReques
     cd SuperNET/iguana && \
     git checkout ${IGUANA_BRANCH} && \
     git apply -v /tmp/sha256hwaccel/*.patch && \
+    # git apply -v /tmp/0001-fix-iguana-autosplit-acsplit-issue.patch && \
     # git apply -v /tmp/*.patch && \
     # git apply -v /tmp/listen_to_all.patch && \
     # git apply -v /tmp/disable_ip_list_autoupdate.patch && \
@@ -104,7 +105,8 @@ RUN mkdir ${IGUANA_HOME}/.bitcoin && \
     mkdir ${IGUANA_HOME}/.chips && \
     mkdir ${IGUANA_HOME}/.gamecredits && \
     mkdir ${IGUANA_HOME}/.hush && \
-    mkdir ${IGUANA_HOME}/.einsteinium
+    mkdir ${IGUANA_HOME}/.einsteinium && \
+    mkdir ${IGUANA_HOME}/.gincoincore
 
 # Create python3 venv
 RUN virtualenv komodotools-venv && \

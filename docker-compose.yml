@@ -139,6 +139,8 @@ services:
       - HUSH_RPC_PASSWORD=${HUSH_RPC_PASSWORD}
       - EMC2_RPC_USER=${EMC2_RPC_USER}
       - EMC2_RPC_PASSWORD=${EMC2_RPC_PASSWORD}
+      - GIN_RPC_USER=${GIN_RPC_USER}
+      - GIN_RPC_PASSWORD=${GIN_RPC_PASSWORD}
   
   # iguana-test:
   #   build:
@@ -296,6 +298,33 @@ services:
       - KOMODO_RPC_PASSWORD=${KOMODO_RPC_PASSWORD}
       - BTC_PUBKEY=${BTC_PUBKEY}
       # - KOMODO_RPC_BIND=KMD
+  
+  GIN:
+    build:
+      context: ./gind
+      args:
+        GIN_BRANCH: master
+    image: kmdplatform_gind
+    network_mode: host
+    ports:
+      # RPC port
+      - "127.0.0.1:10211:10211"
+      - "10111:10111"
+    volumes:
+      - gin-data:/home/gin/.gincoincore
+      - shared-data:/home/komodo/.shared:ro
+    environment:
+      - GIN_RPC_USER=${GIN_RPC_USER}
+      - GIN_RPC_PASSWORD=${GIN_RPC_PASSWORD}
+      - GIN_BIND=0.0.0.0
+      - GIN_RPC_BIND=0.0.0.0
+      - GIN_RPC_ALLOWIP=0.0.0.0/0
+      - BITCOIN_RPC_USER=${BITCOIN_RPC_USER}
+      - BITCOIN_RPC_PASSWORD=${BITCOIN_RPC_PASSWORD}
+      - BITCOIN_RPC_BIND=BTC
+      - KOMODO_RPC_USER=${KOMODO_RPC_USER}
+      - KOMODO_RPC_PASSWORD=${KOMODO_RPC_PASSWORD}
+      - BTC_PUBKEY=${BTC_PUBKEY}
 
 volumes:
   bitcoin-data:
@@ -337,6 +366,11 @@ volumes:
     driver_opts:
       type: none
       device: ${IGUANA_DATA}
+      o: bind
+  gin-data:
+    driver_opts:
+      type: none
+      device: ${GIN_DATA}
       o: bind
   shared-data:
     driver_opts:

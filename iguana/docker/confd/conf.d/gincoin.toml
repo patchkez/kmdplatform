@@ -1,0 +1,10 @@
+[template]
+src = "gincoin.conf.tmpl"
+dest = "/home/iguana/.gincoincore/gincoin.conf"
+keys = [
+    "GIN_RPC_USER",
+    "GIN_RPC_PASSWORD",
+    "GIN_BIND",
+    "GIN_RPC_BIND",
+    "GIN_RPC_ALLOWIP"
+]
