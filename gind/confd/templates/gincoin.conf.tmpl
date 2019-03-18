@@ -1,0 +1,7 @@
+rpcuser={{ or (getenv "GIN_RPC_USER") "rpcuser" }}
+rpcpassword={{ or (getenv "GIN_RPC_PASSWORD") "rpcpassword" }}
+server=1
+txindex=1
+bind={{ or (getenv "GIN_BIND") "127.0.0.1" }}
+rpcbind={{ or (getenv "GIN_RPC_BIND") "127.0.0.1" }}
+rpcallowip={{ or (getenv "GIN_RPC_ALLOWIP") "0.0.0.0/0" }}
